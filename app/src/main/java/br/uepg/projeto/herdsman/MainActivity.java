@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        FirebaseDatabase.getInstance().getReference();
         int reqCod = 0;
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED)
         {
@@ -106,6 +107,12 @@ public class MainActivity extends AppCompatActivity
             }
         });
         listarCios();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
