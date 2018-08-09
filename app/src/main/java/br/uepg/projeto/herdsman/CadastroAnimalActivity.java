@@ -68,15 +68,9 @@ public class CadastroAnimalActivity extends AppCompatActivity {
                         Toast.makeText(CadastroAnimalActivity.this, "Preencha o nome", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    animal = new Animal(numeroAnimal.getText().toString(), nomeAnimal.getText().toString());
-                    SQLiteOpenHelper mDbHelper = new HerdsmanDbHelper(CadastroAnimalActivity.this);
-                    SQLiteDatabase db = mDbHelper.getWritableDatabase();
-                    ContentValues values = new ContentValues();
-                    values.put(AnimalEntry.COLUMN_NAME_NUMERO, animal.getNumero());
-                    values.put(AnimalEntry.COLUMN_NAME_NOME, animal.getNome());
-                    values.put(AnimalEntry.COLUMN_NAME_ATIVO, "1");
-                    long newRowId = db.insert(AnimalEntry.TABLE_NAME, null, values);
-                    db.close();
+                    HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(CadastroAnimalActivity.this);
+                    animal = new Animal(numeroAnimal.getText().toString(), nomeAnimal.getText().toString(), 1);
+                    long id = mDbHelper.inserirAnimal(animal);
                     Toast.makeText(CadastroAnimalActivity.this, "Animal " + animal.getNumero() + " cadastrado", Toast.LENGTH_SHORT).show();
                     finish();
                 }
@@ -90,23 +84,17 @@ public class CadastroAnimalActivity extends AppCompatActivity {
                         Toast.makeText(CadastroAnimalActivity.this, "Preencha o nome", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    animal = new Animal(numeroAnimal.getText().toString(), nomeAnimal.getText().toString());
-                    SQLiteOpenHelper mDbHelper = new HerdsmanDbHelper(CadastroAnimalActivity.this);
-                    SQLiteDatabase db = mDbHelper.getWritableDatabase();
-                    ContentValues values = new ContentValues();
-                    values.put(AnimalEntry.COLUMN_NAME_IDANIMAL, intent_animal.getId());
-                    values.put(AnimalEntry.COLUMN_NAME_NUMERO, animal.getNumero());
-                    values.put(AnimalEntry.COLUMN_NAME_NOME, animal.getNome());
+                    HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(CadastroAnimalActivity.this);
+
                     if(ativoRadio.isChecked())
                     {
-                        values.put(AnimalEntry.COLUMN_NAME_ATIVO, "1");
+                        animal = new Animal(intent_animal.getId(), numeroAnimal.getText().toString(), nomeAnimal.getText().toString(), 1);
                     }
                     else
                     {
-                        values.put(AnimalEntry.COLUMN_NAME_ATIVO, "0");
+                        animal = new Animal(intent_animal.getId(),numeroAnimal.getText().toString(), nomeAnimal.getText().toString(), 0);
                     }
-                    long newRowId = db.replace(AnimalEntry.TABLE_NAME, null, values);
-                    db.close();
+                    long newRowId = mDbHelper.replaceAnimal(animal);
                     Toast.makeText(CadastroAnimalActivity.this, "Animal " + intent_animal.getNumero() + " alterado", Toast.LENGTH_SHORT).show();
                     finish();
                 }

@@ -31,6 +31,12 @@ public class Animal implements Serializable {
         this.ativo = ativo;
     }
 
+    public Animal(String nome, String numero, int ativo) {
+        this.nome = nome;
+        this.numero = numero;
+        this.ativo = ativo;
+    }
+
     public int getId() {
         return id;
     }

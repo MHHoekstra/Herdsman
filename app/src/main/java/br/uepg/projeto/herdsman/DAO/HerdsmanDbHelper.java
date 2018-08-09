@@ -304,4 +304,27 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         mDb.close();
         return adminUsuario;
     }
+    public long inserirAnimal(Animal animal)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_NUMERO, animal.getNumero());
+        values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_NOME, animal.getNome());
+        values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_ATIVO, animal.getAtivo());
+        long id = db.insert(HerdsmanContract.AnimalEntry.TABLE_NAME, null, values);
+        db.close();
+        return id;
+    }
+    public long replaceAnimal(Animal animal)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_IDANIMAL, animal.getId());
+        values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_NUMERO, animal.getNumero());
+        values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_NOME, animal.getNome());
+        values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_ATIVO, animal.getAtivo());
+        long id = db.replace(HerdsmanContract.AnimalEntry.TABLE_NAME, null, values);
+        db.close();
+        return id;
+    }
 }
