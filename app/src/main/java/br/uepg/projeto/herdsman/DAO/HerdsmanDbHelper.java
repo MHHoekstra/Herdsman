@@ -309,14 +309,18 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         mDb.close();
         return adminUsuario;
     }
-    public long inserirAnimal(Animal animal)
+    public long inserirAnimal(Animal animal, int FB)
     {
+
         DatabaseReference databaseAnimal = FirebaseDatabase.getInstance().getReference().child("Animal");
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_NUMERO, animal.getNumero());
         values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_NOME, animal.getNome());
         values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_ATIVO, animal.getAtivo());
+        if (FB==1) {
+            values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_IDANIMAL, animal.getId());
+        }
         long id = db.insert(HerdsmanContract.AnimalEntry.TABLE_NAME, null, values);
         if(id != -1)
         {

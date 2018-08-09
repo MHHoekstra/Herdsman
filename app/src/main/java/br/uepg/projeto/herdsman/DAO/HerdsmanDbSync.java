@@ -58,7 +58,7 @@ public class HerdsmanDbSync {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     Animal M =  postSnapshot.getValue(Animal.class);
-                    mDbHelper.inserirAnimal(M);
+                    mDbHelper.inserirAnimal(M,1);
                 }
             }
 
