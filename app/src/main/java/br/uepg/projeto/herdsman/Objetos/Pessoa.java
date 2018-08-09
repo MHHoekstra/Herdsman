@@ -8,6 +8,11 @@ public class Pessoa implements Serializable {
     public String cpf;
     public String rg;
 
+    public Pessoa()
+    {
+
+    }
+
     public String getNome() {
         return nome;
     }

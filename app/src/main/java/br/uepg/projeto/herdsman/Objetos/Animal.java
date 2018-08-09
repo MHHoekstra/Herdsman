@@ -7,6 +7,10 @@ public class Animal implements Serializable {
     String numero;
     String nome;
     int ativo;
+    public Animal()
+    {
+
+    }
     public Animal(int id, String n, String s)
     {
         this.id = id;

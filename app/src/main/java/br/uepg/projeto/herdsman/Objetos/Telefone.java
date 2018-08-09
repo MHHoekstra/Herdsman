@@ -7,6 +7,10 @@ public class Telefone implements Serializable {
     int Pessoa_idPessoa;
     String numero;
 
+    public Telefone()
+    {
+
+    }
     public Telefone(int pessoa_idPessoa, String numero) {
         Pessoa_idPessoa = pessoa_idPessoa;
         this.numero = numero;

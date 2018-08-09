@@ -4,6 +4,10 @@ public class Enfermidade {
     private int id;
     private String descricao;
 
+    public Enfermidade()
+    {
+
+    }
     public Enfermidade(int id, String descricao) {
         this.id = id;
         this.descricao = descricao;

@@ -5,7 +5,10 @@ public class Parto {
     int Animal_idAnimal;
     int cria;
     String data;
+    public Parto()
+    {
 
+    }
     public Parto(int animal_idAnimal, int cria, String data) {
         Animal_idAnimal = animal_idAnimal;
         this.cria = cria;
