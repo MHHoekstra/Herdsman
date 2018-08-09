@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import br.uepg.projeto.herdsman.Objetos.Animal;
+import br.uepg.projeto.herdsman.Objetos.Pessoa;
 
 
 /**
@@ -118,5 +119,43 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return itemsNomes;
+    }
+
+    public ArrayList carregarFuncionariosDb() {
+
+        Cursor cursor;
+        String sortOrder = HerdsmanContract.PessoaEntry.COLUMN_NAME_IDPESSOA;
+        SQLiteDatabase mDb = this.getReadableDatabase();
+        String[] projection = {
+                HerdsmanContract.PessoaEntry.COLUMN_NAME_IDPESSOA,
+                HerdsmanContract.PessoaEntry.COLUMN_NAME_NOME,
+                HerdsmanContract.PessoaEntry.COLUMN_NAME_CPF,
+                HerdsmanContract.PessoaEntry.COLUMN_NAME_RG
+        };
+        String selection = HerdsmanContract.PessoaEntry.COLUMN_NAME_IDPESSOA + " != 1";
+        cursor = mDb.query(
+                HerdsmanContract.PessoaEntry.TABLE_NAME,
+                projection,
+                selection,
+                null,
+                null,
+                null,
+                sortOrder
+        );
+
+        List listPessoas = new ArrayList<Pessoa>();
+        while (cursor.moveToNext())
+        {
+            Pessoa pessoa = new Pessoa(
+                    cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.PessoaEntry.COLUMN_NAME_IDPESSOA)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.PessoaEntry.COLUMN_NAME_NOME)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.PessoaEntry.COLUMN_NAME_CPF)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.PessoaEntry.COLUMN_NAME_RG))
+            );
+            listPessoas.add(pessoa);
+        }
+        cursor.close();
+        mDb.close();
+        return (ArrayList) listPessoas;
     }
 }

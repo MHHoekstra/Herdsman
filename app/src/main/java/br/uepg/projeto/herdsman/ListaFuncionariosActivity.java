@@ -75,42 +75,11 @@ public class ListaFuncionariosActivity extends AppCompatActivity implements Sear
 
     private void listaFuncionarios() {
         listaFuncionariosView = (ListView) findViewById(R.id.funcionariosListView);
-        Cursor cursor;
-        String sortOrder = HerdsmanContract.PessoaEntry.COLUMN_NAME_IDPESSOA;
         HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(this);
-        SQLiteDatabase mDb = mDbHelper.getReadableDatabase();
-        String[] projection = {
-                HerdsmanContract.PessoaEntry.COLUMN_NAME_IDPESSOA,
-                HerdsmanContract.PessoaEntry.COLUMN_NAME_NOME,
-                HerdsmanContract.PessoaEntry.COLUMN_NAME_CPF,
-                HerdsmanContract.PessoaEntry.COLUMN_NAME_RG
-        };
-        String selection = HerdsmanContract.PessoaEntry.COLUMN_NAME_IDPESSOA + " != 1";
-        cursor = mDb.query(
-                HerdsmanContract.PessoaEntry.TABLE_NAME,
-                projection,
-                selection,
-                null,
-                null,
-                null,
-                sortOrder
-        );
-
-        List listPessoas = new ArrayList<Pessoa>();
-        while (cursor.moveToNext())
-        {
-            pessoa = new Pessoa(
-                    cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.PessoaEntry.COLUMN_NAME_IDPESSOA)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.PessoaEntry.COLUMN_NAME_NOME)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.PessoaEntry.COLUMN_NAME_CPF)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.PessoaEntry.COLUMN_NAME_RG))
-            );
-            listPessoas.add(pessoa);
-        }
-        cursor.close();
+        ArrayList listPessoas = mDbHelper.carregarFuncionariosDb();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listPessoas);
         listaFuncionariosView.setAdapter(adapter);
-        mDb.close();
+
     }
 
     @Override
