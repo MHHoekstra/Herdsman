@@ -39,6 +39,7 @@ import java.util.ArrayList;
 
 import br.uepg.projeto.herdsman.DAO.HerdsmanContract;
 import br.uepg.projeto.herdsman.DAO.HerdsmanDbHelper;
+import br.uepg.projeto.herdsman.DAO.HerdsmanDbSync;
 import br.uepg.projeto.herdsman.Objetos.Animal;
 import br.uepg.projeto.herdsman.Objetos.Cio;
 import br.uepg.projeto.herdsman.Objetos.Usuario;
@@ -141,17 +142,9 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.sincronizar_bd) {
-
-            if (usuario == null || usuario.isAdmin() == 0) {
-                Toast.makeText(MainActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
-                return false;
+            HerdsmanDbSync sync = new HerdsmanDbSync(this);
+            return sync.startSync();
             }
-            SQLiteOpenHelper mDbHelper = new HerdsmanDbHelper(this);
-
-
-
-            return true;
-        }
         if (id == R.id.alterar_administrador) {
 
             if (usuario == null || usuario.isAdmin() == 0) {
