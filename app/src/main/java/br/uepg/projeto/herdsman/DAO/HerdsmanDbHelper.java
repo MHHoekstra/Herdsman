@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import br.uepg.projeto.herdsman.Objetos.Animal;
+import br.uepg.projeto.herdsman.Objetos.Parto;
 import br.uepg.projeto.herdsman.Objetos.Pessoa;
 
 
@@ -157,5 +158,37 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         cursor.close();
         mDb.close();
         return (ArrayList) listPessoas;
+    }
+
+    public ArrayList carregarPartosAnimal(Animal animal) {
+        SQLiteDatabase mDb = this.getReadableDatabase();
+        Cursor cursor;
+        String selection = HerdsmanContract.PartoEntry.COLUMN_NAME_ANIMAL_IDANIMAL + "== ?";
+        String[] selectionArgs = {
+                String.valueOf(animal.getId())
+        };
+        cursor = mDb.query(
+                HerdsmanContract.PartoEntry.TABLE_NAME,
+                new String[]{HerdsmanContract.PartoEntry.COLUMN_NAME_DATA, HerdsmanContract.PartoEntry.COLUMN_NAME_CRIA, HerdsmanContract.PartoEntry.COLUMN_NAME_IDPARTO,HerdsmanContract.PartoEntry.COLUMN_NAME_ANIMAL_IDANIMAL},
+                selection,
+                selectionArgs,
+                null,
+                null,
+                HerdsmanContract.PartoEntry.COLUMN_NAME_DATA + " DESC"
+
+        );
+
+        ArrayList lista = new ArrayList<Parto>();
+        while(cursor.moveToNext())
+        {   int id = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.PartoEntry.COLUMN_NAME_IDPARTO));
+            int Animal_idAnimal = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.PartoEntry.COLUMN_NAME_ANIMAL_IDANIMAL));
+            int cria = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.PartoEntry.COLUMN_NAME_CRIA));
+            String data = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.PartoEntry.COLUMN_NAME_DATA));
+            Parto parto = new Parto(id, Animal_idAnimal, cria, data);
+            lista.add(parto);
+        }
+        cursor.close();
+        mDb.close();
+        return lista;
     }
 }

@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.uepg.projeto.herdsman.DAO.HerdsmanContract;
 import br.uepg.projeto.herdsman.DAO.HerdsmanDbHelper;
@@ -88,35 +89,9 @@ public class ListaPartosActivity extends AppCompatActivity {
     private void listarPartos()
     {
         HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(ListaPartosActivity.this);
-        SQLiteDatabase mDb = mDbHelper.getReadableDatabase();
-        Cursor cursor;
-        String selection = HerdsmanContract.PartoEntry.COLUMN_NAME_ANIMAL_IDANIMAL + "== ?";
-        String[] selectionArgs = {
-                String.valueOf(animal.getId())
-        };
-        cursor = mDb.query(
-                HerdsmanContract.PartoEntry.TABLE_NAME,
-                new String[]{HerdsmanContract.PartoEntry.COLUMN_NAME_DATA, HerdsmanContract.PartoEntry.COLUMN_NAME_CRIA, HerdsmanContract.PartoEntry.COLUMN_NAME_IDPARTO,HerdsmanContract.PartoEntry.COLUMN_NAME_ANIMAL_IDANIMAL},
-                selection,
-                selectionArgs,
-                null,
-                null,
-                HerdsmanContract.PartoEntry.COLUMN_NAME_DATA + " DESC"
-
-        );
-
-        ArrayList lista = new ArrayList<Parto>();
-        while(cursor.moveToNext())
-        {   int id = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.PartoEntry.COLUMN_NAME_IDPARTO));
-            int Animal_idAnimal = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.PartoEntry.COLUMN_NAME_ANIMAL_IDANIMAL));
-            int cria = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.PartoEntry.COLUMN_NAME_CRIA));
-            String data = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.PartoEntry.COLUMN_NAME_DATA));
-            Parto parto = new Parto(id, Animal_idAnimal, cria, data);
-            lista.add(parto);
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(ListaPartosActivity.this, android.R.layout.simple_list_item_1, lista);
+        ArrayList listaPartosmDbHelper = mDbHelper.carregarPartosAnimal(animal);
+        ArrayAdapter<String> adapter = new ArrayAdapter(ListaPartosActivity.this, android.R.layout.simple_list_item_1, (List) listaPartos);
         listaPartos.setAdapter(adapter);
-        mDb.close();
     }
 
 }
