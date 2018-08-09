@@ -25,6 +25,10 @@ public class Cio {
 
     String data;
 
+    public Cio()
+    {
+
+    }
     public Cio(int idCio, int idAnimalPorCima, int idAnimalPorBaixo, String data) {
         this.idCio = idCio;
         this.idAnimalPorCima = idAnimalPorCima;

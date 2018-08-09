@@ -9,6 +9,11 @@ public class Usuario implements Serializable {
     private int idPessoa;
     private int idUsuario;
 
+    public Usuario()
+    {
+
+    }
+
     public Usuario(int admin, String login, String senha, int idPessoa, int idUsuario) {
         this.admin = admin;
         this.login = login;
