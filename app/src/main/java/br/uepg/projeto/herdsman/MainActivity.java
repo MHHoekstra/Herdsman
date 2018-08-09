@@ -32,6 +32,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 import br.uepg.projeto.herdsman.DAO.HerdsmanContract;
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity
     Button buttonOutros;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         int reqCod = 0;
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED)
         {
@@ -117,6 +120,10 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(MainActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
                 return false;
             }
+            SQLiteOpenHelper mDbHelper = new HerdsmanDbHelper(this);
+
+
+
             return true;
         }
         if (id == R.id.alterar_administrador) {

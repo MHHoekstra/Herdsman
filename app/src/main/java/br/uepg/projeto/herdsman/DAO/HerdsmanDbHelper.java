@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,6 +41,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         super(context, DB_NAME, null, DB_VERSION);
         mContext = context;
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -306,17 +310,24 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
     }
     public long inserirAnimal(Animal animal)
     {
+        DatabaseReference databaseAnimal = FirebaseDatabase.getInstance().getReference().child("Animal");
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_NUMERO, animal.getNumero());
         values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_NOME, animal.getNome());
         values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_ATIVO, animal.getAtivo());
         long id = db.insert(HerdsmanContract.AnimalEntry.TABLE_NAME, null, values);
+        if(id != -1)
+        {
+            animal.setId((int)id);
+            databaseAnimal.child(String.valueOf(id)).setValue(animal);
+        }
         db.close();
         return id;
     }
     public long replaceAnimal(Animal animal)
     {
+        DatabaseReference databaseAnimal = FirebaseDatabase.getInstance().getReference().child("Animal");
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_IDANIMAL, animal.getId());
@@ -324,6 +335,10 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_NOME, animal.getNome());
         values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_ATIVO, animal.getAtivo());
         long id = db.replace(HerdsmanContract.AnimalEntry.TABLE_NAME, null, values);
+        if(id != -1)
+        {
+            databaseAnimal.child(String.valueOf(id)).setValue(animal);
+        }
         db.close();
         return id;
     }
