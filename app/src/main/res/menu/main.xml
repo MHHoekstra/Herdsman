@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/entrar_como_administrador"
+        android:orderInCategory="100"
+        android:title="Entrar como administrador"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/alterar_administrador"
+        android:title="Alterar número do administrador" />
+    <item
+        android:id="@+id/sincronizar_bd"
+        android:title="Sincronizar Banco de Dados" />
+</menu>

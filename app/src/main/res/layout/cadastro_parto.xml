@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/cadastro_parto_titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Parto #"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/cadastro_parto_cancelar"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginStart="60dp"
+        android:clickable="true"
+        app:backgroundTint="?android:attr/colorActivatedHighlight"
+        app:elevation="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_clear_white_24dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/cadastro_parto_done"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="50dp"
+        android:layout_marginEnd="65dp"
+        android:layout_marginRight="65dp"
+        android:clickable="true"
+        app:backgroundTint="?android:attr/colorActivatedHighlight"
+        app:elevation="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_done_white_24dp" />
+
+    <RadioGroup
+        android:id="@+id/cadastro_parto_radio_group"
+        android:layout_width="0dp"
+        android:layout_height="135dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cadastro_parto_button_setDate">
+
+        <RadioButton
+            android:id="@+id/cadastro_parto_radio_femea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="Fêmea" />
+
+        <RadioButton
+            android:id="@+id/cadastro_parto_radio_macho"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Macho" />
+
+        <RadioButton
+            android:id="@+id/cadastro_parto_radio_gemeos_femea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Gêmeos Fêmea - Fêmea" />
+
+        <RadioButton
+            android:id="@+id/cadastro_parto_radio_gemeos_macho"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Gêmeos Macho - Macho" />
+
+        <RadioButton
+            android:id="@+id/cadastro_parto_radio_macho-femea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Gêmeos Macho - Fêmea" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/cadastro_parto_button_setDate"
+        android:layout_width="227dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:background="@android:color/background_light"
+        android:text="DD/MM/AAAA"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cadastro_parto_titulo" />
+
+</android.support.constraint.ConstraintLayout>

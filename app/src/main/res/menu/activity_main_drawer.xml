@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_animais"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Animais" />
+        <item
+            android:id="@+id/nav_enfermidades"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Enfermidades" />
+        <item
+            android:id="@+id/nav_remedios"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Remédios" />
+        <item
+            android:id="@+id/nav_funcionarios"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Funcionários" />
+    </group>
+
+    <item android:title="Comunicar">
+        <menu>
+            <item
+                android:id="@+id/nav_cio"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Cio" />
+            <item
+                android:id="@+id/nav_sinistro"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Sinistro" />
+            <item
+                android:id="@+id/nav_outro"
+                android:title="Outro"/>
+        </menu>
+    </item>
+
+</menu>

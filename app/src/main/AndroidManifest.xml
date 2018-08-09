@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="br.uepg.projeto.herdsman" >
+    <uses-permission android:name="android.permission.SEND_SMS"></uses-permission>
+    <uses-permission android:name="android.permission.READ_SMS"></uses-permission>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS"></uses-permission>
+    <uses-permission android:name="android.permission.READ_CONTACTS" ></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_CONTACTS"></uses-permission>
+    <uses-permission android:name="android.permission.READ_PROFILE" ></uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"></uses-permission>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ListaAnimaisActivity" />
+        <activity android:name=".ListaFuncionariosActivity" />
+        <activity android:name=".ListaEnfermidadesActivity" />
+        <activity android:name=".ListaRemediosActivity" />
+        <activity android:name=".CadastroAnimalActivity" />
+        <activity android:name=".CadastroFuncionarioActivity" />
+        <activity android:name=".TelaAnimalActivity" />
+        <activity android:name=".CadastroEnfermidadeActivity" />
+        <activity android:name=".CadastroRemedioActivity" />
+        <activity android:name=".ListaPartosActivity" />
+        <activity android:name=".CadastroPartoActivity" />
+        <activity android:name=".NotificarCioActivity" />
+        <activity android:name=".NotificarOutroActivity" />
+        <activity android:name=".NotificarSinistroActivity" />
+        <activity android:name=".TelaFuncionarioActivity" />
+        <receiver
+            android:name=".SMSReciever.SMSReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
