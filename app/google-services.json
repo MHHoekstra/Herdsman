@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "507220783029",
+    "firebase_url": "https://herdsman-7312c.firebaseio.com",
+    "project_id": "herdsman-7312c",
+    "storage_bucket": "herdsman-7312c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:507220783029:android:69508cbd3524451e",
+        "android_client_info": {
+          "package_name": "br.uepg.projeto.herdsman"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "507220783029-kostl28afn6ma0cmtnercq4545eem9p9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.uepg.projeto.herdsman",
+            "certificate_hash": "0865a149ab3d529e189abc86fd8a0a617c14accc"
+          }
+        },
+        {
+          "client_id": "507220783029-rm8cgnm3hajvsgk2bq916u1dipnuktv3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBP1HlnLqmY6rOFUuLC7bnFzfgr1i8raKQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "507220783029-rm8cgnm3hajvsgk2bq916u1dipnuktv3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

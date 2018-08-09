@@ -17,8 +17,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import br.uepg.projeto.herdsman.Objetos.Animal;
+import br.uepg.projeto.herdsman.Objetos.Cio;
 import br.uepg.projeto.herdsman.Objetos.Parto;
 import br.uepg.projeto.herdsman.Objetos.Pessoa;
+import br.uepg.projeto.herdsman.Objetos.Usuario;
 
 
 /**
@@ -190,5 +192,116 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         cursor.close();
         mDb.close();
         return lista;
+    }
+
+    public ArrayList carregarTodosCiosDatabase() {
+        SQLiteDatabase mDb = this.getReadableDatabase();
+        Cursor cursor = mDb.query(
+                HerdsmanContract.CioEntry.TABLE_NAME,
+                new String[]{
+                        HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORBAIXO,
+                        HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORCIMA,
+                        HerdsmanContract.CioEntry.COLUMN_NAME_IDANIMAL_CIO,
+                        HerdsmanContract.CioEntry.COLUMN_NAME_DATA
+                },
+                null,
+                null,
+                null,
+                null,
+                HerdsmanContract.CioEntry.COLUMN_NAME_DATA + " DESC"
+        );
+        ArrayList listaCios = new ArrayList<Cio>();
+        while(cursor.moveToNext())
+        {
+            int idAnimalPorBaixo = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORBAIXO));
+            int idAnimalPorCima = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORCIMA));
+            int idAnimalCio = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_IDANIMAL_CIO));
+            String data = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_DATA));
+            Cio cio = new Cio(idAnimalCio,idAnimalPorCima,idAnimalPorBaixo,data);
+            Cursor cursor2 = mDb.query(
+                    HerdsmanContract.AnimalEntry.TABLE_NAME,
+                    new String[] {HerdsmanContract.AnimalEntry.COLUMN_NAME_IDANIMAL,
+                            HerdsmanContract.AnimalEntry.COLUMN_NAME_NUMERO,
+                            HerdsmanContract.AnimalEntry.COLUMN_NAME_NOME,
+                            HerdsmanContract.AnimalEntry.COLUMN_NAME_ATIVO},
+                    HerdsmanContract.AnimalEntry.COLUMN_NAME_IDANIMAL + " == ?",
+                    new String[] {String.valueOf(idAnimalPorBaixo)},
+                    null,
+                    null,
+                    null
+            );
+            if (cursor2.moveToNext()) {
+                int idAnimal = cursor2.getInt(cursor2.getColumnIndexOrThrow(HerdsmanContract.AnimalEntry.COLUMN_NAME_IDANIMAL));
+                String numero = cursor2.getString(cursor2.getColumnIndexOrThrow(HerdsmanContract.AnimalEntry.COLUMN_NAME_NUMERO));
+                String nome = cursor2.getString(cursor2.getColumnIndexOrThrow(HerdsmanContract.AnimalEntry.COLUMN_NAME_NOME));
+                int ativo = cursor2.getInt(cursor2.getColumnIndexOrThrow(HerdsmanContract.AnimalEntry.COLUMN_NAME_ATIVO));
+                Animal animal = new Animal(idAnimal, numero, nome, ativo);
+                cio.setAnimalPorBaixo(animal);
+            }
+            cursor2.close();
+
+            cursor2 = mDb.query(
+                    HerdsmanContract.AnimalEntry.TABLE_NAME,
+                    new String[] {HerdsmanContract.AnimalEntry.COLUMN_NAME_IDANIMAL,
+                            HerdsmanContract.AnimalEntry.COLUMN_NAME_NUMERO,
+                            HerdsmanContract.AnimalEntry.COLUMN_NAME_NOME,
+                            HerdsmanContract.AnimalEntry.COLUMN_NAME_ATIVO},
+                    HerdsmanContract.AnimalEntry.COLUMN_NAME_IDANIMAL + " == ?",
+                    new String[] {String.valueOf(idAnimalPorCima)},
+                    null,
+                    null,
+                    null
+            );
+            if (cursor2.moveToNext()) {
+                int idAnimal = cursor2.getInt(cursor2.getColumnIndexOrThrow(HerdsmanContract.AnimalEntry.COLUMN_NAME_IDANIMAL));
+                String numero = cursor2.getString(cursor2.getColumnIndexOrThrow(HerdsmanContract.AnimalEntry.COLUMN_NAME_NUMERO));
+                String nome = cursor2.getString(cursor2.getColumnIndexOrThrow(HerdsmanContract.AnimalEntry.COLUMN_NAME_NOME));
+                int ativo = cursor2.getInt(cursor2.getColumnIndexOrThrow(HerdsmanContract.AnimalEntry.COLUMN_NAME_ATIVO));
+                Animal animal = new Animal(idAnimal, numero, nome, ativo);
+                cio.setAnimalPorCima(animal);
+            }
+            cursor2.close();
+            listaCios.add(cio);
+        }
+        cursor.close();
+        mDb.close();
+        return listaCios;
+    }
+
+    public Usuario carregarAdminDatabase()
+    {
+        SQLiteDatabase mDb = this.getWritableDatabase();
+        Cursor cursor;
+        Usuario adminUsuario = null;
+        String[] projection =
+                {
+                        HerdsmanContract.UsuarioEntry.COLUMN_NAME_IDUSUARIO,
+                        HerdsmanContract.UsuarioEntry.COLUMN_NAME_LOGIN,
+                        HerdsmanContract.UsuarioEntry.COLUMN_NAME_SENHA,
+                        HerdsmanContract.UsuarioEntry.COLUMN_NAME_PESSOA_IDPESSOA,
+                        HerdsmanContract.UsuarioEntry.COLUMN_NAME_ADMIN
+                };
+        String selection = HerdsmanContract.UsuarioEntry.COLUMN_NAME_ADMIN + "== 1";
+        cursor = mDb.query(
+                HerdsmanContract.UsuarioEntry.TABLE_NAME,
+                projection,
+                selection,
+                null,
+                null,
+                null,
+                null
+        );
+        while(cursor.moveToNext())
+        {
+            String login = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.UsuarioEntry.COLUMN_NAME_LOGIN));
+            String senha = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.UsuarioEntry.COLUMN_NAME_SENHA));
+            int idPessoa = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.UsuarioEntry.COLUMN_NAME_PESSOA_IDPESSOA));
+            int admin = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.UsuarioEntry.COLUMN_NAME_ADMIN));
+            int idUsuario = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.UsuarioEntry.COLUMN_NAME_IDUSUARIO));
+            adminUsuario = new Usuario(admin, login, senha, idPessoa, idUsuario);
+        }
+        cursor.close();
+        mDb.close();
+        return adminUsuario;
     }
 }
