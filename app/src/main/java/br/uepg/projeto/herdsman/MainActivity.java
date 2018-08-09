@@ -24,6 +24,7 @@ import android.telephony.TelephonyManager;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -47,6 +48,9 @@ public class MainActivity extends AppCompatActivity
     Button buttonCio;
     Button buttonSinistro;
     Button buttonOutros;
+    ArrayList listaCios;
+    ArrayList listaEnfermidades;
+    ArrayList listaOutros;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         int reqCod = 0;
@@ -83,6 +87,21 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         lista = (ListView) findViewById(R.id.main_activity_lista);
+        buttonCio = findViewById(R.id.main_activity_button_cios);
+        buttonSinistro = findViewById(R.id.main_activity_button_sinistros);
+        buttonOutros = findViewById(R.id.main_activity_button_outros);
+        buttonCio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listarCios();
+            }
+        });
+        buttonSinistro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listarSinistros();
+            }
+        });
         listarCios();
     }
 
@@ -290,8 +309,16 @@ public class MainActivity extends AppCompatActivity
     private void listarCios()
     {
         HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(this);
-        ArrayList listaCios = mDbHelper.carregarTodosCiosDatabase();
+        listaCios = mDbHelper.carregarTodosCiosDatabase();
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaCios);
+        lista.setAdapter(adapter);
+    }
+
+    private void listarSinistros()
+    {
+        HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(this);
+        listaEnfermidades = mDbHelper.carregarTodasEnfermidadesDatabase();
+        ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaEnfermidades);
         lista.setAdapter(adapter);
     }
 }
