@@ -69,7 +69,7 @@ public class CadastroAnimalActivity extends AppCompatActivity {
                         return;
                     }
                     HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(CadastroAnimalActivity.this);
-                    animal = new Animal(numeroAnimal.getText().toString(), nomeAnimal.getText().toString(), 1);
+                    animal = new Animal(nomeAnimal.getText().toString(), numeroAnimal.getText().toString(), 1);
                     long id = mDbHelper.inserirAnimal(animal);
                     Toast.makeText(CadastroAnimalActivity.this, "Animal " + animal.getNumero() + " cadastrado", Toast.LENGTH_SHORT).show();
                     finish();
