@@ -35,12 +35,13 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "mydb.db";
     private static final int DB_VERSION = 17;
     private static final String TAG = "DatabaseHelper";
-
+    private DatabaseReference FirebaseHelper;
     private Context mContext;
 
     public HerdsmanDbHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         mContext = context;
+        this.FirebaseHelper = FirebaseDatabase.getInstance().getReference("Hoekstra");
     }
 
 
@@ -312,7 +313,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
     public long inserirAnimal(Animal animal, int FB)
     {
 
-        DatabaseReference databaseAnimal = FirebaseDatabase.getInstance().getReference().child("Animal");
+        DatabaseReference databaseAnimal = FirebaseHelper.child("Animal");
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_NUMERO, animal.getNumero());
@@ -326,13 +327,14 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         {
             animal.setId((int)id);
             databaseAnimal.child(String.valueOf(id)).setValue(animal);
+            databaseAnimal.keepSynced(true);
         }
         db.close();
         return id;
     }
     public long replaceAnimal(Animal animal)
     {
-        DatabaseReference databaseAnimal = FirebaseDatabase.getInstance().getReference().child("Animal");
+        DatabaseReference databaseAnimal = FirebaseHelper.child("Animal");
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_IDANIMAL, animal.getId());
@@ -343,6 +345,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         if(id != -1)
         {
             databaseAnimal.child(String.valueOf(id)).setValue(animal);
+            databaseAnimal.keepSynced(true);
         }
         db.close();
         return id;

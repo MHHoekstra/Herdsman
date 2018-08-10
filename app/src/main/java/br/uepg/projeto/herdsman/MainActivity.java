@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        FirebaseDatabase.getInstance().getReference();
+        FirebaseDatabase.getInstance().getReference("Hoekstra");
         int reqCod = 0;
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED)
         {
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onRestart() {
         super.onRestart();
-        FirebaseDatabase.getInstance().getReference();
+        FirebaseDatabase.getInstance().getReference("Hoekstra");
     }
 
     @Override
@@ -151,6 +151,7 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(MainActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
                 return false;
             }
+
             AlertDialog.Builder alertDialogBuild = new AlertDialog.Builder(MainActivity.this);
             final EditText input = new EditText(MainActivity.this);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(

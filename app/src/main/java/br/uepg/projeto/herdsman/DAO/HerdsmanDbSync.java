@@ -61,7 +61,6 @@ public class HerdsmanDbSync {
                     mDbHelper.inserirAnimal(M,1);
                 }
             }
- 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
