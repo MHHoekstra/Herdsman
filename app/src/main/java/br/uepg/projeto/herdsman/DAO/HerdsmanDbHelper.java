@@ -9,6 +9,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,13 +41,15 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "mydb.db";
     private static final int DB_VERSION = 17;
     private static final String TAG = "DatabaseHelper";
-
+    private DatabaseReference FirebaseHelper;
     private Context mContext;
 
     public HerdsmanDbHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         mContext = context;
+        this.FirebaseHelper = FirebaseDatabase.getInstance().getReference("Hoekstra");
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -312,19 +317,31 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         mDb.close();
         return adminUsuario;
     }
-    public long inserirAnimal(Animal animal)
+    public long inserirAnimal(Animal animal, int FB)
     {
+
+        DatabaseReference databaseAnimal = FirebaseHelper.child("Animal");
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_NUMERO, animal.getNumero());
         values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_NOME, animal.getNome());
         values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_ATIVO, animal.getAtivo());
+        if (FB==1) {
+            values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_IDANIMAL, animal.getId());
+        }
         long id = db.insert(HerdsmanContract.AnimalEntry.TABLE_NAME, null, values);
+        if(id != -1)
+        {
+            animal.setId((int)id);
+            databaseAnimal.child(String.valueOf(id)).setValue(animal);
+            databaseAnimal.keepSynced(true);
+        }
         db.close();
         return id;
     }
     public long replaceAnimal(Animal animal)
     {
+        DatabaseReference databaseAnimal = FirebaseHelper.child("Animal");
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_IDANIMAL, animal.getId());
@@ -332,6 +349,11 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_NOME, animal.getNome());
         values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_ATIVO, animal.getAtivo());
         long id = db.replace(HerdsmanContract.AnimalEntry.TABLE_NAME, null, values);
+        if(id != -1)
+        {
+            databaseAnimal.child(String.valueOf(id)).setValue(animal);
+            databaseAnimal.keepSynced(true);
+        }
         db.close();
         return id;
     }

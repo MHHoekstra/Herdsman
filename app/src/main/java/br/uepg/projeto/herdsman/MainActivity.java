@@ -34,10 +34,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 import br.uepg.projeto.herdsman.DAO.HerdsmanContract;
 import br.uepg.projeto.herdsman.DAO.HerdsmanDbHelper;
+import br.uepg.projeto.herdsman.DAO.HerdsmanDbSync;
 import br.uepg.projeto.herdsman.Objetos.Animal;
 import br.uepg.projeto.herdsman.Objetos.Cio;
 import br.uepg.projeto.herdsman.Objetos.Usuario;
@@ -57,6 +60,8 @@ public class MainActivity extends AppCompatActivity
     Menu menuInicio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        FirebaseDatabase.getInstance().getReference("Hoekstra");
         int reqCod = 0;
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED)
         {
@@ -110,6 +115,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+        FirebaseDatabase.getInstance().getReference("Hoekstra");
+    }
+
+    @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -136,19 +147,16 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.sincronizar_bd) {
-
-            if (usuario == null || usuario.isAdmin() == 0) {
-                Toast.makeText(MainActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
-                return false;
+            HerdsmanDbSync sync = new HerdsmanDbSync(this);
+            return sync.startSync();
             }
-            return true;
-        }
         if (id == R.id.alterar_administrador) {
 
             if (usuario == null || usuario.isAdmin() == 0) {
                 Toast.makeText(MainActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
                 return false;
             }
+
             AlertDialog.Builder alertDialogBuild = new AlertDialog.Builder(MainActivity.this);
             final EditText input = new EditText(MainActivity.this);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
