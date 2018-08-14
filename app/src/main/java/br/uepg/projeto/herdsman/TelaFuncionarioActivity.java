@@ -67,6 +67,7 @@ public class TelaFuncionarioActivity extends AppCompatActivity {
                         }
                         else
                         {
+                            // FIXME: 14/08/18 Encapsular inserção de telefone
                             SQLiteOpenHelper mDbHelper = new HerdsmanDbHelper(TelaFuncionarioActivity.this);
                             SQLiteDatabase mDb = mDbHelper.getWritableDatabase();
                             ContentValues values = new ContentValues();
@@ -92,6 +93,7 @@ public class TelaFuncionarioActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         SQLiteOpenHelper mDbHelper = new HerdsmanDbHelper(TelaFuncionarioActivity.this);
+                        // FIXME: Encapsular remoção de telefone
                         SQLiteDatabase mDb = mDbHelper.getWritableDatabase();
                         String where = HerdsmanContract.TelefoneEntry.COLUMN_NAME_IDTELEFONE + "== ?";
                         String[] whereArgs =
@@ -124,41 +126,9 @@ public class TelaFuncionarioActivity extends AppCompatActivity {
 
     private void listarTelefones()
     {
-        Cursor cursor;
 
-        SQLiteOpenHelper mDbHelper = new HerdsmanDbHelper(TelaFuncionarioActivity.this);
-        SQLiteDatabase mDb = mDbHelper.getReadableDatabase();
-        String[] projection =
-                {
-                        HerdsmanContract.TelefoneEntry.COLUMN_NAME_IDTELEFONE,
-                        HerdsmanContract.TelefoneEntry.COLUMN_NAME_PESSOA_IDPESSOA,
-                        HerdsmanContract.TelefoneEntry.COLUMN_NAME_NUMERO
-                };
-        String selection = HerdsmanContract.TelefoneEntry.COLUMN_NAME_PESSOA_IDPESSOA + " == ?";
-        String[] selectionArgs =
-                {
-                        String.valueOf(pessoa.getIdPessoa())
-                };
-        cursor = mDb.query(
-                HerdsmanContract.TelefoneEntry.TABLE_NAME,
-                projection,
-                selection,
-                selectionArgs,
-                null,
-                null,
-                null
-        );
-        ArrayList telefoneItemList = new ArrayList<Telefone>();
-        while(cursor.moveToNext())
-        {
-            int idTelefone = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.TelefoneEntry.COLUMN_NAME_IDTELEFONE));
-            int Pessoa_idPessoa = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.TelefoneEntry.COLUMN_NAME_PESSOA_IDPESSOA));
-            String numero = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.TelefoneEntry.COLUMN_NAME_NUMERO));
-            Telefone tel = new Telefone(idTelefone,Pessoa_idPessoa,numero);
-            telefoneItemList.add(tel);
-        }
-        cursor.close();
-        mDb.close();
+        HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(TelaFuncionarioActivity.this);
+        ArrayList telefoneItemList = mDbHelper.listarTelefonesPessoa(pessoa);
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, telefoneItemList);
         listaTelefones.setAdapter(adapter);
     }

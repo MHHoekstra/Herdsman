@@ -1,6 +1,7 @@
 package br.uepg.projeto.herdsman;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -51,6 +52,9 @@ public class MainActivity extends AppCompatActivity
     ArrayList listaCios;
     ArrayList listaEnfermidades;
     ArrayList listaOutros;
+    MenuItem sairAdmin;
+    MenuItem entrarAdmin;
+    Menu menuInicio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         int reqCod = 0;
@@ -115,6 +119,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    @SuppressLint("ResourceType")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -123,7 +128,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -207,7 +212,9 @@ public class MainActivity extends AppCompatActivity
                         if (input.getText().toString().compareTo(adminUsuario.getSenha()) == 0)
                         {
                             usuario = adminUsuario;
+
                             Toast.makeText(MainActivity.this, "Login efetuado!", Toast.LENGTH_SHORT).show();
+
                         }
                         else
                         {
@@ -220,6 +227,10 @@ public class MainActivity extends AppCompatActivity
             AlertDialog alert = alertDialogBuild.create();
             alert.show();
             return true;
+        }
+        if (id == R.id.sair_admin)
+        {
+            usuario = null;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -107,10 +107,5 @@ public class CadastroAnimalActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
-
-
-
     }
 }

@@ -7,6 +7,11 @@ public class Pessoa implements Serializable {
     public String nome;
     public String cpf;
     public String rg;
+    public int ativo;
+
+    public int getAtivo() {
+        return ativo;
+    }
 
     public Pessoa()
     {
@@ -62,5 +67,9 @@ public class Pessoa implements Serializable {
     @Override
     public String toString() {
         return this.nome;
+    }
+
+    public void setAtivo(int ativo) {
+        this.ativo = ativo;
     }
 }

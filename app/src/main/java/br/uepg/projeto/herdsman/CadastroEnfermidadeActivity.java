@@ -35,12 +35,11 @@ public class CadastroEnfermidadeActivity extends AppCompatActivity {
                 }
                 enfermidade = new Enfermidade(descricao.getText().toString());
                 HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(CadastroEnfermidadeActivity.this);
-                SQLiteDatabase mDb = mDbHelper.getWritableDatabase();
-                ContentValues values = new ContentValues();
-                values.put(HerdsmanContract.EnfermidadeEntry.COLUMN_NAME_DESCRICAO, enfermidade.getDescricao());
-                long insert = mDb.insert(HerdsmanContract.EnfermidadeEntry.TABLE_NAME, null, values);
-                Toast.makeText(CadastroEnfermidadeActivity.this, "Enfermidade cadastrada", Toast.LENGTH_SHORT).show();
-                mDb.close();
+                long insert = mDbHelper.inserirEnfermidade(enfermidade);
+                if (insert > 0)
+                {
+                    Toast.makeText(CadastroEnfermidadeActivity.this, "Enfermidade cadastrada", Toast.LENGTH_SHORT).show();
+                }
                 finish();
             }
         });

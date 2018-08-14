@@ -12,4 +12,7 @@
     <item
         android:id="@+id/sincronizar_bd"
         android:title="Sincronizar Banco de Dados" />
+    <item
+        android:id="@+id/sair_admin"
+        android:title="Sair do modo administrador" />
 </menu>

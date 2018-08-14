@@ -72,26 +72,12 @@ public class CadastroFuncionarioActivity extends AppCompatActivity {
 
                     pessoa = new Pessoa(campoNome.getText().toString(), campoCpf.getText().toString(), campoRg.getText().toString());
 
-                    SQLiteOpenHelper mDbHelper = new HerdsmanDbHelper(CadastroFuncionarioActivity.this);
-                    SQLiteDatabase mDb = mDbHelper.getWritableDatabase();
-
-                    ContentValues valuesP = new ContentValues();
-                    valuesP.put(HerdsmanContract.PessoaEntry.COLUMN_NAME_NOME, pessoa.getNome());
-                    valuesP.put(HerdsmanContract.PessoaEntry.COLUMN_NAME_CPF, pessoa.getCpf());
-                    valuesP.put(HerdsmanContract.PessoaEntry.COLUMN_NAME_RG, pessoa.getRg());
-                    valuesP.put(HerdsmanContract.PessoaEntry.COLUMN_NAME_ATIVO, "1");
-                    long newRowId = mDb.insert(HerdsmanContract.PessoaEntry.TABLE_NAME, null, valuesP);
-
-                    usuario = new Usuario(campoCpf.getText().toString(), campoRg.getText().toString(), ((int) newRowId));
-                    ContentValues valuesU = new ContentValues();
-                    valuesU.put(HerdsmanContract.UsuarioEntry.COLUMN_NAME_LOGIN, usuario.getLogin());
-                    valuesU.put(HerdsmanContract.UsuarioEntry.COLUMN_NAME_SENHA, usuario.getSenha());
-                    valuesU.put(HerdsmanContract.UsuarioEntry.COLUMN_NAME_PESSOA_IDPESSOA, usuario.getIdPessoa());
-                    long newRowUsuario = mDb.insert(HerdsmanContract.UsuarioEntry.TABLE_NAME, null, valuesU);
-
-
-                    Toast.makeText(CadastroFuncionarioActivity.this, pessoa.getNome() + " cadastrado", Toast.LENGTH_SHORT).show();
-                    mDb.close();
+                    HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(CadastroFuncionarioActivity.this);
+                    long insert = mDbHelper.inserirFuncionario(pessoa);
+                    if (insert > 0)
+                    {
+                        Toast.makeText(CadastroFuncionarioActivity.this, pessoa.getNome() + " cadastrado", Toast.LENGTH_SHORT).show();
+                    }
                     finish();
                 }
 
@@ -108,25 +94,26 @@ public class CadastroFuncionarioActivity extends AppCompatActivity {
                     }
 
                     pessoa = new Pessoa(campoNome.getText().toString(), campoCpf.getText().toString(), campoRg.getText().toString());
+                    pessoa.setIdPessoa(intent_pessoa.getIdPessoa());
+                    HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(CadastroFuncionarioActivity.this);
 
-                    SQLiteOpenHelper mDbHelper = new HerdsmanDbHelper(CadastroFuncionarioActivity.this);
-                    SQLiteDatabase mDb = mDbHelper.getWritableDatabase();
-
-                    ContentValues valuesP = new ContentValues();
-                    valuesP.put(HerdsmanContract.PessoaEntry.COLUMN_NAME_IDPESSOA, intent_pessoa.getIdPessoa());
-                    valuesP.put(HerdsmanContract.PessoaEntry.COLUMN_NAME_NOME, pessoa.getNome());
-                    valuesP.put(HerdsmanContract.PessoaEntry.COLUMN_NAME_CPF, pessoa.getCpf());
-                    valuesP.put(HerdsmanContract.PessoaEntry.COLUMN_NAME_RG, pessoa.getRg());
                     if(radioButtonAtivo.isActivated())
                     {
-                        valuesP.put(HerdsmanContract.PessoaEntry.COLUMN_NAME_ATIVO, "1");
+                        pessoa.setAtivo(1);
+                        long insert = mDbHelper.replaceFuncionario(pessoa);
+                        if (insert > 0)
+                        {
+                            Toast.makeText(CadastroFuncionarioActivity.this, pessoa.getNome() + " alterado.", Toast.LENGTH_SHORT).show();
+                        }
                     }
                     else {
-                        valuesP.put(HerdsmanContract.PessoaEntry.COLUMN_NAME_ATIVO, "0");
+                        pessoa.setAtivo(0);
+                        long insert = mDbHelper.replaceFuncionario(pessoa);
+                        if (insert > 0)
+                        {
+                            Toast.makeText(CadastroFuncionarioActivity.this, pessoa.getNome() + " alterado.", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                    long newRowId = mDb.replace(HerdsmanContract.PessoaEntry.TABLE_NAME, null, valuesP);
-                    Toast.makeText(CadastroFuncionarioActivity.this, intent_pessoa.getNome() + " alterado", Toast.LENGTH_SHORT).show();
-                    mDb.close();
                     finish();
                 }
             }

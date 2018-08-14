@@ -100,16 +100,13 @@ public class CadastroPartoActivity extends AppCompatActivity implements DatePick
                         break;
                     }
                 }
-                parto = new Parto(animal.getId(), tipoCria,data.getText().toString());
+
+                parto = new Parto(animal.getId(), tipoCria,data.getText().toString(), ano + "-" + mes + "-" + dia);
                 HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(CadastroPartoActivity.this);
-                SQLiteDatabase mDb = mDbHelper.getReadableDatabase();
-                ContentValues values = new ContentValues();
-                values.put(HerdsmanContract.PartoEntry.COLUMN_NAME_ANIMAL_IDANIMAL, parto.getAnimal_idAnimal());
-                values.put(HerdsmanContract.PartoEntry.COLUMN_NAME_DATA, String.valueOf(ano) + "-" + String.valueOf(mes) + "-" + String.valueOf(dia));
-                values.put(HerdsmanContract.PartoEntry.COLUMN_NAME_CRIA, tipoCria);
-                long insert = mDb.insert(HerdsmanContract.PartoEntry.TABLE_NAME,null, values);
-                Toast.makeText(CadastroPartoActivity.this, "Parto cadastrado", Toast.LENGTH_SHORT).show();
-                mDb.close();
+                long insert = mDbHelper.inserirParto(parto);
+                if (insert > 0) {
+                    Toast.makeText(CadastroPartoActivity.this, "Parto cadastrado", Toast.LENGTH_SHORT).show();
+                }
                 finish();
             }
         });

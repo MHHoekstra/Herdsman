@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import br.uepg.projeto.herdsman.DAO.HerdsmanContract;
 import br.uepg.projeto.herdsman.DAO.HerdsmanDbHelper;
+import br.uepg.projeto.herdsman.Objetos.Remedio;
 
 public class CadastroRemedioActivity extends AppCompatActivity {
 
@@ -33,12 +34,9 @@ public class CadastroRemedioActivity extends AppCompatActivity {
                     return;
                 }
                 HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(CadastroRemedioActivity.this);
-                SQLiteDatabase mDb = mDbHelper.getWritableDatabase();
-                ContentValues values = new ContentValues();
-                values.put(HerdsmanContract.RemedioEntry.COLUMN_NAME_NOME, descricao.getText().toString());
-                long insert = mDb.insert(HerdsmanContract.RemedioEntry.TABLE_NAME,null, values);
+                Remedio remedio = new Remedio(descricao.getText().toString());
+
                 Toast.makeText(CadastroRemedioActivity.this, "Remédio cadastrado", Toast.LENGTH_SHORT).show();
-                mDb.close();
                 finish();
             }
         });
