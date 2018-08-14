@@ -6,12 +6,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -58,6 +60,8 @@ public class MainActivity extends AppCompatActivity
     MenuItem sairAdmin;
     MenuItem entrarAdmin;
     Menu menuInicio;
+    public static final String myPref = "preferenceName";
+    SharedPreferences pref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
@@ -84,6 +88,8 @@ public class MainActivity extends AppCompatActivity
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        pref = getApplicationContext().getSharedPreferences("isAdmin", MODE_PRIVATE);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -139,7 +145,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -151,9 +157,10 @@ public class MainActivity extends AppCompatActivity
             return sync.startSync();
             }
         if (id == R.id.alterar_administrador) {
+            pref.getBoolean("isAdmin", false);
 
-            if (usuario == null || usuario.isAdmin() == 0) {
-                Toast.makeText(MainActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
+            if (!(pref.getBoolean("isAdmin", false))) {
+                Toast.makeText(MainActivity.this, R.string.acesso_negado, Toast.LENGTH_SHORT).show();
                 return false;
             }
 
@@ -220,9 +227,10 @@ public class MainActivity extends AppCompatActivity
                         if (input.getText().toString().compareTo(adminUsuario.getSenha()) == 0)
                         {
                             usuario = adminUsuario;
-
                             Toast.makeText(MainActivity.this, "Login efetuado!", Toast.LENGTH_SHORT).show();
-
+                            SharedPreferences.Editor editor = pref.edit();
+                            editor.putBoolean("isAdmin", true);
+                            editor.commit();
                         }
                         else
                         {
@@ -239,7 +247,12 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.sair_admin)
         {
             usuario = null;
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putBoolean("isAdmin", false);
+            editor.commit();
+            return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
