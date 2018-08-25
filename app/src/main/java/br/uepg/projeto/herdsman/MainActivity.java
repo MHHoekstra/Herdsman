@@ -25,6 +25,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.text.InputType;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity
     MenuItem sairAdmin;
     MenuItem entrarAdmin;
     Menu menuInicio;
+    Boolean adm;
     public static final String myPref = "preferenceName";
     SharedPreferences pref;
     @Override
@@ -150,20 +152,17 @@ public class MainActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        adm = pref.getBoolean("isAdmin", false);
         //noinspection SimplifiableIfStatement
         if (id == R.id.sincronizar_bd) {
             HerdsmanDbSync sync = new HerdsmanDbSync(this);
             return sync.startSync();
             }
         if (id == R.id.alterar_administrador) {
-            pref.getBoolean("isAdmin", false);
-
-            if (!(pref.getBoolean("isAdmin", false))) {
+            if (!adm) {
                 Toast.makeText(MainActivity.this, R.string.acesso_negado, Toast.LENGTH_SHORT).show();
                 return false;
             }
-
             AlertDialog.Builder alertDialogBuild = new AlertDialog.Builder(MainActivity.this);
             final EditText input = new EditText(MainActivity.this);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
@@ -209,9 +208,11 @@ public class MainActivity extends AppCompatActivity
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT);
             input.setLayoutParams(lp);
-            input.setInputType(InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+            input.setGravity(Gravity.CENTER);
+            //input.setInputType(InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+            input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
             alertDialogBuild.setView(input);
-            alertDialogBuild.setTitle("Insira a senha");
+            alertDialogBuild.setTitle("Insira a senha:");
             alertDialogBuild.setNegativeButton("Cancelar", null);
             alertDialogBuild.setPositiveButton("Entrar", new DialogInterface.OnClickListener() {
                 @Override
@@ -254,6 +255,24 @@ public class MainActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        MenuItem sairAdm = menu.findItem(R.id.sair_admin);
+        MenuItem entrarAdm = menu.findItem(R.id.entrar_como_administrador);
+        adm = pref.getBoolean("isAdmin", false);
+        if(adm){
+            sairAdm.setVisible(true);
+            entrarAdm.setVisible(false);
+        }
+        else {
+            entrarAdm.setVisible(true);
+            sairAdm.setVisible(false);
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
