@@ -1,8 +1,8 @@
 package br.uepg.projeto.herdsman.Objetos;
 
 public class Remedio {
-    int idRemedio;
-    String descricao;
+    private int idRemedio;
+    private String descricao;
 
     public int getIdRemedio() {
         return idRemedio;

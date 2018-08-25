@@ -1,10 +1,10 @@
 package br.uepg.projeto.herdsman.Objetos;
 
 public class Parto {
-    int id;
-    int Animal_idAnimal;
-    int cria;
-    String data;
+    private int id;
+    private int Animal_idAnimal;
+    private int cria;
+    private String data;
     public Parto()
     {
 

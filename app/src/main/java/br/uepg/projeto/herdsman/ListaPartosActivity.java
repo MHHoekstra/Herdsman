@@ -90,7 +90,8 @@ public class ListaPartosActivity extends AppCompatActivity {
     {
         HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(ListaPartosActivity.this);
         ArrayList listaPartosmDbHelper = mDbHelper.carregarPartosAnimal(animal);
-        ArrayAdapter<String> adapter = new ArrayAdapter(ListaPartosActivity.this, android.R.layout.simple_list_item_1, (List) listaPartos);
+        // FIXME: Listar está crashando o APP
+        ArrayAdapter<String> adapter = new ArrayAdapter(ListaPartosActivity.this, android.R.layout.simple_list_item_1, (List) listaPartosmDbHelper);
         listaPartos.setAdapter(adapter);
     }
 

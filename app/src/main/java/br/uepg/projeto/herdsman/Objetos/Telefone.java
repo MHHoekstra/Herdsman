@@ -3,9 +3,9 @@ package br.uepg.projeto.herdsman.Objetos;
 import java.io.Serializable;
 
 public class Telefone implements Serializable {
-    int idTelefone;
-    int Pessoa_idPessoa;
-    String numero;
+    private int idTelefone;
+    private int Pessoa_idPessoa;
+    private String numero;
 
     public Telefone()
     {

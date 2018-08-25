@@ -3,10 +3,10 @@ package br.uepg.projeto.herdsman.Objetos;
 import java.io.Serializable;
 
 public class Animal implements Serializable {
-    int id;
-    String numero;
-    String nome;
-    int ativo;
+    private int id;
+    private String numero;
+    private String nome;
+    private int ativo;
     public Animal()
     {
 

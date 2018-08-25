@@ -45,10 +45,6 @@ public class TelaAnimalActivity extends AppCompatActivity {
         campoUltimoCio = (TextView) findViewById(R.id.tela_animal_cio_data);
         campoUltimaInseminacao = (TextView) findViewById(R.id.tela_animal_inseminacao_data);
         campoUltimoParto = (TextView) findViewById(R.id.tela_animal_parto_data);
-
-
-
-
         campoNomeAnimal.setText(animal.getNome());
         campoNumeroAnimal.setText(animal.getNumero());
 

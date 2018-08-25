@@ -3,11 +3,11 @@ package br.uepg.projeto.herdsman.Objetos;
 import java.io.Serializable;
 
 public class Pessoa implements Serializable {
-    public int idPessoa;
-    public String nome;
-    public String cpf;
-    public String rg;
-    public int ativo;
+    private  int idPessoa;
+    private  String nome;
+    private  String cpf;
+    private  String rg;
+    private  int ativo;
 
     public int getAtivo() {
         return ativo;

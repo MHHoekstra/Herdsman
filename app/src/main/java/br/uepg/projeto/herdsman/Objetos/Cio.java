@@ -1,11 +1,11 @@
 package br.uepg.projeto.herdsman.Objetos;
 
 public class Cio {
-    int idCio;
-    int idAnimalPorCima;
-    int idAnimalPorBaixo;
-    Animal animalPorCima;
-    Animal animalPorBaixo;
+    private int idCio;
+    private int idAnimalPorCima;
+    private int idAnimalPorBaixo;
+    private Animal animalPorCima;
+    private Animal animalPorBaixo;
 
     public Animal getAnimalPorCima() {
         return animalPorCima;

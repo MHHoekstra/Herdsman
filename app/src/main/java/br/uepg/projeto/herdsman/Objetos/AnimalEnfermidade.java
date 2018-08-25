@@ -1,11 +1,11 @@
 package br.uepg.projeto.herdsman.Objetos;
 
 public class AnimalEnfermidade {
-    int idAnimalEnfermidade;
-    int Animal_idAnimal;
-    int Enfermidade_idEnfermidade;
-    String data;
-    int Usuario_idUsuario;
+    private int idAnimalEnfermidade;
+    private int Animal_idAnimal;
+    private int Enfermidade_idEnfermidade;
+    private String data;
+    private int Usuario_idUsuario;
 
     public AnimalEnfermidade(int idAnimalEnfermidade, int animal_idAnimal, int enfermidade_idEnfermidade, String data, int usuario_idUsuario) {
         this.idAnimalEnfermidade = idAnimalEnfermidade;

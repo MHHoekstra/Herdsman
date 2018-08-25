@@ -15,16 +15,23 @@ import com.google.firebase.database.ValueEventListener;
 
 import br.uepg.projeto.herdsman.MainActivity;
 import br.uepg.projeto.herdsman.Objetos.Animal;
+import br.uepg.projeto.herdsman.Objetos.Enfermidade;
+import br.uepg.projeto.herdsman.Objetos.Parto;
+import br.uepg.projeto.herdsman.Objetos.Pessoa;
+import br.uepg.projeto.herdsman.Objetos.Remedio;
+import br.uepg.projeto.herdsman.Objetos.Usuario;
 
 public class HerdsmanDbSync {
     HerdsmanDbHelper mDbHelper;
     Context mContext;
-    DatabaseReference database;
+    private DatabaseReference FirebaseSync;
 
     public HerdsmanDbSync(Context context)
     {
         this.mContext = context;
         this.mDbHelper = new HerdsmanDbHelper(mContext);
+        this.FirebaseSync = FirebaseDatabase.getInstance().getReference("Hoekstra");
+        this.mDbHelper.setSync(true);
     }
 
     public boolean startSync()
@@ -38,6 +45,10 @@ public class HerdsmanDbSync {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     syncAnimal();
+                    syncEnfermidade();
+                    syncParto();
+                    syncFuncionario();
+                    syncRemedio();
                 }
             });
             AlertDialog alert = confirm.create();
@@ -50,15 +61,88 @@ public class HerdsmanDbSync {
             return false;
         }
     }
+
+    private void syncRemedio() {
+        DatabaseReference database = FirebaseSync.child("Remedio");
+        database.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    Remedio R =  postSnapshot.getValue(Remedio.class);
+                    mDbHelper.inserirRemedio(R);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+    }
+
+    private void syncFuncionario() {
+        DatabaseReference database = FirebaseSync.child("Pessoa");
+        database.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    Pessoa Pe =  postSnapshot.getValue(Pessoa.class);
+                    mDbHelper.inserirFuncionario(Pe);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+    }
+
+    private void syncParto() {
+        DatabaseReference database = FirebaseSync.child("Parto");
+        database.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    Parto P =  postSnapshot.getValue(Parto.class);
+                    mDbHelper.inserirParto(P);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+    }
+
+    private void syncEnfermidade() {
+        DatabaseReference database = FirebaseSync.child("Enfermidade");
+        database.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    Enfermidade E =  postSnapshot.getValue(Enfermidade.class);
+                    mDbHelper.inserirEnfermidade(E);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+    }
+
     public void syncAnimal()
     {
-        database = FirebaseDatabase.getInstance().getReference().child("Animal");
+        DatabaseReference database = FirebaseSync.child("Animal");
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     Animal M =  postSnapshot.getValue(Animal.class);
-                    mDbHelper.inserirAnimal(M,1);
+                    mDbHelper.inserirAnimal(M);
                 }
             }
             @Override

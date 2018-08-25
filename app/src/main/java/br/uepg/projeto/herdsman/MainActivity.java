@@ -280,9 +280,9 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        adm = pref.getBoolean("isAdmin", false);
         if (id == R.id.nav_animais) {
-            if (usuario == null || usuario.isAdmin() == 0)
+            if (!adm)
             {
                 Toast.makeText(MainActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
 
@@ -294,7 +294,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_enfermidades) {
 
-            if (usuario == null || usuario.isAdmin() == 0)
+            if (!adm)
             {
                 Toast.makeText(MainActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
 
@@ -306,7 +306,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_remedios) {
 
-            if (usuario == null || usuario.isAdmin() == 0)
+            if (!adm)
             {
                 Toast.makeText(MainActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
 
@@ -319,7 +319,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_funcionarios) {
 
-            if (usuario == null || usuario.isAdmin() == 0)
+            if (!adm)
             {
                 Toast.makeText(MainActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
             }
@@ -340,7 +340,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_outro) {
 
-            if (usuario == null || usuario.isAdmin() == 0)
+            if (!adm)
             {
                 Toast.makeText(MainActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
 

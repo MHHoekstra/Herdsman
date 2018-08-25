@@ -43,6 +43,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
     private static final String TAG = "DatabaseHelper";
     private DatabaseReference FirebaseHelper;
     private Context mContext;
+    private boolean isSync = false;
 
     public HerdsmanDbHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -103,6 +104,14 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         else
             Log.i(TAG, "Database Not Deleted..");
         onCreate(db);
+    }
+
+    public boolean isSync() {
+        return isSync;
+    }
+
+    public void setSync(boolean sync) {
+        isSync = sync;
     }
 
     public List<Animal> carregarAnimaisDb()
@@ -317,7 +326,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         mDb.close();
         return adminUsuario;
     }
-    public long inserirAnimal(Animal animal, int FB)
+    public long inserirAnimal(Animal animal)
     {
 
         DatabaseReference databaseAnimal = FirebaseHelper.child("Animal");
@@ -326,7 +335,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_NUMERO, animal.getNumero());
         values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_NOME, animal.getNome());
         values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_ATIVO, animal.getAtivo());
-        if (FB==1) {
+        if (this.isSync()) {
             values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_IDANIMAL, animal.getId());
         }
         long id = db.insert(HerdsmanContract.AnimalEntry.TABLE_NAME, null, values);
@@ -399,6 +408,9 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase mDb = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(HerdsmanContract.EnfermidadeEntry.COLUMN_NAME_DESCRICAO, enfermidade.getDescricao());
+        if (this.isSync()) {
+            values.put(HerdsmanContract.EnfermidadeEntry.COLUMN_NAME_IDENFERMIDADE, enfermidade.getId());
+        }
         long id = mDb.insert(HerdsmanContract.EnfermidadeEntry.TABLE_NAME, null, values);
         if(id != -1)
         {
@@ -435,6 +447,9 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         valuesP.put(HerdsmanContract.PessoaEntry.COLUMN_NAME_CPF, pessoa.getCpf());
         valuesP.put(HerdsmanContract.PessoaEntry.COLUMN_NAME_RG, pessoa.getRg());
         valuesP.put(HerdsmanContract.PessoaEntry.COLUMN_NAME_ATIVO, "1");
+        if (this.isSync()) {
+            valuesP.put(HerdsmanContract.PessoaEntry.COLUMN_NAME_IDPESSOA, pessoa.getIdPessoa());
+        }
         long id = mDb.insert(HerdsmanContract.PessoaEntry.TABLE_NAME, null, valuesP);
         if(id != -1)
         {
@@ -455,6 +470,9 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         values.put(HerdsmanContract.PartoEntry.COLUMN_NAME_ANIMAL_IDANIMAL, parto.getAnimal_idAnimal());
         values.put(HerdsmanContract.PartoEntry.COLUMN_NAME_DATA, String.valueOf(parto.getData()));
         values.put(HerdsmanContract.PartoEntry.COLUMN_NAME_CRIA, parto.getCria());
+        if (this.isSync()) {
+            values.put(HerdsmanContract.PartoEntry.COLUMN_NAME_IDPARTO, parto.getId());
+        }
         long id = mDb.insert(HerdsmanContract.PartoEntry.TABLE_NAME,null, values);
         if(id != -1)
         {
@@ -472,6 +490,9 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase mDb = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(HerdsmanContract.RemedioEntry.COLUMN_NAME_NOME, remedio.getDescricao());
+        if (this.isSync()) {
+            values.put(HerdsmanContract.RemedioEntry.COLUMN_NAME_IDREMEDIO, remedio.getIdRemedio());
+        }
         long id = mDb.insert(HerdsmanContract.RemedioEntry.TABLE_NAME,null, values);
         if(id != -1)
         {
