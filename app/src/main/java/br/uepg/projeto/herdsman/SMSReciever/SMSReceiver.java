@@ -125,6 +125,7 @@ public class SMSReceiver extends BroadcastReceiver {
                     int animalPorCima = Integer.parseInt(tokens[3]);
                     String data = String.valueOf(c.get(Calendar.YEAR))+"-"+String.valueOf(c.get(Calendar.MONTH))+"-"+String.valueOf(c.get(Calendar.DAY_OF_MONTH));
                     ContentValues values = new ContentValues();
+                    // FIXME Encapsular
                     values.put(HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORCIMA, animalPorCima);
                     values.put(HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORBAIXO, animalPorBaixo);
                     values.put(HerdsmanContract.CioEntry.COLUMN_NAME_DATA, data);
@@ -146,6 +147,7 @@ public class SMSReceiver extends BroadcastReceiver {
                     Calendar c = Calendar.getInstance();
                     int idEnfermidade = Integer.parseInt(tokens[2]);
                     int idAnimal = Integer.parseInt(tokens[3]);
+                    // FIXME Encapsular e verificar a existencia de animal e sinistro
                     String data = String.valueOf(c.get(Calendar.YEAR))+"-"+String.valueOf(c.get(Calendar.MONTH))+"-"+String.valueOf(c.get(Calendar.DAY_OF_MONTH));
                     ContentValues values = new ContentValues();
                     values.put(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_ANIMAL_IDANIMAL, idAnimal);

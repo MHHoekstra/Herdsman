@@ -44,6 +44,7 @@ public class TelaFuncionarioActivity extends AppCompatActivity {
         cpfText.setText(pessoa.getCpf());
         rgText.setText(pessoa.getRg());
         Button addTelefone = findViewById(R.id.tela_funcionario_add_telefone);
+        // TODO Implementar tela de notificações geradas pelo funcionario
         Button notificacoesGeradas = findViewById(R.id.tela_funcionario_notificacoes);
         addTelefone.setOnClickListener(new View.OnClickListener() {
             @Override

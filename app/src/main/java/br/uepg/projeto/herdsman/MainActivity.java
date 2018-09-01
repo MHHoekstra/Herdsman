@@ -179,6 +179,7 @@ public class MainActivity extends AppCompatActivity
                     if (input.getText().length() == 0) {
                         return;
                     } else {
+                        // TODO Encapsular update do numero do admin
                         SQLiteOpenHelper mDbHelper = new HerdsmanDbHelper(MainActivity.this);
                         SQLiteDatabase mDb = mDbHelper.getWritableDatabase();
                         String[] where = {"1"};

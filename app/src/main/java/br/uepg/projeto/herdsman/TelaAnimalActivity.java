@@ -37,10 +37,14 @@ public class TelaAnimalActivity extends AppCompatActivity {
 
         campoNomeAnimal = (TextView) findViewById(R.id.tela_animal_nome_animal);
         campoNumeroAnimal = (TextView) findViewById(R.id.tela_animal_numero_animal);
+        // TODO Implementar tela de cios
         buttonCios = (Button) findViewById(R.id.tela_animal_button_cios);
         buttonPartos = (Button) findViewById(R.id.tela_animal_button_partos);
+        // TODO Implementar tela de inseminações
         buttonInseminacoes = (Button) findViewById(R.id.tela_animal_button_inseminacoes);
+        // TODO Implementar tela de remedios
         buttonRemedios = (Button) findViewById(R.id.tela_animal_button_remedios);
+        // TODO Implementar tela de sinistros
         buttonSinistros = (Button) findViewById(R.id.tela_animal_button_sinistros);
         campoUltimoCio = (TextView) findViewById(R.id.tela_animal_cio_data);
         campoUltimaInseminacao = (TextView) findViewById(R.id.tela_animal_inseminacao_data);
