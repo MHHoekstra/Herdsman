@@ -51,7 +51,7 @@ public class TelaAnimalActivity extends AppCompatActivity {
         campoUltimoParto = (TextView) findViewById(R.id.tela_animal_parto_data);
         campoNomeAnimal.setText(animal.getNome());
         campoNumeroAnimal.setText(animal.getNumero());
-
+        // FIXME Carregar corretamente "Ativo e inativo"
         carregarDados(animal, campoUltimoCio, campoUltimoParto, campoUltimaInseminacao);
 
 

@@ -20,6 +20,8 @@ import java.util.Scanner;
 import br.uepg.projeto.herdsman.DAO.HerdsmanContract;
 import br.uepg.projeto.herdsman.DAO.HerdsmanDbHelper;
 import br.uepg.projeto.herdsman.Objetos.Animal;
+import br.uepg.projeto.herdsman.Objetos.Cio;
+import br.uepg.projeto.herdsman.Objetos.Sinistro;
 import br.uepg.projeto.herdsman.Objetos.Telefone;
 
 public class SMSReceiver extends BroadcastReceiver {
@@ -124,22 +126,26 @@ public class SMSReceiver extends BroadcastReceiver {
                     int animalPorBaixo = Integer.parseInt(tokens[2]);
                     int animalPorCima = Integer.parseInt(tokens[3]);
                     String data = String.valueOf(c.get(Calendar.YEAR))+"-"+String.valueOf(c.get(Calendar.MONTH))+"-"+String.valueOf(c.get(Calendar.DAY_OF_MONTH));
-                    ContentValues values = new ContentValues();
-                    // FIXME Encapsular
-                    values.put(HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORCIMA, animalPorCima);
-                    values.put(HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORBAIXO, animalPorBaixo);
-                    values.put(HerdsmanContract.CioEntry.COLUMN_NAME_DATA, data);
-                    values.put(HerdsmanContract.CioEntry.COLUMN_NAME_USUARIO_IDUSUARIO, senderTelefone.getPessoa_idPessoa());
+                    if (!mDbHelper.existeAnimal(animalPorCima))
+                    {
+                        Log.d("SMSReceiver", "Animal por cima inválido");
+                        return;
+                    }
+                    if(!mDbHelper.existeAnimal(animalPorBaixo))
+                    {
+                        Log.d("SMSReceiver", "Animal por baixo inválido");
+                        return;
+                    }
                     mDbHelper = new HerdsmanDbHelper(context);
-                    mDb = mDbHelper.getWritableDatabase();
-                    mDb.insert(
-                            HerdsmanContract.CioEntry.TABLE_NAME,
-                            null,
-                            values
-
-                    );
-                    Log.d("SMSReceiver" , "Cio " + String.valueOf(animalPorBaixo) + "inserido");
-                    mDb.close();
+                    Cio cio = new Cio(animalPorCima,animalPorBaixo, data, senderTelefone.getPessoa_idPessoa());
+                    long ins = mDbHelper.inserirCio(cio);
+                    if(ins > 0) {
+                        Log.d("SMSReceiver", "Cio de " + String.valueOf(animalPorBaixo) + " inserido");
+                    }
+                    else
+                    {
+                        Log.d("SMSReceiver", "Erro ao inserir cio");
+                    }
                     break;
                 }
                 case 2: {
@@ -147,21 +153,26 @@ public class SMSReceiver extends BroadcastReceiver {
                     Calendar c = Calendar.getInstance();
                     int idEnfermidade = Integer.parseInt(tokens[2]);
                     int idAnimal = Integer.parseInt(tokens[3]);
-                    // FIXME Encapsular e verificar a existencia de animal e sinistro
+                    if (!mDbHelper.existeAnimal(idAnimal))
+                    {
+                        Log.d("SMSReceiver", "Animal inválido");
+                        return;
+                    }
+                    if (!mDbHelper.existeEnfermidade(idEnfermidade))
+                    {
+                        Log.d("SMSReceiver", "Enfermidade inválida");
+                        return;
+                    }
                     String data = String.valueOf(c.get(Calendar.YEAR))+"-"+String.valueOf(c.get(Calendar.MONTH))+"-"+String.valueOf(c.get(Calendar.DAY_OF_MONTH));
-                    ContentValues values = new ContentValues();
-                    values.put(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_ANIMAL_IDANIMAL, idAnimal);
-                    values.put(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_ENFERMIDADE_IDENFERMIDADE, idEnfermidade);
-                    values.put(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_DATA, data);
-                    values.put(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_USUARIO_IDUSUARIO, senderTelefone.getPessoa_idPessoa());
-                    mDb = mDbHelper.getWritableDatabase();
-                    mDb.insert(
-                            HerdsmanContract.AnimalEnfermidadeEntry.TABLE_NAME,
-                            null,
-                            values
-                    );
-                    mDb.close();
-                    Log.d("SMSReceiver", "Sinistro inserido");
+                    Sinistro sinistro = new Sinistro(idAnimal, idEnfermidade, senderTelefone.getPessoa_idPessoa(), data);
+                    long insert = mDbHelper.inserirSinistro(sinistro);
+                    if(insert > 0) {
+                        Log.d("SMSReceiver", "Sinistro inserido");
+                    }
+                    else
+                    {
+                        Log.d("SMSReceiver", "Falha ao inserir sinistro");
+                    }
                     break;
                 }
                 case 3: {

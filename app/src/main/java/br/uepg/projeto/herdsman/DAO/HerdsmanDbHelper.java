@@ -29,6 +29,7 @@ import br.uepg.projeto.herdsman.Objetos.Enfermidade;
 import br.uepg.projeto.herdsman.Objetos.Parto;
 import br.uepg.projeto.herdsman.Objetos.Pessoa;
 import br.uepg.projeto.herdsman.Objetos.Remedio;
+import br.uepg.projeto.herdsman.Objetos.Sinistro;
 import br.uepg.projeto.herdsman.Objetos.Telefone;
 import br.uepg.projeto.herdsman.Objetos.Usuario;
 
@@ -250,7 +251,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
                     new String[] {String.valueOf(idAnimalPorBaixo)},
                     null,
                     null,
-                    HerdsmanContract.CioEntry.COLUMN_NAME_DATA + " DESC"
+                    null
             );
             if (cursor2.moveToNext()) {
                 int idAnimal = cursor2.getInt(cursor2.getColumnIndexOrThrow(HerdsmanContract.AnimalEntry.COLUMN_NAME_IDANIMAL));
@@ -542,6 +543,89 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         mDb.close();
         return telefoneItemList;
 
+    }
+
+    public boolean existeAnimal(int idAnimal) {
+        SQLiteDatabase mDb = this.getReadableDatabase();
+        Cursor cursor = mDb.query(
+                HerdsmanContract.AnimalEntry.TABLE_NAME,
+                new String[]{HerdsmanContract.AnimalEntry.COLUMN_NAME_IDANIMAL},
+                HerdsmanContract.AnimalEntry.COLUMN_NAME_IDANIMAL + "== ? and " + HerdsmanContract.AnimalEntry.COLUMN_NAME_ATIVO + " == 1",
+                new String[] {String.valueOf(idAnimal)},
+                null,
+                null,
+                null
+        );
+        boolean ret;
+        if (cursor.getCount() > 0)
+        {
+            ret = true;
+        }
+        else
+        {
+            ret = false;
+        }
+        cursor.close();
+        mDb.close();
+        return ret;
+    }
+
+    public long inserirCio(Cio cio) {
+        ContentValues values = new ContentValues();
+        values.put(HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORCIMA, cio.getIdAnimalPorCima());
+        values.put(HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORBAIXO, cio.getIdAnimalPorBaixo());
+        values.put(HerdsmanContract.CioEntry.COLUMN_NAME_DATA, cio.getData());
+        values.put(HerdsmanContract.CioEntry.COLUMN_NAME_USUARIO_IDUSUARIO, cio.getIdFuncionario());
+        SQLiteDatabase mDb = this.getWritableDatabase();
+        long ins =  mDb.insert(
+                HerdsmanContract.CioEntry.TABLE_NAME,
+                null,
+                values
+
+        );
+        mDb.close();
+        return ins;
+    }
+
+    public long inserirSinistro(Sinistro sinistro) {
+        ContentValues values = new ContentValues();
+        values.put(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_ANIMAL_IDANIMAL, sinistro.getIdAnimal());
+        values.put(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_ENFERMIDADE_IDENFERMIDADE, sinistro.getIdEnfermidade());
+        values.put(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_DATA, sinistro.getData());
+        values.put(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_USUARIO_IDUSUARIO, sinistro.getIdFuncionario());
+        SQLiteDatabase mDb = this.getWritableDatabase();
+        long insert = mDb.insert(
+                HerdsmanContract.AnimalEnfermidadeEntry.TABLE_NAME,
+                null,
+                values
+        );
+        mDb.close();
+        return insert;
+    }
+
+    public boolean existeEnfermidade(int idEnfermidade) {
+        SQLiteDatabase mDb = this.getReadableDatabase();
+        Cursor cursor = mDb.query(
+                HerdsmanContract.EnfermidadeEntry.TABLE_NAME,
+                new String[]{HerdsmanContract.EnfermidadeEntry.COLUMN_NAME_IDENFERMIDADE},
+                HerdsmanContract.EnfermidadeEntry.COLUMN_NAME_IDENFERMIDADE + "== ?",
+                new String[] {String.valueOf(idEnfermidade)},
+                null,
+                null,
+                null
+        );
+        boolean ret;
+        if (cursor.getCount() > 0)
+        {
+            ret = true;
+        }
+        else
+        {
+            ret = false;
+        }
+        cursor.close();
+        mDb.close();
+        return ret;
     }
 
 }

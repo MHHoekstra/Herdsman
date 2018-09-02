@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity
     Boolean adm;
     public static final String myPref = "preferenceName";
     SharedPreferences pref;
+    //TODO Atualizar automaticamente ao inserir um novo cio
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);

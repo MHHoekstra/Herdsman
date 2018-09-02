@@ -6,6 +6,27 @@ public class Cio {
     private int idAnimalPorBaixo;
     private Animal animalPorCima;
     private Animal animalPorBaixo;
+    private String data;
+    private int idFuncionario;
+
+    public Cio(int animalPorCima, int animalPorBaixo, String data, int pessoa_idPessoa) {
+        idAnimalPorCima = animalPorCima;
+        idAnimalPorBaixo = animalPorBaixo;
+        this.data = data;
+        idFuncionario = pessoa_idPessoa;
+    }
+
+    public Cio()
+    {
+
+    }
+    public Cio(int idCio, int idAnimalPorCima, int idAnimalPorBaixo, String data) {
+        this.idCio = idCio;
+        this.idAnimalPorCima = idAnimalPorCima;
+        this.idAnimalPorBaixo = idAnimalPorBaixo;
+        this.data = data;
+    }
+
 
     public Animal getAnimalPorCima() {
         return animalPorCima;
@@ -21,19 +42,6 @@ public class Cio {
 
     public void setAnimalPorBaixo(Animal animalPorBaixo) {
         this.animalPorBaixo = animalPorBaixo;
-    }
-
-    String data;
-
-    public Cio()
-    {
-
-    }
-    public Cio(int idCio, int idAnimalPorCima, int idAnimalPorBaixo, String data) {
-        this.idCio = idCio;
-        this.idAnimalPorCima = idAnimalPorCima;
-        this.idAnimalPorBaixo = idAnimalPorBaixo;
-        this.data = data;
     }
 
     public int getIdCio() {
@@ -71,5 +79,13 @@ public class Cio {
     {
         String s = "Animal por cima: " + animalPorCima.getNumero() + "\nAnimal por baixo: " + animalPorBaixo.getNumero() + "\nData: " + this.getData();
         return s;
+    }
+
+    public int getIdFuncionario() {
+        return idFuncionario;
+    }
+
+    public void setIdFuncionario(int idFuncionario) {
+        this.idFuncionario = idFuncionario;
     }
 }
