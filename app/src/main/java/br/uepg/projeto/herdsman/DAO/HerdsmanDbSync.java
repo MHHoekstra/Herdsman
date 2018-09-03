@@ -15,10 +15,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import br.uepg.projeto.herdsman.MainActivity;
 import br.uepg.projeto.herdsman.Objetos.Animal;
+import br.uepg.projeto.herdsman.Objetos.Cio;
 import br.uepg.projeto.herdsman.Objetos.Enfermidade;
 import br.uepg.projeto.herdsman.Objetos.Parto;
 import br.uepg.projeto.herdsman.Objetos.Pessoa;
 import br.uepg.projeto.herdsman.Objetos.Remedio;
+import br.uepg.projeto.herdsman.Objetos.Sinistro;
 import br.uepg.projeto.herdsman.Objetos.Usuario;
 
 public class HerdsmanDbSync {
@@ -49,6 +51,8 @@ public class HerdsmanDbSync {
                     syncParto();
                     syncFuncionario();
                     syncRemedio();
+                    syncCio();
+                    syncSinistro();
                 }
             });
             AlertDialog alert = confirm.create();
@@ -60,6 +64,23 @@ public class HerdsmanDbSync {
             Toast.makeText(this.mContext, "Você não possui acesso a internet...", Toast.LENGTH_SHORT).show();
             return false;
         }
+    }
+
+    private void syncSinistro() {
+        DatabaseReference database = FirebaseSync.child("Sinistro");
+
+        database.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    Sinistro S =  postSnapshot.getValue(Sinistro.class);
+                    mDbHelper.inserirSinistro(S);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
     private void syncRemedio() {
@@ -134,8 +155,7 @@ public class HerdsmanDbSync {
         });
     }
 
-    public void syncAnimal()
-    {
+    public void syncAnimal() {
         DatabaseReference database = FirebaseSync.child("Animal");
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -152,6 +172,27 @@ public class HerdsmanDbSync {
 
         });
     }
+
+    public void syncCio() {
+        DatabaseReference database = FirebaseSync.child("Cio");
+        database.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    Cio C =  postSnapshot.getValue(Cio.class);
+                    mDbHelper.inserirCio(C);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+    }
+
+
+
     public static boolean isOnline(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();

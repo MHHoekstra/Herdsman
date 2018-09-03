@@ -27,6 +27,13 @@ public class Cio {
         this.data = data;
     }
 
+    public Cio(int idCio, int idAnimalPorCima, int idAnimalPorBaixo, String data, int pessoa_idPessoa) {
+        this.idCio = idCio;
+        this.idAnimalPorCima = idAnimalPorCima;
+        this.idAnimalPorBaixo = idAnimalPorBaixo;
+        this.data = data;
+    }
+
 
     public Animal getAnimalPorCima() {
         return animalPorCima;

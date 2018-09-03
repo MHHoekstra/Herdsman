@@ -32,8 +32,6 @@ import br.uepg.projeto.herdsman.Objetos.Remedio;
 import br.uepg.projeto.herdsman.Objetos.Sinistro;
 import br.uepg.projeto.herdsman.Objetos.Telefone;
 import br.uepg.projeto.herdsman.Objetos.Usuario;
-
-
 /**
  * {@link SQLiteOpenHelper} implementation that creates and upgrades the
  * application database.
@@ -51,7 +49,6 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         mContext = context;
         this.FirebaseHelper = FirebaseDatabase.getInstance().getReference("Hoekstra");
     }
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -115,8 +112,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         isSync = sync;
     }
 
-    public List<Animal> carregarAnimaisDb()
-    {
+    public List<Animal> carregarAnimaisDb(){
         Cursor cursor;
         String sortOrder =
                 HerdsmanContract.AnimalEntry.COLUMN_NAME_NUMERO;
@@ -147,7 +143,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         return itemsNomes;
     }
 
-    public ArrayList carregarFuncionariosDb() {
+    public ArrayList carregarFuncionariosDb(){
 
         Cursor cursor;
         String sortOrder = HerdsmanContract.PessoaEntry.COLUMN_NAME_IDPESSOA;
@@ -291,6 +287,61 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         return listaCios;
     }
 
+    public ArrayList carregarCiosAnimal(Animal animal)
+    {
+        SQLiteDatabase mDb = this.getReadableDatabase();
+        Cursor cursor;
+        String selection = HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORBAIXO + "== ?";
+        String[] selectionArgs = {
+                String.valueOf(animal.getId())
+        };
+        cursor = mDb.query(
+                HerdsmanContract.CioEntry.TABLE_NAME,
+                new String[]{HerdsmanContract.CioEntry.COLUMN_NAME_DATA, HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORBAIXO, HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORCIMA,HerdsmanContract.CioEntry.COLUMN_NAME_IDANIMAL_CIO,HerdsmanContract.CioEntry.COLUMN_NAME_USUARIO_IDUSUARIO},
+                selection,
+                selectionArgs,
+                null,
+                null,
+                HerdsmanContract.CioEntry.COLUMN_NAME_DATA + " DESC"
+        );
+        ArrayList lista = new ArrayList<Cio>();
+        while(cursor.moveToNext())
+        {   int idCio = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_IDANIMAL_CIO));
+            int idAnimalPorCima = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORCIMA));
+            int idAnimalPorBaixo = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORBAIXO));
+            int usuario = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_USUARIO_IDUSUARIO));
+            String data = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_DATA));
+            Cio cio = new Cio(idCio,idAnimalPorCima,idAnimalPorBaixo, data,usuario) ;
+            lista.add(cio);
+        }
+        cursor.close();
+        Cursor cursorC;
+        String selectionC = HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORCIMA + "== ?";
+        String[] selectionArgsC = {
+                String.valueOf(animal.getId())
+        };
+        cursorC = mDb.query(
+                HerdsmanContract.CioEntry.TABLE_NAME,
+                new String[]{HerdsmanContract.CioEntry.COLUMN_NAME_DATA, HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORBAIXO, HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORCIMA,HerdsmanContract.CioEntry.COLUMN_NAME_IDANIMAL_CIO,HerdsmanContract.CioEntry.COLUMN_NAME_USUARIO_IDUSUARIO},
+                selectionC,
+                selectionArgsC,
+                null,
+                null,
+                HerdsmanContract.CioEntry.COLUMN_NAME_DATA + " DESC"
+        );
+        while(cursorC.moveToNext())
+        {   int idCio = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_IDANIMAL_CIO));
+            int idAnimalPorCima = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORCIMA));
+            int idAnimalPorBaixo = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORBAIXO));
+            int usuario = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_USUARIO_IDUSUARIO));
+            String data = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_DATA));
+            Cio cio = new Cio(idCio,idAnimalPorCima,idAnimalPorBaixo, data,usuario) ;
+            lista.add(cio);
+        }
+        cursorC.close();
+        mDb.close();
+        return lista;
+    }
     public Usuario carregarAdminDatabase()
     {
         SQLiteDatabase mDb = this.getWritableDatabase();
@@ -402,7 +453,6 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         db.close();
         return list;
     }
-
     public long inserirEnfermidade(Enfermidade enfermidade)
     {
         DatabaseReference databaseEnfermidade = FirebaseHelper.child("Enfermidade");
@@ -571,36 +621,57 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
     }
 
     public long inserirCio(Cio cio) {
+        //TODO Inserir no Firebase CIO FEITO
+        DatabaseReference databaseCio = FirebaseHelper.child("Cio");
         ContentValues values = new ContentValues();
         values.put(HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORCIMA, cio.getIdAnimalPorCima());
         values.put(HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORBAIXO, cio.getIdAnimalPorBaixo());
         values.put(HerdsmanContract.CioEntry.COLUMN_NAME_DATA, cio.getData());
         values.put(HerdsmanContract.CioEntry.COLUMN_NAME_USUARIO_IDUSUARIO, cio.getIdFuncionario());
         SQLiteDatabase mDb = this.getWritableDatabase();
-        long ins =  mDb.insert(
+        if (this.isSync()) {
+            values.put(HerdsmanContract.CioEntry.COLUMN_NAME_IDANIMAL_CIO, cio.getIdCio());
+        }
+        long id =  mDb.insert(
                 HerdsmanContract.CioEntry.TABLE_NAME,
                 null,
                 values
 
         );
+        if(id != -1)
+        {
+            cio.setIdCio((int)id);
+            databaseCio.child(String.valueOf(id)).setValue(cio);
+            databaseCio.keepSynced(true);
+        }
         mDb.close();
-        return ins;
+        return id;
     }
 
     public long inserirSinistro(Sinistro sinistro) {
+        //TODO Inserir no Firebase SINISTRO FEITO
+        DatabaseReference databaseSinistro = FirebaseHelper.child("Sinistro");
         ContentValues values = new ContentValues();
         values.put(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_ANIMAL_IDANIMAL, sinistro.getIdAnimal());
         values.put(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_ENFERMIDADE_IDENFERMIDADE, sinistro.getIdEnfermidade());
         values.put(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_DATA, sinistro.getData());
         values.put(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_USUARIO_IDUSUARIO, sinistro.getIdFuncionario());
         SQLiteDatabase mDb = this.getWritableDatabase();
-        long insert = mDb.insert(
-                HerdsmanContract.AnimalEnfermidadeEntry.TABLE_NAME,
+        if (this.isSync()) {
+            values.put(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_IDANIMAL_ENFERMIDADE, sinistro.getIdSinistro());
+        }
+        long id = mDb.insert(HerdsmanContract.AnimalEnfermidadeEntry.TABLE_NAME,
                 null,
                 values
         );
+        if(id != -1)
+        {
+            sinistro.setIdSinistro((int)id);
+            databaseSinistro.child(String.valueOf(id)).setValue(sinistro);
+            databaseSinistro.keepSynced(true);
+        }
         mDb.close();
-        return insert;
+        return id;
     }
 
     public boolean existeEnfermidade(int idEnfermidade) {

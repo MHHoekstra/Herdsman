@@ -37,7 +37,7 @@ public class TelaAnimalActivity extends AppCompatActivity {
 
         campoNomeAnimal = (TextView) findViewById(R.id.tela_animal_nome_animal);
         campoNumeroAnimal = (TextView) findViewById(R.id.tela_animal_numero_animal);
-        // TODO Implementar tela de cios
+        // TODO Implementar tela de cios FEITO
         buttonCios = (Button) findViewById(R.id.tela_animal_button_cios);
         buttonPartos = (Button) findViewById(R.id.tela_animal_button_partos);
         // TODO Implementar tela de inseminações
@@ -59,6 +59,15 @@ public class TelaAnimalActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TelaAnimalActivity.this, ListaPartosActivity.class);
+                intent.putExtra("Animal", animal);
+                startActivity(intent);
+            }
+        });
+
+        buttonCios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TelaAnimalActivity.this, ListaCiosActivity.class);
                 intent.putExtra("Animal", animal);
                 startActivity(intent);
             }
