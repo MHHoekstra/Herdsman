@@ -1,8 +1,6 @@
 package br.uepg.projeto.herdsman;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -16,7 +14,6 @@ import android.widget.SearchView;
 
 import java.util.ArrayList;
 
-import br.uepg.projeto.herdsman.DAO.HerdsmanContract;
 import br.uepg.projeto.herdsman.DAO.HerdsmanDbHelper;
 
 public class ListaEnfermidadesActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
@@ -56,23 +53,8 @@ public class ListaEnfermidadesActivity extends AppCompatActivity implements Sear
 
     private void listaEnfermidades()
     {
-
-        HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(this);
-        SQLiteDatabase mDb = mDbHelper.getReadableDatabase();
-        Cursor cursor = mDb.query(
-                HerdsmanContract.EnfermidadeEntry.TABLE_NAME,
-                new String[]{HerdsmanContract.EnfermidadeEntry.COLUMN_NAME_DESCRICAO},
-                null,
-                null,
-                null,
-                null,
-                HerdsmanContract.EnfermidadeEntry.COLUMN_NAME_DESCRICAO
-        );
-        ArrayList enfermidades = new ArrayList<String>();
-        while (cursor.moveToNext())
-        {
-            enfermidades.add(cursor.getString(cursor.getColumnIndex(HerdsmanContract.EnfermidadeEntry.COLUMN_NAME_DESCRICAO)));
-        }
+        HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(ListaEnfermidadesActivity.this);
+        ArrayList enfermidades = mDbHelper.carregarEnfermidades();
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, enfermidades);
         listaEnfermidades.setAdapter(adapter);
     }

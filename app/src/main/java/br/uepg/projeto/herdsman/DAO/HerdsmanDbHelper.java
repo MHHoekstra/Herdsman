@@ -367,7 +367,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         db.close();
         return id;
     }
-    public ArrayList carregarTodasEnfermidadesDatabase()
+    public ArrayList carregarTodosSinistros()
     {
         SQLiteDatabase db = this.getWritableDatabase();
         String[] projection =
@@ -628,4 +628,83 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         return ret;
     }
 
+    public ArrayList listarAnimaisAtivos() {
+        SQLiteDatabase mDb = this.getReadableDatabase();
+        Cursor cursor;
+        ArrayList listaAnimais = new ArrayList();
+        String[] projection =
+                {
+                        HerdsmanContract.AnimalEntry.COLUMN_NAME_NUMERO,
+                        HerdsmanContract.AnimalEntry.COLUMN_NAME_IDANIMAL,
+                        HerdsmanContract.AnimalEntry.COLUMN_NAME_NOME
+                };
+        String selection = HerdsmanContract.AnimalEntry.COLUMN_NAME_ATIVO +  " == 1";
+        cursor = mDb.query(
+                HerdsmanContract.AnimalEntry.TABLE_NAME,
+                projection,
+                selection,
+                null,
+                null,
+                null,
+                null
+        );
+        while (cursor.moveToNext())
+        {
+            String numero = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalEntry.COLUMN_NAME_NUMERO));
+            int idAnimal = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalEntry.COLUMN_NAME_IDANIMAL));
+            String nome = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalEntry.COLUMN_NAME_NOME));
+            Animal animal = new Animal(idAnimal, numero, nome);
+            listaAnimais.add(animal);
+        }
+        cursor.close();
+        mDb.close();
+        return listaAnimais;
+    }
+
+    public Telefone carregarTelefoneAdmin()
+    {
+        SQLiteDatabase mDb = this.getReadableDatabase();
+        Cursor cursor = mDb.query(
+                HerdsmanContract.TelefoneEntry.TABLE_NAME,
+                new String[] {HerdsmanContract.TelefoneEntry.COLUMN_NAME_NUMERO},
+                HerdsmanContract.TelefoneEntry.COLUMN_NAME_PESSOA_IDPESSOA + " == ?",
+                new String[] {"1"},
+                null,
+                null,
+                null
+        );
+        String numero = null;
+        while(cursor.moveToNext())
+        {
+            numero = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.TelefoneEntry.COLUMN_NAME_NUMERO));
+        }
+        Telefone telefoneAdmin = new Telefone(1, numero);
+        cursor.close();
+        mDb.close();
+        return telefoneAdmin;
+    }
+
+    public ArrayList carregarEnfermidades() {
+        SQLiteDatabase mDb = this.getReadableDatabase();
+        ArrayList enfermidadeList = new ArrayList();
+        Cursor cursor = mDb.query(
+                HerdsmanContract.EnfermidadeEntry.TABLE_NAME,
+                new String[] {HerdsmanContract.EnfermidadeEntry.COLUMN_NAME_IDENFERMIDADE, HerdsmanContract.EnfermidadeEntry.COLUMN_NAME_DESCRICAO},
+                null,
+                null,
+                null,
+                null,
+                null
+                );
+        while(cursor.moveToNext())
+        {
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.EnfermidadeEntry.COLUMN_NAME_IDENFERMIDADE));
+            String desc = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.EnfermidadeEntry.COLUMN_NAME_DESCRICAO));
+            Enfermidade enfermidade = new Enfermidade(id, desc);
+            enfermidadeList.add(enfermidade);
+        }
+        cursor.close();
+        mDb.close();
+        return enfermidadeList;
+    }
 }

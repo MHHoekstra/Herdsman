@@ -41,54 +41,12 @@ public class NotificarCioActivity extends AppCompatActivity {
         final Spinner animalPorBaixoSpinner = findViewById(R.id.notificar_cio_por_baixo_spinner);
         FloatingActionButton cancelar = findViewById(R.id.notifica_cio_cancelar);
         FloatingActionButton done = findViewById(R.id.notificar_cio_done);
-        List listaAnimais = new ArrayList<Animal>();
-        SQLiteOpenHelper mDbHelper = new HerdsmanDbHelper(NotificarCioActivity.this);
-        SQLiteDatabase mDb = mDbHelper.getReadableDatabase();
-        Cursor cursor;
-        String[] projection =
-        {
-            HerdsmanContract.AnimalEntry.COLUMN_NAME_NUMERO,
-            HerdsmanContract.AnimalEntry.COLUMN_NAME_IDANIMAL,
-            HerdsmanContract.AnimalEntry.COLUMN_NAME_NOME
-        };
-        String selection = HerdsmanContract.AnimalEntry.COLUMN_NAME_ATIVO +  " == 1";
-        cursor = mDb.query(
-                HerdsmanContract.AnimalEntry.TABLE_NAME,
-                projection,
-                selection,
-                null,
-                null,
-                null,
-                null
-        );
-        while (cursor.moveToNext())
-        {
-            String numero = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalEntry.COLUMN_NAME_NUMERO));
-            int idAnimal = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalEntry.COLUMN_NAME_IDANIMAL));
-            String nome = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalEntry.COLUMN_NAME_NOME));
-            Animal animal = new Animal(idAnimal, numero, nome);
-            listaAnimais.add(animal);
-        }
+        HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(NotificarCioActivity.this);
+        ArrayList listaAnimais = mDbHelper.listarAnimaisAtivos();
         ArrayAdapter adapter = new ArrayAdapter(NotificarCioActivity.this, R.layout.support_simple_spinner_dropdown_item, listaAnimais);
         animalPorBaixoSpinner.setAdapter(adapter);
         animalPorCimaSpinner.setAdapter(adapter);
-        cursor = mDb.query(
-                HerdsmanContract.TelefoneEntry.TABLE_NAME,
-                new String[] {HerdsmanContract.TelefoneEntry.COLUMN_NAME_NUMERO},
-                HerdsmanContract.TelefoneEntry.COLUMN_NAME_PESSOA_IDPESSOA + " == ?",
-                new String[] {"1"},
-                null,
-                null,
-                null
-        );
-        String numero = null;
-        while(cursor.moveToNext())
-        {
-            numero = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.TelefoneEntry.COLUMN_NAME_NUMERO));
-        }
-        final Telefone telefoneAdmin = new Telefone(1, numero);
-        cursor.close();
-        mDb.close();
+        final Telefone telefoneAdmin = mDbHelper.carregarTelefoneAdmin();
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,6 +71,7 @@ public class NotificarCioActivity extends AppCompatActivity {
                 String text =  "Herdsman's Companion;\n1;" + String.valueOf(animalPorBaixo.getId()) + ";"+String.valueOf(animalPorCima.getId());
                    smsManager.sendTextMessage(telefoneAdmin.getNumero(), null, text, null, null);
                 Toast.makeText(NotificarCioActivity.this, "SMS enviado para " + telefoneAdmin.getNumero(), Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }
