@@ -3,17 +3,13 @@ package br.uepg.projeto.herdsman;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -23,13 +19,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.telephony.TelephonyManager;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,8 +38,6 @@ import java.util.ArrayList;
 import br.uepg.projeto.herdsman.DAO.HerdsmanContract;
 import br.uepg.projeto.herdsman.DAO.HerdsmanDbHelper;
 import br.uepg.projeto.herdsman.DAO.HerdsmanDbSync;
-import br.uepg.projeto.herdsman.Objetos.Animal;
-import br.uepg.projeto.herdsman.Objetos.Cio;
 import br.uepg.projeto.herdsman.Objetos.Usuario;
 
 public class MainActivity extends AppCompatActivity
@@ -178,20 +170,9 @@ public class MainActivity extends AppCompatActivity
                     if (input.getText().length() == 0) {
                         return;
                     } else {
-                        // TODO Encapsular update do numero do admin
-                        SQLiteOpenHelper mDbHelper = new HerdsmanDbHelper(MainActivity.this);
-                        SQLiteDatabase mDb = mDbHelper.getWritableDatabase();
-                        String[] where = {"1"};
-                        mDb.delete(
-                                HerdsmanContract.TelefoneEntry.TABLE_NAME,
-                                HerdsmanContract.TelefoneEntry.COLUMN_NAME_PESSOA_IDPESSOA + " == ?",
-                                where
-                        );
-                        ContentValues values = new ContentValues();
-                        values.put(HerdsmanContract.TelefoneEntry.COLUMN_NAME_PESSOA_IDPESSOA, "1");
-                        values.put(HerdsmanContract.TelefoneEntry.COLUMN_NAME_NUMERO, input.getText().toString());
-                        mDb.insert(HerdsmanContract.TelefoneEntry.TABLE_NAME, null, values);
-                        mDb.close();
+                        HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(MainActivity.this);
+                        mDbHelper.updateAdminTelefone(input.getText().toString());
+                        Toast.makeText(MainActivity.this, "Número alterado para " + input.getText().toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -368,7 +349,7 @@ public class MainActivity extends AppCompatActivity
     private void listarSinistros()
     {
         HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(this);
-        listaEnfermidades = mDbHelper.carregarTodasEnfermidadesDatabase();
+        listaEnfermidades = mDbHelper.carregarTodosSinistros();
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaEnfermidades);
         lista.setAdapter(adapter);
     }
