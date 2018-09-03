@@ -707,4 +707,19 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         mDb.close();
         return enfermidadeList;
     }
+
+    public void updateAdminTelefone(String s) {
+        SQLiteDatabase mDb = this.getWritableDatabase();
+        String[] where = {"1"};
+        mDb.delete(
+                HerdsmanContract.TelefoneEntry.TABLE_NAME,
+                HerdsmanContract.TelefoneEntry.COLUMN_NAME_PESSOA_IDPESSOA + " == ?",
+                where
+        );
+        ContentValues values = new ContentValues();
+        values.put(HerdsmanContract.TelefoneEntry.COLUMN_NAME_PESSOA_IDPESSOA, "1");
+        values.put(HerdsmanContract.TelefoneEntry.COLUMN_NAME_NUMERO, s);
+        mDb.insert(HerdsmanContract.TelefoneEntry.TABLE_NAME, null, values);
+        mDb.close();
+    }
 }

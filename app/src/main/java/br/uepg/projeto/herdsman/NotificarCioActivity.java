@@ -56,6 +56,7 @@ public class NotificarCioActivity extends AppCompatActivity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // FIXME E se for para o proprio celular?
                 SmsManager smsManager = SmsManager.getDefault();
                 Animal animalPorBaixo = (Animal) animalPorBaixoSpinner.getSelectedItem();
                 Animal animalPorCima = (Animal) animalPorCimaSpinner.getSelectedItem();

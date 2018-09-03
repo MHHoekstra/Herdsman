@@ -119,6 +119,8 @@ public class MainActivity extends AppCompatActivity
     protected void onRestart() {
         super.onRestart();
         FirebaseDatabase.getInstance().getReference("Hoekstra");
+
+        listarCios();
     }
 
     @Override
@@ -172,20 +174,9 @@ public class MainActivity extends AppCompatActivity
                     if (input.getText().length() == 0) {
                         return;
                     } else {
-                        // TODO Encapsular update do numero do admin
-                        SQLiteOpenHelper mDbHelper = new HerdsmanDbHelper(MainActivity.this);
-                        SQLiteDatabase mDb = mDbHelper.getWritableDatabase();
-                        String[] where = {"1"};
-                        mDb.delete(
-                                HerdsmanContract.TelefoneEntry.TABLE_NAME,
-                                HerdsmanContract.TelefoneEntry.COLUMN_NAME_PESSOA_IDPESSOA + " == ?",
-                                where
-                        );
-                        ContentValues values = new ContentValues();
-                        values.put(HerdsmanContract.TelefoneEntry.COLUMN_NAME_PESSOA_IDPESSOA, "1");
-                        values.put(HerdsmanContract.TelefoneEntry.COLUMN_NAME_NUMERO, input.getText().toString());
-                        mDb.insert(HerdsmanContract.TelefoneEntry.TABLE_NAME, null, values);
-                        mDb.close();
+                        HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(MainActivity.this);
+                        mDbHelper.updateAdminTelefone(input.getText().toString());
+                        Toast.makeText(MainActivity.this, "Número alterado para " + input.getText().toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });

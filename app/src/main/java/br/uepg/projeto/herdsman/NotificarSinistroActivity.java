@@ -22,7 +22,6 @@ import br.uepg.projeto.herdsman.Objetos.Enfermidade;
 import br.uepg.projeto.herdsman.Objetos.Telefone;
 
 public class NotificarSinistroActivity extends AppCompatActivity {
-    // TODO Implementar notificar sinistro
     Spinner animalSpinner;
     Spinner enfermidadeSpinner;
     FloatingActionButton cancelar;
