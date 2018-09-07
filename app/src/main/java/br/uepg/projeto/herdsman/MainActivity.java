@@ -2,13 +2,10 @@ package br.uepg.projeto.herdsman;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -35,7 +32,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-import br.uepg.projeto.herdsman.DAO.HerdsmanContract;
 import br.uepg.projeto.herdsman.DAO.HerdsmanDbHelper;
 import br.uepg.projeto.herdsman.DAO.HerdsmanDbSync;
 import br.uepg.projeto.herdsman.Objetos.Usuario;
@@ -341,7 +337,7 @@ public class MainActivity extends AppCompatActivity
     private void listarCios()
     {
         HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(this);
-        listaCios = mDbHelper.carregarTodosCiosDatabase();
+        listaCios = mDbHelper.carregarTodosCios();
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaCios);
         lista.setAdapter(adapter);
     }

@@ -36,7 +36,7 @@ public class NotificarSinistroActivity extends AppCompatActivity {
         animalSpinner = findViewById(R.id.notificar_sinistro_animal_spinner);
         enfermidadeSpinner = findViewById(R.id.notificar_sinistro_enfermidade_spinner);
 
-        ArrayList animais = mDbHelper.listarAnimaisAtivos();
+        ArrayList animais = mDbHelper.carregarAnimaisAtivos();
         final Telefone adminTelefone = mDbHelper.carregarTelefoneAdmin();
         ArrayList enfermidades = mDbHelper.carregarEnfermidades();
         ArrayAdapter<String> animalAdapter = new ArrayAdapter(NotificarSinistroActivity.this, R.layout.support_simple_spinner_dropdown_item, animais);

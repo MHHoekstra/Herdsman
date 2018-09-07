@@ -59,7 +59,7 @@ public final class HerdsmanContract {
         }
 
 
-        public static class AnimalEnfermidadeEntry implements BaseColumns
+        public static class SinistroEntry implements BaseColumns
         {
             public static final String TABLE_NAME = "Animal_Enfermidade";
             public static final String COLUMN_NAME_IDANIMAL_ENFERMIDADE = "idAnimal_Enfermidade";

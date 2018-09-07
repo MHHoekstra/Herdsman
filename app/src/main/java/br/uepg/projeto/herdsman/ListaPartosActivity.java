@@ -52,7 +52,7 @@ public class ListaPartosActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 final Parto parto = (Parto) listaPartos.getItemAtPosition(position);
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ListaPartosActivity.this);
-                alertDialogBuilder.setTitle("Deletar número?");
+                alertDialogBuilder.setTitle("Deletar parto?");
                 alertDialogBuilder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

@@ -1,16 +1,9 @@
 package br.uepg.projeto.herdsman;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Telephony;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -22,14 +15,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import br.uepg.projeto.herdsman.DAO.HerdsmanContract;
 import br.uepg.projeto.herdsman.DAO.HerdsmanDbHelper;
 import br.uepg.projeto.herdsman.Objetos.Animal;
 import br.uepg.projeto.herdsman.Objetos.Telefone;
-
-import static android.Manifest.permission.SEND_SMS;
 
 public class NotificarCioActivity extends AppCompatActivity {
 
@@ -42,7 +31,7 @@ public class NotificarCioActivity extends AppCompatActivity {
         FloatingActionButton cancelar = findViewById(R.id.notifica_cio_cancelar);
         FloatingActionButton done = findViewById(R.id.notificar_cio_done);
         HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(NotificarCioActivity.this);
-        ArrayList listaAnimais = mDbHelper.listarAnimaisAtivos();
+        ArrayList listaAnimais = mDbHelper.carregarAnimaisAtivos();
         ArrayAdapter adapter = new ArrayAdapter(NotificarCioActivity.this, R.layout.support_simple_spinner_dropdown_item, listaAnimais);
         animalPorBaixoSpinner.setAdapter(adapter);
         animalPorCimaSpinner.setAdapter(adapter);

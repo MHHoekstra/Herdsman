@@ -68,4 +68,33 @@ public class Sinistro {
     public void setData(String data) {
         this.data = data;
     }
+
+    public Animal getAnimal() {
+        return animal;
+    }
+
+    public void setAnimal(Animal animal) {
+        this.animal = animal;
+    }
+
+    public Enfermidade getEnfermidade() {
+        return enfermidade;
+    }
+
+    public void setEnfermidade(Enfermidade enfermidade) {
+        this.enfermidade = enfermidade;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
+    @Override
+    public String toString() {
+        return "Número: " + this.animal.getNumero() + "\n" + enfermidade.getDescricao() + "\n" +data;
+    }
 }

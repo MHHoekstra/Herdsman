@@ -9,7 +9,7 @@ public class Parto {
     {
 
     }
-    public Parto(int animal_idAnimal, int cria, String data, String s) {
+    public Parto(int animal_idAnimal, int cria, String data) {
         Animal_idAnimal = animal_idAnimal;
         this.cria = cria;
         this.data = data;

@@ -2,7 +2,6 @@ package br.uepg.projeto.herdsman;
 
 import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -129,7 +127,7 @@ public class TelaFuncionarioActivity extends AppCompatActivity {
     {
 
         HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(TelaFuncionarioActivity.this);
-        ArrayList telefoneItemList = mDbHelper.listarTelefonesPessoa(pessoa);
+        ArrayList telefoneItemList = mDbHelper.carregarTelefonesPessoa(pessoa);
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, telefoneItemList);
         listaTelefones.setAdapter(adapter);
     }
