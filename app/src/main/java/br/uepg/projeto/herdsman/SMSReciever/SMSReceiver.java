@@ -125,8 +125,12 @@ public class SMSReceiver extends BroadcastReceiver {
                     Calendar c = Calendar.getInstance();
                     int animalPorBaixo = Integer.parseInt(tokens[2]);
                     int animalPorCima = Integer.parseInt(tokens[3]);
-                    String data = String.valueOf(c.get(Calendar.YEAR))+"-"+String.valueOf(c.get(Calendar.MONTH))+"-"+String.valueOf(c.get(Calendar.DAY_OF_MONTH));
-                    if (!mDbHelper.existeAnimal(animalPorCima))
+                    String dia_formatado = String.valueOf(c.get(Calendar.DAY_OF_MONTH));
+                    if (dia_formatado.length()  == 1)
+                    {
+                        dia_formatado = '0' + String.valueOf(c.get(Calendar.DAY_OF_MONTH));
+                    }
+                    String data = String.valueOf(c.get(Calendar.YEAR))+"-"+String.valueOf(c.get(Calendar.MONTH))+"-"+dia_formatado;                    if (!mDbHelper.existeAnimal(animalPorCima))
                     {
                         Log.d("SMSReceiver", "Animal por cima inválido");
                         return;
@@ -163,7 +167,13 @@ public class SMSReceiver extends BroadcastReceiver {
                         Log.d("SMSReceiver", "Enfermidade inválida");
                         return;
                     }
-                    String data = String.valueOf(c.get(Calendar.YEAR))+"-"+String.valueOf(c.get(Calendar.MONTH))+"-"+String.valueOf(c.get(Calendar.DAY_OF_MONTH));
+
+                    String dia_formatado = String.valueOf(c.get(Calendar.DAY_OF_MONTH));
+                    if (dia_formatado.length()  == 1)
+                    {
+                        dia_formatado = '0' + String.valueOf(c.get(Calendar.DAY_OF_MONTH));
+                    }
+                    String data = String.valueOf(c.get(Calendar.YEAR))+"-"+String.valueOf(c.get(Calendar.MONTH))+"-"+dia_formatado;
                     Sinistro sinistro = new Sinistro(idAnimal, idEnfermidade, senderTelefone.getPessoa_idPessoa(), data);
                     long insert = mDbHelper.inserirSinistro(sinistro);
                     if(insert > 0) {

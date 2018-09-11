@@ -40,8 +40,16 @@ public class TelaAnimalActivity extends AppCompatActivity {
         // TODO Implementar tela de cios FEITO
         buttonCios = (Button) findViewById(R.id.tela_animal_button_cios);
         buttonPartos = (Button) findViewById(R.id.tela_animal_button_partos);
-        // TODO Implementar tela de inseminações
+
         buttonInseminacoes = (Button) findViewById(R.id.tela_animal_button_inseminacoes);
+        buttonInseminacoes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TelaAnimalActivity.this, TelaAnimalInseminacoesActivity.class);
+                intent.putExtra("Animal", animal);
+                startActivity(intent);
+            }
+        });
         // TODO Implementar tela de remedios
         buttonRemedios = (Button) findViewById(R.id.tela_animal_button_remedios);
         // TODO Implementar tela de sinistros
@@ -51,7 +59,6 @@ public class TelaAnimalActivity extends AppCompatActivity {
         campoUltimoParto = (TextView) findViewById(R.id.tela_animal_parto_data);
         campoNomeAnimal.setText(animal.getNome());
         campoNumeroAnimal.setText(animal.getNumero());
-        // FIXME Carregar corretamente "Ativo e inativo"
         carregarDados(animal, campoUltimoCio, campoUltimoParto, campoUltimaInseminacao);
 
 

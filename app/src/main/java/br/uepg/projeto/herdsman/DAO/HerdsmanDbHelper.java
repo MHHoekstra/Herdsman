@@ -22,6 +22,7 @@ import br.uepg.projeto.herdsman.Objetos.Animal;
 import br.uepg.projeto.herdsman.Objetos.AnimalEnfermidade;
 import br.uepg.projeto.herdsman.Objetos.Cio;
 import br.uepg.projeto.herdsman.Objetos.Enfermidade;
+import br.uepg.projeto.herdsman.Objetos.Inseminacao;
 import br.uepg.projeto.herdsman.Objetos.Parto;
 import br.uepg.projeto.herdsman.Objetos.Pessoa;
 import br.uepg.projeto.herdsman.Objetos.Remedio;
@@ -889,4 +890,37 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    public ArrayList carregarInseminacoesAnimal(Animal animal) {
+        SQLiteDatabase mDb = this.getReadableDatabase();
+        Cursor cursor = mDb.query(
+                HerdsmanContract.AnimalInseminacaoEntry.TABLE_NAME,
+                new String[] {HerdsmanContract.AnimalInseminacaoEntry.COLUMN_NAME_ANIMAL_IDANIMAL, HerdsmanContract.AnimalInseminacaoEntry.COLUMN_NAME_DATA, HerdsmanContract.AnimalInseminacaoEntry.COLUMN_NAME_IDANIMAL_INSEMINACAO},
+                HerdsmanContract.AnimalInseminacaoEntry.COLUMN_NAME_ANIMAL_IDANIMAL + " == ?",
+                new String[] {String.valueOf(animal.getId())},
+                null,
+                null,
+                HerdsmanContract.AnimalInseminacaoEntry.COLUMN_NAME_DATA + " DESC"
+        );
+        ArrayList lista = new ArrayList();
+        while(cursor.moveToNext())
+        {
+            int idInseminacao = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalInseminacaoEntry.COLUMN_NAME_IDANIMAL_INSEMINACAO));
+            int idAnimal = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalInseminacaoEntry.COLUMN_NAME_ANIMAL_IDANIMAL));
+            String data = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalInseminacaoEntry.COLUMN_NAME_DATA));
+            Inseminacao inseminacao = new Inseminacao(idInseminacao, idAnimal, data);
+            lista.add(inseminacao);
+        }
+        cursor.close();
+        mDb.close();
+        return lista;
+    }
+
+    public long inserirInseminacao(Inseminacao inseminacao) {
+        SQLiteDatabase mDb = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(HerdsmanContract.AnimalInseminacaoEntry.COLUMN_NAME_ANIMAL_IDANIMAL, inseminacao.getIdAnimal());
+        values.put(HerdsmanContract.AnimalInseminacaoEntry.COLUMN_NAME_DATA, inseminacao.getData());
+        long ins = mDb.insert(HerdsmanContract.AnimalInseminacaoEntry.TABLE_NAME, null, values);
+        return ins;
+    }
 }

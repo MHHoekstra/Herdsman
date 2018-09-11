@@ -100,8 +100,12 @@ public class CadastroPartoActivity extends AppCompatActivity implements DatePick
                         break;
                     }
                 }
-
-                parto = new Parto(animal.getId(), tipoCria,ano + "-" + mes + "-" + dia);
+                String dia_formatado = String.valueOf(dia);
+                if (dia_formatado.length()  == 1)
+                {
+                    dia_formatado = '0' + String.valueOf(dia);
+                }
+                parto = new Parto(animal.getId(), tipoCria,ano + "-" + mes + "-" + String.valueOf(dia_formatado));
                 HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(CadastroPartoActivity.this);
                 long insert = mDbHelper.inserirParto(parto);
                 if (insert > 0) {
