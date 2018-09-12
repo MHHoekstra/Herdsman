@@ -41,6 +41,7 @@ public class ListaRemediosActivity extends AppCompatActivity implements SearchVi
         });
         setupSearchView();
         listarRemedios();
+        //TODO Poder alterar uma entrada de remedio
     }
 
     private void setupSearchView() {
@@ -58,26 +59,10 @@ public class ListaRemediosActivity extends AppCompatActivity implements SearchVi
 
     private void listarRemedios()
     {
-        HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(this);
-        SQLiteDatabase mDb = mDbHelper.getReadableDatabase();
-        Cursor cursor;
-        cursor = mDb.query(
-                TABLE_NAME,
-                new String[]{HerdsmanContract.RemedioEntry.COLUMN_NAME_NOME},
-                null,
-                null,
-                null,
-                null,
-                HerdsmanContract.RemedioEntry.COLUMN_NAME_NOME
-        );
-        ArrayList<String> lista = new ArrayList<>();
-        while (cursor.moveToNext())
-        {
-            lista.add(cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.RemedioEntry.COLUMN_NAME_NOME)));
-        }
+        HerdsmanDbHelper herdsmanDbHelper = new HerdsmanDbHelper(this);
+        ArrayList lista = herdsmanDbHelper.carregarTodosRemedios();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lista);
         listaRemedios.setAdapter(adapter);
-        mDb.close();
     }
 
     @Override

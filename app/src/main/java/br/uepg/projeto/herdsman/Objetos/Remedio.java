@@ -2,7 +2,7 @@ package br.uepg.projeto.herdsman.Objetos;
 
 public class Remedio {
     private int idRemedio;
-    private String descricao;
+    private String nome;
 
     public int getIdRemedio() {
         return idRemedio;
@@ -12,16 +12,26 @@ public class Remedio {
         this.idRemedio = idRemedio;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getNome() {
+        return nome;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public Remedio(String s) {
-        descricao = s;
+        nome = s;
 
+    }
+
+    public Remedio(int idRemedio, String nome) {
+        this.idRemedio = idRemedio;
+        this.nome = nome;
+    }
+
+    @Override
+    public String toString() {
+        return nome;
     }
 }

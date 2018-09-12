@@ -45,6 +45,8 @@
         <activity android:name=".NotificarSinistroActivity" />
         <activity android:name=".TelaFuncionarioActivity" />
         <activity android:name=".TelaAnimalInseminacoesActivity" />
+        <activity android:name=".TelaAnimalRemediosActivity" />
+        <activity android:name=".TelaAnimalCadastroAnimalRemedio" />
 
         <receiver
             android:name=".SMSReciever.SMSReceiver"

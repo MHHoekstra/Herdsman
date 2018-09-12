@@ -69,6 +69,13 @@ public final class HerdsmanContract {
             public static final String COLUMN_NAME_DATA = "data";
         }
 
+        public static class MedidaEntry implements BaseColumns
+        {
+            public static final String TABLE_NAME = "Medida";
+            public static final String COLUMN_NAME_IDMEDIDA = "idMedida";
+            public static final String COLUMN_NAME_NOME = "nome";
+        }
+
         public static class CioEntry implements BaseColumns
         {
             public static final String TABLE_NAME = "Cio";
@@ -95,6 +102,8 @@ public final class HerdsmanContract {
             public static final String COLUMN_NAME_REMEDIO_IDREMEDIO = "Remedio_idRemedio";
             public static final String COLUMN_NAME_DATA = "data";
             public static final String COLUMN_NAME_QUANTIDADE = "quantidade";
+            public static final String COLUMN_NAME_MEDIDA_IDMEDIDA = "Medida_idMedida";
+
 
         }
 

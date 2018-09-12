@@ -35,7 +35,7 @@ public class CadastroRemedioActivity extends AppCompatActivity {
                 }
                 HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(CadastroRemedioActivity.this);
                 Remedio remedio = new Remedio(descricao.getText().toString());
-
+                mDbHelper.inserirRemedio(remedio);
                 Toast.makeText(CadastroRemedioActivity.this, "Remédio cadastrado", Toast.LENGTH_SHORT).show();
                 finish();
             }
