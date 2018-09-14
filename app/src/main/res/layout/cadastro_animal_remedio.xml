@@ -1,90 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
 
-    <TextView
-        android:id="@+id/cadastro_animal_remedio_titulo"
+    <include
+        layout="@layout/app_bar_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/cadastro_animal_remedio_titulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="60dp"
+            android:text="Remédio administrado"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.52"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/cadastro_animal_remedio_remedio_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cadastro_animal_remedio_titulo" />
+
+        <EditText
+            android:id="@+id/cadastro_animal_remedio_quantidade"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="Quantidade"
+            android:inputType="number"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cadastro_animal_remedio_remedio_spinner" />
+
+        <Spinner
+            android:id="@+id/cadastro_animal_remedio_medida_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="26dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cadastro_animal_remedio_quantidade"
+            app:layout_constraintTop_toBottomOf="@+id/cadastro_animal_remedio_remedio_spinner" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/cadastro_animal_remedio_done"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginBottom="50dp"
+            android:layout_marginEnd="65dp"
+            android:layout_marginRight="65dp"
+            android:clickable="true"
+            app:backgroundTint="?android:attr/colorActivatedHighlight"
+            app:elevation="3dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_done_white_24dp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/cadastro_animal_remedio_cancelar"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginBottom="50dp"
+            android:layout_marginLeft="65dp"
+            android:layout_marginStart="65dp"
+            android:clickable="true"
+            app:backgroundTint="?android:attr/colorActivatedHighlight"
+            app:elevation="3dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_clear_white_24dp" />
+
+        <Button
+            android:id="@+id/cadastro_animal_remedio_data"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:background="?android:attr/colorBackground"
+            android:text="Data: "
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cadastro_animal_remedio_quantidade" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Remédio administrado"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_main_drawer" />
 
-    <Spinner
-        android:id="@+id/cadastro_animal_remedio_remedio_spinner"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cadastro_animal_remedio_titulo" />
-
-    <EditText
-        android:id="@+id/cadastro_animal_remedio_quantidade"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="Quantidade"
-        android:inputType="number"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cadastro_animal_remedio_remedio_spinner" />
-
-    <Spinner
-        android:id="@+id/cadastro_animal_remedio_medida_spinner"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="26dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cadastro_animal_remedio_quantidade"
-        app:layout_constraintTop_toBottomOf="@+id/cadastro_animal_remedio_remedio_spinner" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/cadastro_animal_remedio_done"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:layout_marginBottom="50dp"
-        android:layout_marginEnd="65dp"
-        android:layout_marginRight="65dp"
-        android:clickable="true"
-        app:backgroundTint="?android:attr/colorActivatedHighlight"
-        app:elevation="3dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_done_white_24dp" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/cadastro_animal_remedio_cancelar"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:layout_marginBottom="50dp"
-        android:layout_marginLeft="65dp"
-        android:layout_marginStart="65dp"
-        android:clickable="true"
-        app:backgroundTint="?android:attr/colorActivatedHighlight"
-        app:elevation="3dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_clear_white_24dp" />
-</android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.DrawerLayout>

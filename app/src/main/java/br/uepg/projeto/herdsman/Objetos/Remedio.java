@@ -4,6 +4,9 @@ public class Remedio {
     private int idRemedio;
     private String nome;
 
+    public Remedio() {
+    }
+
     public int getIdRemedio() {
         return idRemedio;
     }
