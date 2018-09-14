@@ -40,7 +40,7 @@ import static br.uepg.projeto.herdsman.DAO.HerdsmanContract.RemedioEntry.TABLE_N
  */
 public class HerdsmanDbHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "mydb.db";
-    private static final int DB_VERSION = 19;
+    private static final int DB_VERSION = 20;
     private static final String TAG = "DatabaseHelper";
     private DatabaseReference FirebaseHelper;
     private Context mContext;
@@ -331,15 +331,15 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         Usuario adminUsuario = null;
         String[] projection =
                 {
-                        HerdsmanContract.UsuarioEntry.COLUMN_NAME_IDUSUARIO,
-                        HerdsmanContract.UsuarioEntry.COLUMN_NAME_LOGIN,
-                        HerdsmanContract.UsuarioEntry.COLUMN_NAME_SENHA,
-                        HerdsmanContract.UsuarioEntry.COLUMN_NAME_PESSOA_IDPESSOA,
-                        HerdsmanContract.UsuarioEntry.COLUMN_NAME_ADMIN
+                        HerdsmanContract.AdministradorEntry.COLUMN_NAME_IDADMINISTRADOR,
+                        HerdsmanContract.AdministradorEntry.COLUMN_NAME_LOGIN,
+                        HerdsmanContract.AdministradorEntry.COLUMN_NAME_SENHA,
+                        HerdsmanContract.AdministradorEntry.COLUMN_NAME_PESSOA_IDPESSOA,
+                        HerdsmanContract.AdministradorEntry.COLUMN_NAME_ADMIN
                 };
-        String selection = HerdsmanContract.UsuarioEntry.COLUMN_NAME_ADMIN + "== 1";
+        String selection = HerdsmanContract.AdministradorEntry.COLUMN_NAME_ADMIN + "== 1";
         cursor = mDb.query(
-                HerdsmanContract.UsuarioEntry.TABLE_NAME,
+                HerdsmanContract.AdministradorEntry.TABLE_NAME,
                 projection,
                 selection,
                 null,
@@ -349,11 +349,11 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         );
         while(cursor.moveToNext())
         {
-            String login = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.UsuarioEntry.COLUMN_NAME_LOGIN));
-            String senha = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.UsuarioEntry.COLUMN_NAME_SENHA));
-            int idPessoa = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.UsuarioEntry.COLUMN_NAME_PESSOA_IDPESSOA));
-            int admin = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.UsuarioEntry.COLUMN_NAME_ADMIN));
-            int idUsuario = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.UsuarioEntry.COLUMN_NAME_IDUSUARIO));
+            String login = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.AdministradorEntry.COLUMN_NAME_LOGIN));
+            String senha = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.AdministradorEntry.COLUMN_NAME_SENHA));
+            int idPessoa = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.AdministradorEntry.COLUMN_NAME_PESSOA_IDPESSOA));
+            int admin = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.AdministradorEntry.COLUMN_NAME_ADMIN));
+            int idUsuario = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.AdministradorEntry.COLUMN_NAME_IDADMINISTRADOR));
             adminUsuario = new Usuario(admin, login, senha, idPessoa, idUsuario);
         }
         cursor.close();

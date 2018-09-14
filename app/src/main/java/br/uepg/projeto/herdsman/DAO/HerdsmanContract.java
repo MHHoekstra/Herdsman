@@ -33,10 +33,10 @@ public final class HerdsmanContract {
             public static final String COLUMN_NAME_PESSOA_IDPESSOA = "Pessoa_idPessoa";
         }
 
-        public static class UsuarioEntry implements BaseColumns
+        public static class AdministradorEntry implements BaseColumns
         {
-            public static final String TABLE_NAME = "Usuario";
-            public static final String COLUMN_NAME_IDUSUARIO = "idUsuario";
+            public static final String TABLE_NAME = "Administrador";
+            public static final String COLUMN_NAME_IDADMINISTRADOR = "idAdministrador";
             public static final String COLUMN_NAME_PESSOA_IDPESSOA = "Pessoa_idPessoa";
             public static final String COLUMN_NAME_LOGIN = "login";
             public static final String COLUMN_NAME_SENHA = "senha";
@@ -118,11 +118,11 @@ public final class HerdsmanContract {
         }
 
 
-        public static class UsuarioNotificaUsuarioEntry implements BaseColumns
+        public static class AdministradorNotificaPessoaEntry implements BaseColumns
         {
-            public static final String TABLE_NAME = "Admin_Notifica_Usuario";
-            public static final String COLUMN_NAME_IDADMIN_NOTIFICA_USUARIO = "idAdmin_Notifica_Usuario";
-            public static final String COLUMN_NAME_USUARIO_IDNOTIFICA = "Usuario_idNotifica";
+            public static final String TABLE_NAME = "Administrador_Notifica_Pessoa";
+            public static final String COLUMN_NAME_IDADMINISTRADOR_NOTIFICA_PESSOA = "idAdministrador_Notifica_Pessoa";
+            public static final String COLUMN_NAME_ADMINISTRADOR_IDNOTIFICA = "Administrador_idNotifica";
             public static final String COLUMN_NAME_PESSOA_IDNOTIFICADO = "Pessoa_idNotificado";
             public static final String COLUMN_NAME_DATA = "data";
             public static final String COLUMN_NAME_DESCRICAO = "descricao";
