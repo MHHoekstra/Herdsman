@@ -88,7 +88,6 @@ public class TelaAnimalActivity extends AppCompatActivity implements NavigationV
             }
         });
 
-        // TODO Implementar tela de sinistros
         buttonSinistros = (Button) findViewById(R.id.tela_animal_button_sinistros);
 
 
@@ -136,7 +135,6 @@ public class TelaAnimalActivity extends AppCompatActivity implements NavigationV
         Cursor cursor;
         String dataUltimoCio;
         String dataUltimoParto;
-        //FIXME Carregar Ultima inseminação
         String dataUltimaInseminacao;
         String order = "data DESC";
         String [] selectionArgs = {String.valueOf(animal.getId()), String.valueOf(animal.getId())};
@@ -190,10 +188,11 @@ public class TelaAnimalActivity extends AppCompatActivity implements NavigationV
         );
         if (cursor.moveToNext())
         {
-            String ultimaInseminação = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalInseminacaoEntry.COLUMN_NAME_DATA));
-            campoUltimaInseminacao.setText(ultimaInseminação);
+            dataUltimaInseminacao = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalInseminacaoEntry.COLUMN_NAME_DATA));
+            campoUltimaInseminacao.setText(dataUltimaInseminacao);
         }
         cursor.close();
+
         mDb.close();
     }
 

@@ -1148,4 +1148,30 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         mDb.close();
         return arrayList;
     }
+
+    public long inserirTelefone(Telefone telefone) {
+        //TODO Firebase
+        SQLiteDatabase mDb = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(HerdsmanContract.TelefoneEntry.COLUMN_NAME_PESSOA_IDPESSOA, telefone.getPessoa_idPessoa());
+        values.put(HerdsmanContract.TelefoneEntry.COLUMN_NAME_NUMERO, telefone.getNumero());
+        long insert = mDb.insert(HerdsmanContract.TelefoneEntry.TABLE_NAME,null,values);
+        mDb.close();
+        return insert;
+    }
+
+    public int removerTelefone(Telefone telefone) {
+        SQLiteDatabase mDb = this.getWritableDatabase();
+        String where = HerdsmanContract.TelefoneEntry.COLUMN_NAME_IDTELEFONE + "== ?";
+        String[] whereArgs =
+                {
+                        String.valueOf(telefone.getIdTelefone())
+                };
+        int delete = mDb.delete(
+                HerdsmanContract.TelefoneEntry.TABLE_NAME,
+                where,
+                whereArgs);
+        mDb.close();
+        return delete;
+    }
 }

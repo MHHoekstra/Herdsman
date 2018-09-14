@@ -23,10 +23,12 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import br.uepg.projeto.herdsman.DAO.HerdsmanDbHelper;
 import br.uepg.projeto.herdsman.Objetos.Animal;
 import br.uepg.projeto.herdsman.Objetos.Enfermidade;
+import br.uepg.projeto.herdsman.Objetos.Sinistro;
 import br.uepg.projeto.herdsman.Objetos.Telefone;
 
 public class NotificarSinistroActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -80,23 +82,54 @@ public class NotificarSinistroActivity extends AppCompatActivity implements Navi
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //FIXME E se for o proprio admin?
-                SmsManager smsManager = SmsManager.getDefault();
-                Enfermidade enfermidade = (Enfermidade) enfermidadeSpinner.getSelectedItem();
-                Animal animal = (Animal) animalSpinner.getSelectedItem();
-                int SMS_PERMISSION_CODE = 0;
-                if (ContextCompat.checkSelfPermission(NotificarSinistroActivity.this, android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(NotificarSinistroActivity.this, android.Manifest.permission.SEND_SMS)) {
-
-                    } else {
-                        ActivityCompat.requestPermissions(NotificarSinistroActivity.this, new String[]{Manifest.permission.SEND_SMS}, SMS_PERMISSION_CODE);
+                adm = pref.getBoolean("isAdmin", false);
+                if(adm)
+                {
+                    Enfermidade enfermidade = (Enfermidade) enfermidadeSpinner.getSelectedItem();
+                    Animal animal = (Animal) animalSpinner.getSelectedItem();
+                    Calendar c = Calendar.getInstance();
+                    int dia = c.get(Calendar.DAY_OF_MONTH);
+                    int mes = c.get(Calendar.MONTH);
+                    int ano = c.get(Calendar.YEAR);
+                    String diaFormatado = String.valueOf(dia);
+                    if(diaFormatado.length() == 1)
+                    {
+                        diaFormatado = '0' + diaFormatado;
                     }
 
+                    String data = String.valueOf(ano) + '-' + String.valueOf(mes) + '-' + diaFormatado;
+                    Sinistro sinistro = new Sinistro(animal.getId(), enfermidade.getId(), 1, data);
+                    HerdsmanDbHelper herdsmanDbHelper = new HerdsmanDbHelper(NotificarSinistroActivity.this);
+                    long ins = herdsmanDbHelper.inserirSinistro(sinistro);
+                    if(ins > 0 )
+                    {
+                        Toast.makeText(NotificarSinistroActivity.this, "Sinistro registrado", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                    else
+                    {
+                        Toast.makeText(NotificarSinistroActivity.this, "Erro ao registrar", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
-                String text =  "Herdsman's Companion;\n2;" + String.valueOf(enfermidade.getId()) + ";"+String.valueOf(animal.getId());
-                smsManager.sendTextMessage(adminTelefone.getNumero(), null, text, null, null);
-                Toast.makeText(NotificarSinistroActivity.this, "SMS enviado para " + adminTelefone.getNumero(), Toast.LENGTH_SHORT).show();
-                finish();
+                else {
+                    SmsManager smsManager = SmsManager.getDefault();
+                    Enfermidade enfermidade = (Enfermidade) enfermidadeSpinner.getSelectedItem();
+                    Animal animal = (Animal) animalSpinner.getSelectedItem();
+                    int SMS_PERMISSION_CODE = 0;
+                    if (ContextCompat.checkSelfPermission(NotificarSinistroActivity.this, android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+                        if (ActivityCompat.shouldShowRequestPermissionRationale(NotificarSinistroActivity.this, android.Manifest.permission.SEND_SMS)) {
+
+                        } else {
+                            ActivityCompat.requestPermissions(NotificarSinistroActivity.this, new String[]{Manifest.permission.SEND_SMS}, SMS_PERMISSION_CODE);
+                        }
+
+                    }
+                    String text = "Herdsman's Companion;\n2;" + String.valueOf(enfermidade.getId()) + ";" + String.valueOf(animal.getId());
+                    smsManager.sendTextMessage(adminTelefone.getNumero(), null, text, null, null);
+                    Toast.makeText(NotificarSinistroActivity.this, "SMS enviado para " + adminTelefone.getNumero(), Toast.LENGTH_SHORT).show();
+                    finish();
+                }
             }
         });
 

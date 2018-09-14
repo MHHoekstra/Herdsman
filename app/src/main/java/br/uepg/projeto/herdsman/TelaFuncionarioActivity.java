@@ -70,7 +70,6 @@ public class TelaFuncionarioActivity extends AppCompatActivity implements Naviga
         cpfText.setText(pessoa.getCpf());
         rgText.setText(pessoa.getRg());
         Button addTelefone = findViewById(R.id.tela_funcionario_add_telefone);
-        // TODO Implementar tela de notificações geradas pelo funcionario
         Button notificacoesGeradas = findViewById(R.id.tela_funcionario_notificacoes);
         notificacoesGeradas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,14 +101,17 @@ public class TelaFuncionarioActivity extends AppCompatActivity implements Naviga
                         }
                         else
                         {
-                            // FIXME: 14/08/18 Encapsular inserção de telefone
-                            SQLiteOpenHelper mDbHelper = new HerdsmanDbHelper(TelaFuncionarioActivity.this);
-                            SQLiteDatabase mDb = mDbHelper.getWritableDatabase();
-                            ContentValues values = new ContentValues();
-                            values.put(HerdsmanContract.TelefoneEntry.COLUMN_NAME_PESSOA_IDPESSOA, pessoa.getIdPessoa());
-                            values.put(HerdsmanContract.TelefoneEntry.COLUMN_NAME_NUMERO, input.getText().toString());
-                            mDb.insert(HerdsmanContract.TelefoneEntry.TABLE_NAME,null,values);
-                            mDb.close();
+                            HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(TelaFuncionarioActivity.this);
+                            Telefone telefone = new Telefone(pessoa.getIdPessoa(), input.getText().toString());
+                            long insert = mDbHelper.inserirTelefone(telefone);
+                            if(insert > 0)
+                            {
+                                Toast.makeText(TelaFuncionarioActivity.this, "Telefone cadastrado", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            {
+                                Toast.makeText(TelaFuncionarioActivity.this, "Erro ao cadastrar", Toast.LENGTH_SHORT).show();
+                            }
                             listarTelefones();
                         }
                     }
@@ -127,19 +129,12 @@ public class TelaFuncionarioActivity extends AppCompatActivity implements Naviga
                 alertDialogBuilder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        SQLiteOpenHelper mDbHelper = new HerdsmanDbHelper(TelaFuncionarioActivity.this);
-                        // FIXME: Encapsular remoção de telefone
-                        SQLiteDatabase mDb = mDbHelper.getWritableDatabase();
-                        String where = HerdsmanContract.TelefoneEntry.COLUMN_NAME_IDTELEFONE + "== ?";
-                        String[] whereArgs =
-                                {
-                                        String.valueOf(telefone.getIdTelefone())
-                                };
-                        mDb.delete(
-                                HerdsmanContract.TelefoneEntry.TABLE_NAME,
-                                where,
-                                whereArgs);
-                        mDb.close();
+                        HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(TelaFuncionarioActivity.this);
+                        int delete = mDbHelper.removerTelefone(telefone);
+                        if(delete == 0)
+                        {
+                            Toast.makeText(TelaFuncionarioActivity.this, "Erro ao deletar", Toast.LENGTH_SHORT).show();
+                        }
                         listarTelefones();
                     }
 

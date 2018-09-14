@@ -140,8 +140,6 @@ public class TelaAnimalCadastroAnimalRemedio extends AppCompatActivity implement
             }
         });
 
-        //TODO Terminar Inserção
-
     }
 
 
