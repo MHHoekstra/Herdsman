@@ -136,6 +136,7 @@ public class TelaAnimalActivity extends AppCompatActivity implements NavigationV
         Cursor cursor;
         String dataUltimoCio;
         String dataUltimoParto;
+        //FIXME Carregar Ultima inseminação
         String dataUltimaInseminacao;
         String order = "data DESC";
         String [] selectionArgs = {String.valueOf(animal.getId()), String.valueOf(animal.getId())};
