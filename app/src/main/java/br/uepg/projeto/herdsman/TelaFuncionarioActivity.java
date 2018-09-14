@@ -72,6 +72,14 @@ public class TelaFuncionarioActivity extends AppCompatActivity implements Naviga
         Button addTelefone = findViewById(R.id.tela_funcionario_add_telefone);
         // TODO Implementar tela de notificações geradas pelo funcionario
         Button notificacoesGeradas = findViewById(R.id.tela_funcionario_notificacoes);
+        notificacoesGeradas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TelaFuncionarioActivity.this, TelaFuncionarioNotificacoesActivity.class);
+                intent.putExtra("Funcionario", pessoa);
+                startActivity(intent);
+            }
+        });
         addTelefone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

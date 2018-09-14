@@ -63,7 +63,7 @@ public final class HerdsmanContract {
             public static final String TABLE_NAME = "Animal_Enfermidade";
             public static final String COLUMN_NAME_IDANIMAL_ENFERMIDADE = "idAnimal_Enfermidade";
             public static final String COLUMN_NAME_ANIMAL_IDANIMAL = "Animal_idAnimal";
-            public static final String COLUMN_NAME_USUARIO_IDUSUARIO = "Usuario_idUsuario";
+            public static final String COLUMN_NAME_PESSOA_IDOPESSOA = "Pessoa_idPessoa";
             public static final String COLUMN_NAME_ENFERMIDADE_IDENFERMIDADE = "Enfermidade_idEnfermidade";
             public static final String COLUMN_NAME_DATA = "data";
         }
@@ -81,7 +81,7 @@ public final class HerdsmanContract {
             public static final String COLUMN_NAME_IDANIMAL_CIO = "idAnimal_Cio";
             public static final String COLUMN_NAME_ANIMAL_IDANIMALPORCIMA = "Animal_idAnimalPorCima";
             public static final String COLUMN_NAME_ANIMAL_IDANIMALPORBAIXO = "Animal_idAnimalPorBaixo";
-            public static final String COLUMN_NAME_USUARIO_IDUSUARIO = "Usuario_idUsuario";
+            public static final String COLUMN_NAME_PESSOA_IDPESSOA = "Pessoa_idPessoa";
             public static final String COLUMN_NAME_DATA = "data";
         }
 
@@ -123,7 +123,7 @@ public final class HerdsmanContract {
             public static final String TABLE_NAME = "Admin_Notifica_Usuario";
             public static final String COLUMN_NAME_IDADMIN_NOTIFICA_USUARIO = "idAdmin_Notifica_Usuario";
             public static final String COLUMN_NAME_USUARIO_IDNOTIFICA = "Usuario_idNotifica";
-            public static final String COLUMN_NAME_USUARIO_IDNOTIFICADO = "Usuario_idNotificado";
+            public static final String COLUMN_NAME_PESSOA_IDNOTIFICADO = "Pessoa_idNotificado";
             public static final String COLUMN_NAME_DATA = "data";
             public static final String COLUMN_NAME_DESCRICAO = "descricao";
         }

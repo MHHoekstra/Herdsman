@@ -68,6 +68,8 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".TelaAnimalSinistrosActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".TelaFuncionarioNotificacoesActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <receiver
             android:name=".SMSReciever.SMSReceiver"
