@@ -55,7 +55,6 @@ public final class HerdsmanContract {
             public static final String TABLE_NAME = "Remedio";
             public static final String COLUMN_NAME_IDREMEDIO = "idRemedio";
             public static final String COLUMN_NAME_NOME = "nome";
-            public static final String COLUMN_NAME_DESCRICAO = "descricao";
         }
 
 
@@ -103,6 +102,7 @@ public final class HerdsmanContract {
             public static final String COLUMN_NAME_DATA = "data";
             public static final String COLUMN_NAME_QUANTIDADE = "quantidade";
             public static final String COLUMN_NAME_MEDIDA_IDMEDIDA = "Medida_idMedida";
+
 
 
         }

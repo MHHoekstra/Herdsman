@@ -11,12 +11,25 @@ public class AnimalRemedio {
     Remedio remedio;
     Medida medida;
 
+    public AnimalRemedio(int remedio_idRemedio, int animal_idAnimal, int medida_idMedida, int quantidade, String data) {
+        Remedio_idRemedio = remedio_idRemedio;
+        Animal_idAnimal = animal_idAnimal;
+        Medida_idMedida = medida_idMedida;
+        this.quantidade = quantidade;
+        this.data = data;
+    }
+
+    public AnimalRemedio() {
+
+    }
+
     public AnimalRemedio(int idAnimalRemedio, int remedio_idRemedio, int animal_idAnimal, int medida_idMedida, String data, int quantidade) {
         this.idAnimalRemedio = idAnimalRemedio;
         Remedio_idRemedio = remedio_idRemedio;
         Animal_idAnimal = animal_idAnimal;
         Medida_idMedida = medida_idMedida;
         this.quantidade = quantidade;
+
         this.data = data;
     }
 
@@ -82,5 +95,19 @@ public class AnimalRemedio {
 
     public void setMedida(Medida medida) {
         this.medida = medida;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    @Override
+    public String toString()
+    {
+        return remedio.getNome() + "\n"+ String.valueOf(quantidade) + " " + medida.getNome() + "\nData: " + data;
     }
 }

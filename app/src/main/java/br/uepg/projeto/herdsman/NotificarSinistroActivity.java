@@ -80,6 +80,7 @@ public class NotificarSinistroActivity extends AppCompatActivity implements Navi
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //FIXME E se for o proprio admin?
                 SmsManager smsManager = SmsManager.getDefault();
                 Enfermidade enfermidade = (Enfermidade) enfermidadeSpinner.getSelectedItem();
                 Animal animal = (Animal) animalSpinner.getSelectedItem();

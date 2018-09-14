@@ -118,7 +118,14 @@ public class TelaAnimalActivity extends AppCompatActivity implements NavigationV
             }
         });
 
-
+        buttonSinistros.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TelaAnimalActivity.this, TelaAnimalSinistrosActivity.class);
+                intent.putExtra("Animal", animal);
+                startActivity(intent);
+            }
+        });
 
 
     }

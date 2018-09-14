@@ -66,6 +66,8 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".TelaAnimalCadastroAnimalRemedio"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".TelaAnimalSinistrosActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <receiver
             android:name=".SMSReciever.SMSReceiver"

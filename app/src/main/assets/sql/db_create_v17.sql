@@ -52,6 +52,7 @@ CREATE TABLE  "Medida"(
   "idMedida" INTEGER PRIMARY KEY NOT NULL,
   "nome" VARCHAR(45) NOT NULL
 );
+INSERT INTO "Medida"("idMedida","nome") VALUES(1, "Miligramas");
 CREATE TABLE  "Usuario"(
   "idUsuario" INTEGER PRIMARY KEY NOT NULL,
   "Pessoa_idPessoa" INTEGER NOT NULL,

@@ -46,6 +46,8 @@ public class HerdsmanDbSync {
             confirm.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+                    //TODO Sincronizar todas as instancias
+                    //FIXME O que acontece se alguem excluir em um celular e em outro celular ainda existir o objeto?
                     syncAnimal();
                     syncEnfermidade();
                     syncParto();

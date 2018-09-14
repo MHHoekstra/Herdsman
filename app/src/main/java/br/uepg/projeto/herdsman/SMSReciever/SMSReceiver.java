@@ -142,6 +142,7 @@ public class SMSReceiver extends BroadcastReceiver {
                     }
                     mDbHelper = new HerdsmanDbHelper(context);
                     Cio cio = new Cio(animalPorCima,animalPorBaixo, data, senderTelefone.getPessoa_idPessoa());
+                    //TODO Inserir no Firebase
                     long ins = mDbHelper.inserirCio(cio);
                     if(ins > 0) {
                         Log.d("SMSReceiver", "Cio de " + String.valueOf(animalPorBaixo) + " inserido");
@@ -175,6 +176,7 @@ public class SMSReceiver extends BroadcastReceiver {
                     }
                     String data = String.valueOf(c.get(Calendar.YEAR))+"-"+String.valueOf(c.get(Calendar.MONTH))+"-"+dia_formatado;
                     Sinistro sinistro = new Sinistro(idAnimal, idEnfermidade, senderTelefone.getPessoa_idPessoa(), data);
+                    //TODO Inserir no Firebase
                     long insert = mDbHelper.inserirSinistro(sinistro);
                     if(insert > 0) {
                         Log.d("SMSReceiver", "Sinistro inserido");
@@ -186,6 +188,7 @@ public class SMSReceiver extends BroadcastReceiver {
                     break;
                 }
                 case 3: {
+                    //TODO Implementar Outro
                     Log.d("Tipo de msg:", "OUTRO");
                     break;
                 }

@@ -40,7 +40,7 @@ public class TelaAnimalInseminacoesActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.lista_partos);
         pref = getApplicationContext().getSharedPreferences("isAdmin", MODE_PRIVATE);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -95,6 +95,7 @@ public class TelaAnimalInseminacoesActivity extends AppCompatActivity implements
         String data = String.valueOf(i) + '-' + String.valueOf(i1) + '-' + dia;
         Inseminacao inseminacao = new Inseminacao(animal.getId(), data);
         HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(TelaAnimalInseminacoesActivity.this);
+        //TODO Inserir no firebase
         long ins = mDbHelper.inserirInseminacao(inseminacao);
         if(ins > 0)
         {

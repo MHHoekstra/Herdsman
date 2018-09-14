@@ -28,6 +28,10 @@ import java.util.Calendar;
 
 import br.uepg.projeto.herdsman.DAO.HerdsmanContract;
 import br.uepg.projeto.herdsman.DAO.HerdsmanDbHelper;
+import br.uepg.projeto.herdsman.Objetos.Animal;
+import br.uepg.projeto.herdsman.Objetos.AnimalRemedio;
+import br.uepg.projeto.herdsman.Objetos.Medida;
+import br.uepg.projeto.herdsman.Objetos.Remedio;
 
 public class TelaAnimalCadastroAnimalRemedio extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, NavigationView.OnNavigationItemSelectedListener{
 
@@ -91,7 +95,50 @@ public class TelaAnimalCadastroAnimalRemedio extends AppCompatActivity implement
             }
         });
 
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(quantidadeText.getText().toString().length() == 0)
+                {
+                    Toast.makeText(TelaAnimalCadastroAnimalRemedio.this, "Insira uma quantidade", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Remedio remedio = (Remedio) remedioSpinner.getSelectedItem();
+                if(remedio == null)
+                {
+                    Toast.makeText(TelaAnimalCadastroAnimalRemedio.this, "Selecione um remédio", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Medida medida = (Medida) medidasSpinner.getSelectedItem();
+                if (medida == null)
+                {
+                    Toast.makeText(TelaAnimalCadastroAnimalRemedio.this, "Selecione uma medida", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Animal animal = (Animal) getIntent().getSerializableExtra("Animal");
+                AnimalRemedio animalRemedio = new AnimalRemedio(remedio.getIdRemedio(), animal.getId(), medida.getIdMedida(), Integer.parseInt(quantidadeText.getText().toString()), dataString);
+                HerdsmanDbHelper herdsmanDbHelper = new HerdsmanDbHelper(TelaAnimalCadastroAnimalRemedio.this);
+                //TODO Inserir no Firebase
+                long ins = herdsmanDbHelper.inserirAnimalRemedio(animalRemedio);
+                if(ins > 0)
+                {
+                    Toast.makeText(TelaAnimalCadastroAnimalRemedio.this, "Entrada cadastrada", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                else
+                {
+                    Toast.makeText(TelaAnimalCadastroAnimalRemedio.this, "Erro ao inserir", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+        });
 
         //TODO Terminar Inserção
 

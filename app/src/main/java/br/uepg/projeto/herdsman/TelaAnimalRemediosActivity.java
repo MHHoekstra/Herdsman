@@ -64,7 +64,14 @@ public class TelaAnimalRemediosActivity extends AppCompatActivity implements Nav
                 startActivity(intent);
             }
         });
+        listarRemedios();
 
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        listarRemedios();
     }
 
     private void listarRemedios()
