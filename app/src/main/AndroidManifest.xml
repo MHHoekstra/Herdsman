@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS"></uses-permission>
 
     <application
-        android:name=".DAO.HerdsmanFirebase"
+        android:name=".dao.HerdsmanFirebase"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -28,51 +28,51 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListaAnimaisActivity"
+        <activity android:name=".drawer.ListaAnimaisActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".ListaFuncionariosActivity"
+        <activity android:name=".drawer.ListaFuncionariosActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".ListaCiosActivity"
+        <activity android:name=".drawer.animal.ListaCiosActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".ListaEnfermidadesActivity"
+        <activity android:name=".drawer.ListaEnfermidadesActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".ListaRemediosActivity"
+        <activity android:name=".drawer.ListaRemediosActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".CadastroAnimalActivity"
+        <activity android:name=".cadastros.CadastroAnimalActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".CadastroFuncionarioActivity"
+        <activity android:name=".cadastros.CadastroFuncionarioActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".TelaAnimalActivity"
+        <activity android:name=".drawer.animal.TelaAnimalActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".CadastroEnfermidadeActivity"
+        <activity android:name=".cadastros.CadastroEnfermidadeActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".CadastroRemedioActivity"
+        <activity android:name=".cadastros.CadastroRemedioActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".ListaPartosActivity"
+        <activity android:name=".drawer.animal.ListaPartosActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".CadastroPartoActivity"
+        <activity android:name=".cadastros.CadastroPartoActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".NotificarCioActivity"
+        <activity android:name=".drawer.notificacao.NotificarCioActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".NotificarOutroActivity"
+        <activity android:name=".drawer.notificacao.NotificarOutroActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".NotificarSinistroActivity"
+        <activity android:name=".drawer.notificacao.NotificarSinistroActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".TelaFuncionarioActivity"
+        <activity android:name=".drawer.funcionario.TelaFuncionarioActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".TelaAnimalInseminacoesActivity"
+        <activity android:name=".drawer.animal.TelaAnimalInseminacoesActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".TelaAnimalRemediosActivity"
+        <activity android:name=".drawer.animal.TelaAnimalRemediosActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".TelaAnimalCadastroAnimalRemedio"
+        <activity android:name=".drawer.animal.TelaAnimalCadastroAnimalRemedio"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".TelaAnimalSinistrosActivity"
+        <activity android:name=".drawer.animal.TelaAnimalSinistrosActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".TelaFuncionarioNotificacoesActivity"
+        <activity android:name=".drawer.funcionario.TelaFuncionarioNotificacoesActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <receiver
-            android:name=".SMSReciever.SMSReceiver"
+            android:name=".utils.SMSReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />

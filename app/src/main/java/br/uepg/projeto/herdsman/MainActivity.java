@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -32,9 +34,16 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-import br.uepg.projeto.herdsman.DAO.HerdsmanDbHelper;
-import br.uepg.projeto.herdsman.DAO.HerdsmanDbSync;
-import br.uepg.projeto.herdsman.Objetos.Administrador;
+import br.uepg.projeto.herdsman.dao.HerdsmanDbHelper;
+import br.uepg.projeto.herdsman.dao.HerdsmanDbSync;
+import br.uepg.projeto.herdsman.drawer.ListaAnimaisActivity;
+import br.uepg.projeto.herdsman.drawer.ListaEnfermidadesActivity;
+import br.uepg.projeto.herdsman.drawer.ListaFuncionariosActivity;
+import br.uepg.projeto.herdsman.drawer.ListaRemediosActivity;
+import br.uepg.projeto.herdsman.drawer.notificacao.NotificarCioActivity;
+import br.uepg.projeto.herdsman.drawer.notificacao.NotificarOutroActivity;
+import br.uepg.projeto.herdsman.drawer.notificacao.NotificarSinistroActivity;
+import br.uepg.projeto.herdsman.objetos.Administrador;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -50,6 +59,8 @@ public class MainActivity extends AppCompatActivity
     MenuItem entrarAdmin;
     Menu menuInicio;
     Boolean adm;
+    String cinza = "#c7c9cc";
+    String azul = "#84b3ff";
     public static final String myPref = "preferenceName";
     SharedPreferences pref;
     //TODO Atualizar automaticamente ao inserir um novo cio
@@ -93,24 +104,35 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         lista = (ListView) findViewById(R.id.main_activity_lista);
         buttonCio = findViewById(R.id.main_activity_button_cios);
+        buttonCio.getBackground().setColorFilter(Color.parseColor(azul), PorterDuff.Mode.MULTIPLY);
         buttonSinistro = findViewById(R.id.main_activity_button_sinistros);
         buttonOutros = findViewById(R.id.main_activity_button_outros);
         buttonCio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listarCios();
+                buttonCio.getBackground().setColorFilter(Color.parseColor(azul), PorterDuff.Mode.MULTIPLY);
+                buttonSinistro.getBackground().setColorFilter(Color.parseColor(cinza), PorterDuff.Mode.MULTIPLY);
+                buttonOutros.getBackground().setColorFilter(Color.parseColor(cinza), PorterDuff.Mode.MULTIPLY);
+
             }
         });
         buttonSinistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listarSinistros();
+                buttonCio.getBackground().setColorFilter(Color.parseColor(cinza), PorterDuff.Mode.MULTIPLY);
+                buttonSinistro.getBackground().setColorFilter(Color.parseColor(azul), PorterDuff.Mode.MULTIPLY);
+                buttonOutros.getBackground().setColorFilter(Color.parseColor(cinza), PorterDuff.Mode.MULTIPLY);
             }
         });
         buttonOutros.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listarOutros();
+                buttonCio.getBackground().setColorFilter(Color.parseColor(cinza), PorterDuff.Mode.MULTIPLY);
+                buttonSinistro.getBackground().setColorFilter(Color.parseColor(cinza), PorterDuff.Mode.MULTIPLY);
+                buttonOutros.getBackground().setColorFilter(Color.parseColor(azul), PorterDuff.Mode.MULTIPLY);
             }
         });
         listarCios();
@@ -127,7 +149,7 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            //super.onBackPressed();
         }
     }
 
