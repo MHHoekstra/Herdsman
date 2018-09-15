@@ -78,7 +78,6 @@ public class NotificarCioActivity extends AppCompatActivity implements Navigatio
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // FIXME E se for para o proprio celular?
                 adm = pref.getBoolean("isAdmin", false);
                 if(adm) {
                     Animal animalPorCima = (Animal) animalPorCimaSpinner.getSelectedItem();

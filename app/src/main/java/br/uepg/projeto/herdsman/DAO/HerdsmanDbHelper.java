@@ -25,12 +25,13 @@ import br.uepg.projeto.herdsman.Objetos.Cio;
 import br.uepg.projeto.herdsman.Objetos.Enfermidade;
 import br.uepg.projeto.herdsman.Objetos.Inseminacao;
 import br.uepg.projeto.herdsman.Objetos.Medida;
+import br.uepg.projeto.herdsman.Objetos.AdministradorNotificaPessoa;
 import br.uepg.projeto.herdsman.Objetos.Parto;
 import br.uepg.projeto.herdsman.Objetos.Pessoa;
 import br.uepg.projeto.herdsman.Objetos.Remedio;
 import br.uepg.projeto.herdsman.Objetos.Sinistro;
 import br.uepg.projeto.herdsman.Objetos.Telefone;
-import br.uepg.projeto.herdsman.Objetos.Usuario;
+import br.uepg.projeto.herdsman.Objetos.Administrador;
 
 import static br.uepg.projeto.herdsman.DAO.HerdsmanContract.RemedioEntry.TABLE_NAME;
 
@@ -40,7 +41,7 @@ import static br.uepg.projeto.herdsman.DAO.HerdsmanContract.RemedioEntry.TABLE_N
  */
 public class HerdsmanDbHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "mydb.db";
-    private static final int DB_VERSION = 20;
+    private static final int DB_VERSION = 21;
     private static final String TAG = "DatabaseHelper";
     private DatabaseReference FirebaseHelper;
     private Context mContext;
@@ -324,11 +325,11 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         mDb.close();
         return lista;
     }
-    public Usuario carregarAdminDatabase()
+    public Administrador carregarAdminDatabase()
     {
         SQLiteDatabase mDb = this.getWritableDatabase();
         Cursor cursor;
-        Usuario adminUsuario = null;
+        Administrador adminAdministrador = null;
         String[] projection =
                 {
                         HerdsmanContract.AdministradorEntry.COLUMN_NAME_IDADMINISTRADOR,
@@ -354,11 +355,11 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
             int idPessoa = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.AdministradorEntry.COLUMN_NAME_PESSOA_IDPESSOA));
             int admin = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.AdministradorEntry.COLUMN_NAME_ADMIN));
             int idUsuario = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.AdministradorEntry.COLUMN_NAME_IDADMINISTRADOR));
-            adminUsuario = new Usuario(admin, login, senha, idPessoa, idUsuario);
+            adminAdministrador = new Administrador(admin, login, senha, idPessoa, idUsuario);
         }
         cursor.close();
         mDb.close();
-        return adminUsuario;
+        return adminAdministrador;
     }
     public long inserirAnimal(Animal animal)
     {
@@ -603,7 +604,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
                 null,
                 null
         );
-        ArrayList telefoneItemList = new ArrayList<Telefone>();
+        ArrayList telefoneItemList = new ArrayList();
         while(cursor.moveToNext())
         {
             int idTelefone = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.TelefoneEntry.COLUMN_NAME_IDTELEFONE));
@@ -1173,5 +1174,47 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
                 whereArgs);
         mDb.close();
         return delete;
+    }
+
+    public long inserirAdministradorNotificaPessoa(AdministradorNotificaPessoa outro) {
+        SQLiteDatabase mDb= this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(HerdsmanContract.AdministradorNotificaPessoaEntry.COLUMN_NAME_DESCRICAO, outro.getMensagem());
+        values.put(HerdsmanContract.AdministradorNotificaPessoaEntry.COLUMN_NAME_DATA, outro.getData());
+        values.put(HerdsmanContract.AdministradorNotificaPessoaEntry.COLUMN_NAME_ADMINISTRADOR_IDNOTIFICA, outro.getIdAdministrador());
+        long insert = mDb.insert(HerdsmanContract.AdministradorNotificaPessoaEntry.TABLE_NAME, null,values);
+        return insert;
+    }
+
+    public ArrayList carregarTodosAdministradorNotificaPessoa() {
+        SQLiteDatabase mDb = this.getReadableDatabase();
+        Cursor cursor =  mDb.query(
+                HerdsmanContract.AdministradorNotificaPessoaEntry.TABLE_NAME,
+                new String[] {
+                        HerdsmanContract.AdministradorNotificaPessoaEntry.COLUMN_NAME_ADMINISTRADOR_IDNOTIFICA,
+                        HerdsmanContract.AdministradorNotificaPessoaEntry.COLUMN_NAME_IDADMINISTRADOR_NOTIFICA_PESSOA,
+                        HerdsmanContract.AdministradorNotificaPessoaEntry.COLUMN_NAME_DATA,
+                        HerdsmanContract.AdministradorNotificaPessoaEntry.COLUMN_NAME_DESCRICAO
+                },
+                null,
+                null,
+                null,
+                null,
+                HerdsmanContract.AdministradorNotificaPessoaEntry.COLUMN_NAME_DATA +  " DESC"
+
+        );
+        ArrayList lista = new ArrayList();
+        while(cursor.moveToNext())
+        {
+            int idNotifica = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.AdministradorNotificaPessoaEntry.COLUMN_NAME_IDADMINISTRADOR_NOTIFICA_PESSOA));
+            int idAdmin = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.AdministradorNotificaPessoaEntry.COLUMN_NAME_ADMINISTRADOR_IDNOTIFICA));
+            String data = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.AdministradorNotificaPessoaEntry.COLUMN_NAME_DATA));
+            String mensagem = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.AdministradorNotificaPessoaEntry.COLUMN_NAME_DESCRICAO));
+            AdministradorNotificaPessoa outro = new AdministradorNotificaPessoa(idNotifica, mensagem, data, idAdmin);
+            lista.add(outro);
+        }
+        cursor.close();
+        mDb.close();
+        return lista;
     }
 }

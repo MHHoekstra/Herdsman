@@ -1,11 +1,7 @@
 package br.uepg.projeto.herdsman;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -23,16 +19,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import br.uepg.projeto.herdsman.DAO.HerdsmanContract;
 import br.uepg.projeto.herdsman.DAO.HerdsmanDbHelper;
 import br.uepg.projeto.herdsman.Objetos.Pessoa;
-import br.uepg.projeto.herdsman.Objetos.Telefone;
-import br.uepg.projeto.herdsman.Objetos.Usuario;
+import br.uepg.projeto.herdsman.Objetos.Administrador;
 
 public class CadastroFuncionarioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     Pessoa pessoa;
     Pessoa intent_pessoa;
-    Usuario usuario;
+    Administrador administrador;
     Boolean adm;
     public static final String myPref = "preferenceName";
     SharedPreferences pref;

@@ -123,7 +123,6 @@ public final class HerdsmanContract {
             public static final String TABLE_NAME = "Administrador_Notifica_Pessoa";
             public static final String COLUMN_NAME_IDADMINISTRADOR_NOTIFICA_PESSOA = "idAdministrador_Notifica_Pessoa";
             public static final String COLUMN_NAME_ADMINISTRADOR_IDNOTIFICA = "Administrador_idNotifica";
-            public static final String COLUMN_NAME_PESSOA_IDNOTIFICADO = "Pessoa_idNotificado";
             public static final String COLUMN_NAME_DATA = "data";
             public static final String COLUMN_NAME_DESCRICAO = "descricao";
         }

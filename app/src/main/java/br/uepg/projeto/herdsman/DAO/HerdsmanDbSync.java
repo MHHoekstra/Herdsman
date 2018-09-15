@@ -13,7 +13,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import br.uepg.projeto.herdsman.MainActivity;
 import br.uepg.projeto.herdsman.Objetos.Animal;
 import br.uepg.projeto.herdsman.Objetos.Cio;
 import br.uepg.projeto.herdsman.Objetos.Enfermidade;
@@ -21,7 +20,6 @@ import br.uepg.projeto.herdsman.Objetos.Parto;
 import br.uepg.projeto.herdsman.Objetos.Pessoa;
 import br.uepg.projeto.herdsman.Objetos.Remedio;
 import br.uepg.projeto.herdsman.Objetos.Sinistro;
-import br.uepg.projeto.herdsman.Objetos.Usuario;
 
 public class HerdsmanDbSync {
     HerdsmanDbHelper mDbHelper;

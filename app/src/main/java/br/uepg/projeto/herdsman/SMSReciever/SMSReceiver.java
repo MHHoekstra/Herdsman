@@ -1,7 +1,6 @@
 package br.uepg.projeto.herdsman.SMSReciever;
 
 import android.content.BroadcastReceiver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -15,12 +14,12 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Scanner;
 
 import br.uepg.projeto.herdsman.DAO.HerdsmanContract;
 import br.uepg.projeto.herdsman.DAO.HerdsmanDbHelper;
 import br.uepg.projeto.herdsman.Objetos.Animal;
 import br.uepg.projeto.herdsman.Objetos.Cio;
+import br.uepg.projeto.herdsman.Objetos.AdministradorNotificaPessoa;
 import br.uepg.projeto.herdsman.Objetos.Sinistro;
 import br.uepg.projeto.herdsman.Objetos.Telefone;
 
@@ -188,8 +187,25 @@ public class SMSReceiver extends BroadcastReceiver {
                     break;
                 }
                 case 3: {
-                    //TODO Implementar Outro
                     Log.d("Tipo de msg:", "OUTRO");
+                    Calendar c = Calendar.getInstance();
+                    String dia_formatado = String.valueOf(c.get(Calendar.DAY_OF_MONTH));
+                    if (dia_formatado.length()  == 1)
+                    {
+                        dia_formatado = '0' + String.valueOf(c.get(Calendar.DAY_OF_MONTH));
+                    }
+                    String data = String.valueOf(c.get(Calendar.YEAR))+"-"+String.valueOf(c.get(Calendar.MONTH))+"-"+dia_formatado;
+                    String mensagem = tokens[2];
+                    Log.d("OUTRO: ", mensagem);
+                    AdministradorNotificaPessoa outro = new AdministradorNotificaPessoa(mensagem, data);
+                    Long insert = mDbHelper.inserirAdministradorNotificaPessoa(outro);
+                    if(insert > 0) {
+                        Log.d("SMSReceiver", "Outro inserido");
+                    }
+                    else
+                    {
+                        Log.d("SMSReceiver", "Falha ao inserir outro");
+                    }
                     break;
                 }
             }

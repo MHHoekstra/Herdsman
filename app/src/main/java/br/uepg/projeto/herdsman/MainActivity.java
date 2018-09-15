@@ -34,11 +34,11 @@ import java.util.ArrayList;
 
 import br.uepg.projeto.herdsman.DAO.HerdsmanDbHelper;
 import br.uepg.projeto.herdsman.DAO.HerdsmanDbSync;
-import br.uepg.projeto.herdsman.Objetos.Usuario;
+import br.uepg.projeto.herdsman.Objetos.Administrador;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    Usuario usuario = null;
+    Administrador administrador = null;
     ListView lista;
     Button buttonCio;
     Button buttonSinistro;
@@ -105,6 +105,12 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 listarSinistros();
+            }
+        });
+        buttonOutros.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listarOutros();
             }
         });
         listarCios();
@@ -201,10 +207,10 @@ public class MainActivity extends AppCompatActivity
                     else
                     {
                         HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(MainActivity.this);
-                        Usuario adminUsuario = mDbHelper.carregarAdminDatabase();
-                        if (input.getText().toString().compareTo(adminUsuario.getSenha()) == 0)
+                        Administrador adminAdministrador = mDbHelper.carregarAdminDatabase();
+                        if (input.getText().toString().compareTo(adminAdministrador.getSenha()) == 0)
                         {
-                            usuario = adminUsuario;
+                            administrador = adminAdministrador;
                             Toast.makeText(MainActivity.this, "Login efetuado!", Toast.LENGTH_SHORT).show();
                             SharedPreferences.Editor editor = pref.edit();
                             editor.putBoolean("isAdmin", true);
@@ -224,7 +230,7 @@ public class MainActivity extends AppCompatActivity
         }
         if (id == R.id.sair_admin)
         {
-            usuario = null;
+            administrador = null;
             SharedPreferences.Editor editor = pref.edit();
             editor.putBoolean("isAdmin", false);
             editor.commit();
@@ -347,6 +353,14 @@ public class MainActivity extends AppCompatActivity
         HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(this);
         listaEnfermidades = mDbHelper.carregarTodosSinistros();
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaEnfermidades);
+        lista.setAdapter(adapter);
+    }
+
+    private void listarOutros()
+    {
+        HerdsmanDbHelper herdsmanDbHelper = new HerdsmanDbHelper(this);
+        listaOutros = herdsmanDbHelper.carregarTodosAdministradorNotificaPessoa();
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listaOutros);
         lista.setAdapter(adapter);
     }
 }

@@ -1,20 +1,37 @@
 package br.uepg.projeto.herdsman;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
-public class NotificarOutroActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+import java.util.ArrayList;
 
+import br.uepg.projeto.herdsman.DAO.HerdsmanDbHelper;
+import br.uepg.projeto.herdsman.Objetos.Animal;
+import br.uepg.projeto.herdsman.Objetos.Enfermidade;
+import br.uepg.projeto.herdsman.Objetos.Pessoa;
+import br.uepg.projeto.herdsman.Objetos.Telefone;
+
+public class NotificarOutroActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    FloatingActionButton send;
+    FloatingActionButton cancel;
     Boolean adm;
     public static final String myPref = "preferenceName";
     SharedPreferences pref;
@@ -36,6 +53,52 @@ public class NotificarOutroActivity extends AppCompatActivity implements Navigat
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        cancel = findViewById(R.id.notificar_outro_cancelar);
+        send = findViewById(R.id.notificar_outro_done);
+        final EditText mensagem = findViewById(R.id.notificar_outro_mensagem);
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SmsManager smsManager = SmsManager.getDefault();
+                String mensagemText = mensagem.getText().toString();
+                int SMS_PERMISSION_CODE = 0;
+                if (ContextCompat.checkSelfPermission(NotificarOutroActivity.this, android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(NotificarOutroActivity.this, android.Manifest.permission.SEND_SMS)) {
+
+                    } else {
+                        ActivityCompat.requestPermissions(NotificarOutroActivity.this, new String[]{Manifest.permission.SEND_SMS}, SMS_PERMISSION_CODE);
+                    }
+
+                }
+                if(mensagemText.length() == 0)
+                {
+                    Toast.makeText(NotificarOutroActivity.this, "Preencha uma mensagem", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                String text = "Herdsman's Companion;\n3;" + mensagemText;
+                HerdsmanDbHelper herdsmanDbHelper = new HerdsmanDbHelper(NotificarOutroActivity.this);
+                ArrayList<Pessoa> listaFuncionarios = herdsmanDbHelper.carregarFuncionariosDb();
+                for (Pessoa pessoa : listaFuncionarios) {
+                    ArrayList<Telefone> listaTelefones = herdsmanDbHelper.carregarTelefonesPessoa(pessoa);
+                    for(Telefone telefone : listaTelefones)
+                    {
+                        smsManager.sendTextMessage(telefone.getNumero(), null, text, null, null);
+                        Toast.makeText(NotificarOutroActivity.this, "SMS enviado para " + telefone.getNumero(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                finish();
+            }
+        });
+
 
     }
     @Override
