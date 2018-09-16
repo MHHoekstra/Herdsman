@@ -41,7 +41,7 @@ import static br.uepg.projeto.herdsman.dao.HerdsmanContract.RemedioEntry.TABLE_N
  */
 public class HerdsmanDbHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "mydb.db";
-    private static final int DB_VERSION = 21;
+    private static final int DB_VERSION = 23;
     private static final String TAG = "DatabaseHelper";
     private DatabaseReference FirebaseHelper;
     private Context mContext;
@@ -88,6 +88,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
                     + "create database from " + createDbFile + ".");
             return;
         }
+
         db.setTransactionSuccessful();
         db.endTransaction();
         Log.i(TAG, "New database created from script "

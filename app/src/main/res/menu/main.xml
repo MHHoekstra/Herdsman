@@ -15,4 +15,8 @@
     <item
         android:id="@+id/sair_admin"
         android:title="Sair do modo administrador" />
+
+    <item
+        android:id="@+id/sobre_menu"
+        android:title="Sobre"></item>
 </menu>

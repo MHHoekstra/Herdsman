@@ -6,19 +6,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_animais"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_menu_animal"
             android:title="Animais" />
         <item
             android:id="@+id/nav_enfermidades"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_menu_enfermidade"
             android:title="Enfermidades" />
         <item
             android:id="@+id/nav_remedios"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_menu_remedio"
             android:title="Remédios" />
         <item
             android:id="@+id/nav_funcionarios"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_menu_pessoa"
             android:title="Funcionários" />
     </group>
 
@@ -26,14 +26,15 @@
         <menu>
             <item
                 android:id="@+id/nav_cio"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/ic_menu_cio"
                 android:title="Cio" />
             <item
                 android:id="@+id/nav_sinistro"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/ic_menu_sinistro"
                 android:title="Sinistro" />
             <item
                 android:id="@+id/nav_outro"
+                android:icon="@drawable/ic_menu_sms"
                 android:title="Outro"/>
         </menu>
     </item>

@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.FirebaseDatabase;
@@ -256,6 +257,24 @@ public class MainActivity extends AppCompatActivity
             SharedPreferences.Editor editor = pref.edit();
             editor.putBoolean("isAdmin", false);
             editor.commit();
+            return true;
+        }
+
+        if(id == R.id.sobre_menu)
+        {
+            AlertDialog.Builder alertDialogBuild = new AlertDialog.Builder(MainActivity.this);
+            final TextView input = new TextView(MainActivity.this);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT);
+            input.setLayoutParams(lp);
+            input.setGravity(Gravity.CENTER);
+            alertDialogBuild.setView(input);
+            alertDialogBuild.setTitle("Sobre");
+            input.setText("Herdsman's Companion v1.0\nIcones disponíveis em https://icons8.com/\n");
+            alertDialogBuild.setPositiveButton("Ok", null);
+            AlertDialog alert = alertDialogBuild.create();
+            alert.show();
             return true;
         }
 
