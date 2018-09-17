@@ -14,7 +14,7 @@ CREATE TABLE "mydb"."Remedio"(
   "nome" VARCHAR(45) NOT NULL
 );
 CREATE TABLE "mydb"."Animal"(
-  "idAnimal" VARCHAR(10) PRIMARY KEY NOT NULL,
+  "idAnimal" INTEGER PRIMARY KEY NOT NULL,
   "numero" VARCHAR(10) NOT NULL,
   "nome" VARCHAR(45) NOT NULL,
   "ativo" BOOLEAN NOT NULL
@@ -25,7 +25,7 @@ CREATE TABLE "mydb"."Enfermidade"(
 );
 CREATE TABLE "mydb"."Parto"(
   "idParto" INTEGER NOT NULL,
-  "idAnimal" VARCHAR(10) NOT NULL,
+  "idAnimal" INTEGER NOT NULL,
   "data" DATE NOT NULL,
   "cria" INTEGER NOT NULL,
   PRIMARY KEY("idParto","idAnimal"),
@@ -36,7 +36,7 @@ CREATE TABLE "mydb"."Parto"(
 CREATE INDEX "mydb"."Parto.fk_Animal_Parto_Animal1_idx" ON "Parto" ("idAnimal");
 CREATE TABLE "mydb"."Inseminacao"(
   "idInseminacao" INTEGER NOT NULL,
-  "idAnimal" VARCHAR(10) NOT NULL,
+  "idAnimal" INTEGER NOT NULL,
   "data" DATE NOT NULL,
   PRIMARY KEY("idInseminacao","idAnimal"),
   CONSTRAINT "fk_Animal_Inseminacao_Animal1"
@@ -57,7 +57,7 @@ CREATE TABLE "mydb"."Medida"(
 );
 CREATE TABLE "mydb"."Animal_Enfermidade"(
   "idAnimal_Enfermidade" INTEGER NOT NULL,
-  "idAnimal" VARCHAR(10) NOT NULL,
+  "idAnimal" INTEGER NOT NULL,
   "idEnfermidade" INTEGER NOT NULL,
   "idPessoa" INTEGER NOT NULL,
   "data" DATE NOT NULL,
@@ -80,7 +80,6 @@ CREATE TABLE "mydb"."Usuario"(
   "idPessoa" INTEGER NOT NULL,
   "login" VARCHAR(45) NOT NULL,
   "senha" VARCHAR(45) NOT NULL,
-  "admin" BOOLEAN NOT NULL,
   PRIMARY KEY("idUsuario","idPessoa"),
   CONSTRAINT "fk_Funcionario_Pessoa1"
     FOREIGN KEY("idPessoa")
@@ -89,8 +88,8 @@ CREATE TABLE "mydb"."Usuario"(
 CREATE INDEX "mydb"."Usuario.fk_Funcionario_Pessoa1_idx" ON "Usuario" ("idPessoa");
 CREATE TABLE "mydb"."Cio"(
   "idCio" INTEGER NOT NULL,
-  "idAnimalPorCima" VARCHAR(10) NOT NULL,
-  "idAnimalPorBaixo" VARCHAR(10) NOT NULL,
+  "idAnimalPorCima" INTEGER NOT NULL,
+  "idAnimalPorBaixo" INTEGER NOT NULL,
   "idPessoa" INTEGER NOT NULL,
   "data" DATE NOT NULL,
   PRIMARY KEY("idCio","idAnimalPorCima","idAnimalPorBaixo","idPessoa"),
@@ -120,7 +119,7 @@ CREATE TABLE "mydb"."Administrador"(
 CREATE INDEX "mydb"."Administrador.fk_Administrador_Pessoa1_idx" ON "Administrador" ("Pessoa_idPessoa");
 CREATE TABLE "mydb"."Animal_Remedio"(
   "idAnimal_Remedio" INTEGER NOT NULL,
-  "idAnimal" VARCHAR(10) NOT NULL,
+  "idAnimal" INTEGER NOT NULL,
   "idRemedio" INTEGER NOT NULL,
   "idMedida" INTEGER NOT NULL,
   "data" DATE NOT NULL,
