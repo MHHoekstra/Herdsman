@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import br.uepg.projeto.herdsman.MainActivity;
 import br.uepg.projeto.herdsman.cadastros.CadastroFuncionarioActivity;
 import br.uepg.projeto.herdsman.dao.HerdsmanDbHelper;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarCioActivity;
@@ -32,7 +33,7 @@ import br.uepg.projeto.herdsman.objetos.Pessoa;
 import br.uepg.projeto.herdsman.R;
 import br.uepg.projeto.herdsman.drawer.funcionario.TelaFuncionarioActivity;
 
-public class ListaFuncionariosActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, NavigationView.OnNavigationItemSelectedListener {
+public class ListaFuncionariosActivity extends TelasActivity implements SearchView.OnQueryTextListener{
     SearchView pesquisa;
     Pessoa pessoa;
     ListView listaFuncionariosView;
@@ -48,7 +49,6 @@ public class ListaFuncionariosActivity extends AppCompatActivity implements Sear
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -57,8 +57,6 @@ public class ListaFuncionariosActivity extends AppCompatActivity implements Sear
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
         pesquisa = (SearchView) findViewById(R.id.lista_funcionarios_pesquisa);
         listaFuncionariosView = (ListView) findViewById(R.id.funcionariosListView);
         FloatingActionButton addFuncionario = (FloatingActionButton) findViewById(R.id.add_funcionario);
@@ -90,7 +88,6 @@ public class ListaFuncionariosActivity extends AppCompatActivity implements Sear
         });
         setupSearchView();
         listaFuncionarios();
-
     }
 
     private void setupSearchView() {
@@ -131,97 +128,6 @@ public class ListaFuncionariosActivity extends AppCompatActivity implements Sear
         else {
             filter.filter(newText.toString());
         }
-        return true;
-    }
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        int id = item.getItemId();
-        adm = pref.getBoolean("isAdmin", false);
-        if (id == R.id.nav_animais) {
-            if (!adm)
-            {
-                Toast.makeText(ListaFuncionariosActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
-
-            }
-            else {
-                Intent intent = new Intent(ListaFuncionariosActivity.this, ListaAnimaisActivity.class);
-                ListaFuncionariosActivity.this.startActivity(intent);
-            }
-
-        } else if (id == R.id.nav_enfermidades) {
-
-            if (!adm)
-            {
-                Toast.makeText(ListaFuncionariosActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
-
-            }
-            else {
-                Intent intent = new Intent(ListaFuncionariosActivity.this, ListaEnfermidadesActivity.class);
-                ListaFuncionariosActivity.this.startActivity(intent);
-            }
-
-        } else if (id == R.id.nav_remedios) {
-
-            if (!adm)
-            {
-                Toast.makeText(ListaFuncionariosActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
-
-            }
-            else {
-                Intent intent = new Intent(ListaFuncionariosActivity.this, ListaRemediosActivity.class);
-                ListaFuncionariosActivity.this.startActivity(intent);
-            }
-
-
-        } else if (id == R.id.nav_funcionarios) {
-
-            if (!adm)
-            {
-                Toast.makeText(ListaFuncionariosActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                drawer.closeDrawer(GravityCompat.START);
-            }
-
-        } else if (id == R.id.nav_cio) {
-
-            Intent intent = new Intent(ListaFuncionariosActivity.this, NotificarCioActivity.class);
-            ListaFuncionariosActivity.this.startActivity(intent);
-
-        } else if (id == R.id.nav_sinistro) {
-
-            Intent intent = new Intent(ListaFuncionariosActivity.this, NotificarSinistroActivity.class);
-            ListaFuncionariosActivity.this.startActivity(intent);
-
-        } else if (id == R.id.nav_outro) {
-
-            if (!adm)
-            {
-                Toast.makeText(ListaFuncionariosActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
-
-            }
-            else {
-                Intent intent = new Intent(ListaFuncionariosActivity.this, NotificarOutroActivity.class);
-                ListaFuncionariosActivity.this.startActivity(intent);
-            }
-
-        }
-
-
-        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 }

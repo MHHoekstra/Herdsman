@@ -60,9 +60,6 @@ public class CadastroAnimalActivity extends AppCompatActivity implements Navigat
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-
-
         FloatingActionButton cancela = (FloatingActionButton) findViewById(R.id.cadastro_animal_cancelar);
         FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.cadastro_animal_add);
         final Animal intent_animal = (Animal) getIntent().getSerializableExtra("Animal");

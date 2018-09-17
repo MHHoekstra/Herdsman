@@ -35,7 +35,7 @@ public class Administrador implements Serializable {
     }
 
     public Administrador(String login, String senha, int idPessoa) {
-        this.admin = 0;
+        this.admin = 1;
         this.login = login;
         this.senha = senha;
         this.idPessoa = idPessoa;

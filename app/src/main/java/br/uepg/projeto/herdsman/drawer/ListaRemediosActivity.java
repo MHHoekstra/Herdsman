@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import br.uepg.projeto.herdsman.MainActivity;
 import br.uepg.projeto.herdsman.cadastros.CadastroRemedioActivity;
 import br.uepg.projeto.herdsman.dao.HerdsmanDbHelper;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarCioActivity;
@@ -29,7 +30,7 @@ import br.uepg.projeto.herdsman.drawer.notificacao.NotificarOutroActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarSinistroActivity;
 import br.uepg.projeto.herdsman.R;
 
-public class ListaRemediosActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, NavigationView.OnNavigationItemSelectedListener {
+public class ListaRemediosActivity extends TelasActivity implements SearchView.OnQueryTextListener{
     SearchView pesquisa;
     ListView listaRemedios;
     Boolean adm;
@@ -119,7 +120,7 @@ public class ListaRemediosActivity extends AppCompatActivity implements SearchVi
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            Intent intent = new Intent(ListaRemediosActivity.this, ListaAnimaisActivity.class);
+            Intent intent = new Intent(ListaRemediosActivity.this, MainActivity.class);
             ListaRemediosActivity.this.startActivity(intent);
             //super.onBackPressed();
         }

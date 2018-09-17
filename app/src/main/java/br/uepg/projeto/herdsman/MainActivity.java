@@ -150,6 +150,7 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            //FIXME Arrumar a volta pra sair do APP
             //super.onBackPressed();
         }
     }
