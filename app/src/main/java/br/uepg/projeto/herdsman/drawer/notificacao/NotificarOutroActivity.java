@@ -95,8 +95,15 @@ public class NotificarOutroActivity extends AppCompatActivity implements Navigat
                     ArrayList<Telefone> listaTelefones = herdsmanDbHelper.carregarTelefonesPessoa(pessoa);
                     for(Telefone telefone : listaTelefones)
                     {
-                        smsManager.sendTextMessage(telefone.getNumero(), null, text, null, null);
-                        Toast.makeText(NotificarOutroActivity.this, "SMS enviado para " + telefone.getNumero(), Toast.LENGTH_SHORT).show();
+                        try{
+                            smsManager.sendTextMessage(telefone.getNumero(), null, text, null, null);
+                            Toast.makeText(NotificarOutroActivity.this, "SMS enviado para " + telefone.getNumero(), Toast.LENGTH_SHORT).show();
+                        }
+                        catch (Exception e)
+                        {
+                            Toast.makeText(NotificarOutroActivity.this, "Erro ao enviar", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
                     }
                 }
                 finish();

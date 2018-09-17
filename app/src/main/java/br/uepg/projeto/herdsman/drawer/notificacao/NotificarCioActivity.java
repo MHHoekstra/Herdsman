@@ -119,10 +119,18 @@ public class NotificarCioActivity extends AppCompatActivity implements Navigatio
                         }
 
                     }
-                    String text = "Herdsman's Companion;\n1;" + String.valueOf(animalPorBaixo.getId()) + ";" + String.valueOf(animalPorCima.getId());
-                    smsManager.sendTextMessage(telefoneAdmin.getNumero(), null, text, null, null);
-                    Toast.makeText(NotificarCioActivity.this, "SMS enviado para " + telefoneAdmin.getNumero(), Toast.LENGTH_SHORT).show();
-                    finish();
+
+                    try {
+                        String text = "Herdsman's Companion;\n1;" + String.valueOf(animalPorBaixo.getId()) + ";" + String.valueOf(animalPorCima.getId());
+                        smsManager.sendTextMessage(telefoneAdmin.getNumero(), null, text, null, null);
+                        Toast.makeText(NotificarCioActivity.this, "SMS enviado para " + telefoneAdmin.getNumero(), Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                    catch (Exception e)
+                    {
+                        Toast.makeText(NotificarCioActivity.this, "Erro ao enviar, telefone inválido", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
                 }
             }
         });

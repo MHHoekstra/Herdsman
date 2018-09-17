@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import br.uepg.projeto.herdsman.objetos.Animal;
@@ -829,6 +830,95 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
             cio.setIdCio((int) id);
             databaseCio.child(String.valueOf(id)).setValue(cio);
             databaseCio.keepSynced(true);
+        }
+        mDb.close();
+        String dataUltimaInseminacao = null;
+        String order = "data DESC";
+        String [] selectionArgs = {String.valueOf(cio.getIdAnimalPorBaixo())};
+
+        mDb = this.getReadableDatabase();
+        Cursor cursor = mDb.query(
+                HerdsmanContract.AnimalInseminacaoEntry.TABLE_NAME,
+                new String[] {HerdsmanContract.AnimalInseminacaoEntry.COLUMN_NAME_DATA},
+                HerdsmanContract.AnimalInseminacaoEntry.COLUMN_NAME_ANIMAL_IDANIMAL + " == ?",
+                selectionArgs,
+                null,
+                null,
+                order
+
+        );dataUltimaInseminacao = null;
+        if(cursor.moveToNext())
+        {
+            dataUltimaInseminacao = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalInseminacaoEntry.COLUMN_NAME_DATA));
+            Log.d("DATA INSEMINACAO: ", dataUltimaInseminacao);
+        }
+        cursor.close();
+        mDb.close();
+        if(dataUltimaInseminacao != null) {
+            String[] s = dataUltimaInseminacao.split("-");
+            Calendar ultimoCio = Calendar.getInstance();
+            ultimoCio.set(Calendar.DAY_OF_MONTH, Integer.parseInt(s[2]));
+            ultimoCio.set(Calendar.MONTH, Integer.parseInt(s[1]));
+            ultimoCio.set(Calendar.YEAR, Integer.parseInt(s[0]));
+            Calendar c = Calendar.getInstance();
+            long diff = c.getTimeInMillis() - ultimoCio.getTimeInMillis();
+            long days = diff / (24 * 60 * 60 * 1000);
+            Log.d("CIO: ", "Dias desde ultima inseminacão " + String.valueOf(days));
+            Animal animal = carregarAnimal(cio.getIdAnimalPorBaixo());
+            if (days < 18) {
+                AdministradorNotificaPessoa administradorNotificaPessoa = new AdministradorNotificaPessoa("Animal " + animal.getNumero() + " em cio com menos de 18 dias desde sua ultima inseminação", cio.getData());
+                this.inserirAdministradorNotificaPessoa(administradorNotificaPessoa);
+            } else if (days < 60) {
+                AdministradorNotificaPessoa administradorNotificaPessoa = new AdministradorNotificaPessoa("Animal " + animal.getNumero() + " em cio entre 18 e 60 dias desde sua ultima inseminação", cio.getData());
+                this.inserirAdministradorNotificaPessoa(administradorNotificaPessoa);
+
+            } else {
+                AdministradorNotificaPessoa administradorNotificaPessoa = new AdministradorNotificaPessoa("Animal " + animal.getNumero() + " em cio com mais de 60 dias desde sua ultima inseminação", cio.getData());
+                this.inserirAdministradorNotificaPessoa(administradorNotificaPessoa);
+            }
+        }
+        mDb = this.getReadableDatabase();
+        selectionArgs = new String[]{String.valueOf(cio.getAnimalPorCima())};
+        cursor = mDb.query(
+                HerdsmanContract.AnimalInseminacaoEntry.TABLE_NAME,
+                new String[] {HerdsmanContract.AnimalInseminacaoEntry.COLUMN_NAME_DATA},
+                HerdsmanContract.AnimalInseminacaoEntry.COLUMN_NAME_ANIMAL_IDANIMAL + " == ?",
+                selectionArgs,
+                null,
+                null,
+                order
+
+        );dataUltimaInseminacao = null;
+        if(cursor.moveToNext())
+        {
+            dataUltimaInseminacao = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalInseminacaoEntry.COLUMN_NAME_DATA));
+            Log.d("DATA INSEMINACAO: ", dataUltimaInseminacao);
+        }
+        cursor.close();
+        mDb.close();
+        if(dataUltimaInseminacao != null) {
+            String [] s = dataUltimaInseminacao.split("-");
+
+            Calendar ultimoCio = Calendar.getInstance();
+            ultimoCio.set(Calendar.DAY_OF_MONTH, Integer.parseInt(s[2]));
+            ultimoCio.set(Calendar.MONTH, Integer.parseInt(s[1]));
+            ultimoCio.set(Calendar.YEAR, Integer.parseInt(s[0]));
+            Calendar c = Calendar.getInstance();
+            long diff = c.getTimeInMillis() - ultimoCio.getTimeInMillis();
+            long days = diff / (24 * 60 * 60 * 1000);
+            Log.d("CIO: ", "Dias desde ultima inseminacão " + String.valueOf(days));
+            Animal animal = carregarAnimal(cio.getIdAnimalPorCima());
+            if (days < 18) {
+                AdministradorNotificaPessoa administradorNotificaPessoa = new AdministradorNotificaPessoa("Animal " + animal.getNumero() + " em cio com menos de 18 dias desde sua ultima inseminação", cio.getData());
+                this.inserirAdministradorNotificaPessoa(administradorNotificaPessoa);
+            } else if (days < 60) {
+                AdministradorNotificaPessoa administradorNotificaPessoa = new AdministradorNotificaPessoa("Animal " + animal.getNumero() + " em cio entre 18 e 60 dias desde sua ultima inseminação", cio.getData());
+                this.inserirAdministradorNotificaPessoa(administradorNotificaPessoa);
+
+            } else {
+                AdministradorNotificaPessoa administradorNotificaPessoa = new AdministradorNotificaPessoa("Animal " + animal.getNumero() + " em cio com mais de 60 dias desde sua ultima inseminação", cio.getData());
+                this.inserirAdministradorNotificaPessoa(administradorNotificaPessoa);
+            }
         }
         mDb.close();
         return id;

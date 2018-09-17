@@ -131,9 +131,16 @@ public class NotificarSinistroActivity extends AppCompatActivity implements Navi
 
                     }
                     String text = "Herdsman's Companion;\n2;" + String.valueOf(enfermidade.getId()) + ";" + String.valueOf(animal.getId());
-                    smsManager.sendTextMessage(adminTelefone.getNumero(), null, text, null, null);
-                    Toast.makeText(NotificarSinistroActivity.this, "SMS enviado para " + adminTelefone.getNumero(), Toast.LENGTH_SHORT).show();
-                    finish();
+                    try {
+                        smsManager.sendTextMessage(adminTelefone.getNumero(), null, text, null, null);
+                        Toast.makeText(NotificarSinistroActivity.this, "SMS enviado para " + adminTelefone.getNumero(), Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                    catch (Exception e)
+                    {
+                        Toast.makeText(NotificarSinistroActivity.this, "Erro ao enviar, telefone inválido", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
                 }
             }
         });

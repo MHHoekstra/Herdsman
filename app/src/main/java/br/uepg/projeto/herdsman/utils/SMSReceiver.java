@@ -38,7 +38,6 @@ public class SMSReceiver extends BroadcastReceiver {
 
         if (!messageBody.startsWith("Herdsman's Companion;\n"))
         {
-            Toast.makeText(context, "Mensagem nao é do herdsman", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -150,6 +149,7 @@ public class SMSReceiver extends BroadcastReceiver {
                     {
                         Log.d("SMSReceiver", "Erro ao inserir cio");
                     }
+
                     break;
                 }
                 case 2: {
