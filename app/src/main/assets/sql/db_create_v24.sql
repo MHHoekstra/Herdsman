@@ -50,7 +50,6 @@ CREATE TABLE "mydb"."Pessoa"(
   "cpf" VARCHAR(11) NOT NULL,
   "rg" VARCHAR(14) NOT NULL
 );
-INSERT INTO "Pessoa"("idPessoa","nome","cpf","rg") VALUES(DEFAULT, 'paulo', '08491584943', '124600081');
 CREATE TABLE "mydb"."Medida"(
   "idMedida" INTEGER PRIMARY KEY NOT NULL,
   "nome" VARCHAR(45) NOT NULL
