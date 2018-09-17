@@ -12,13 +12,13 @@ public class Telefone implements Serializable {
 
     }
     public Telefone(int pessoa_idPessoa, String numero) {
-        Pessoa_idPessoa = pessoa_idPessoa;
+        this.Pessoa_idPessoa = pessoa_idPessoa;
         this.numero = numero;
     }
 
     public Telefone(int idTelefone, int pessoa_idPessoa, String numero) {
         this.idTelefone = idTelefone;
-        Pessoa_idPessoa = pessoa_idPessoa;
+        this.Pessoa_idPessoa = pessoa_idPessoa;
         this.numero = numero;
     }
 
@@ -35,7 +35,7 @@ public class Telefone implements Serializable {
     }
 
     public void setPessoa_idPessoa(int pessoa_idPessoa) {
-        Pessoa_idPessoa = pessoa_idPessoa;
+        this.Pessoa_idPessoa = pessoa_idPessoa;
     }
 
     public String getNumero() {

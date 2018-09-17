@@ -111,7 +111,7 @@ public class HerdsmanDbSync {
     }
 
     private void syncFuncionario() {
-        DatabaseReference database = FirebaseSync.child("Funcionario");
+        DatabaseReference database = FirebaseSync.child("Pessoa");
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -252,7 +252,7 @@ public class HerdsmanDbSync {
     }
 
     private void syncOutro(){
-        DatabaseReference database = FirebaseSync.child("Outro");
+        DatabaseReference database = FirebaseSync.child("AdministradorNotificaPessoa");
 
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

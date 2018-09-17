@@ -50,15 +50,13 @@ public class CadastroRemedioActivity extends AppCompatActivity implements Naviga
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-
-
         FloatingActionButton cadastrar = (FloatingActionButton) findViewById(R.id.cadastro_remedio_add);
         FloatingActionButton cancelar = (FloatingActionButton) findViewById(R.id.cadastro_remedio_cancelar);
         final EditText descricao = (EditText) findViewById(R.id.cadastro_remedio_nome);
         final Remedio remedio = (Remedio) getIntent().getSerializableExtra("Remedio");
         if(remedio != null)
         {
+
             descricao.setText(remedio.getNome());
         }
         cadastrar.setOnClickListener(new View.OnClickListener() {

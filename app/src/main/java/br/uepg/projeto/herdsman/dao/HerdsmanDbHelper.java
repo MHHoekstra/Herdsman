@@ -39,6 +39,7 @@ import static br.uepg.projeto.herdsman.dao.HerdsmanContract.RemedioEntry.TABLE_N
  * {@link SQLiteOpenHelper} implementation that creates and upgrades the
  * application database.
  */
+
 public class HerdsmanDbHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "mydb.db";
     private static final int DB_VERSION = 23;
@@ -46,13 +47,146 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
     private DatabaseReference FirebaseHelper;
     private Context mContext;
     private boolean isSync = false;
-
+    private boolean firstInput = false;
     public HerdsmanDbHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         mContext = context;
         this.FirebaseHelper = FirebaseDatabase.getInstance().getReference("Hoekstra");
+        if(firstInput) {
+            //firstExec();
+        }
     }
+    public void firstExec() {
+        if (firstInput) {
+            List<Animal> firstAnimal = carregarAnimaisDb();
+            List<AnimalRemedio> firstAnimalRemedio;
+            List<Cio> firstCio;
+            List<Sinistro> firstSinistro;
+            List<Parto> firstParto;
+            List<Inseminacao> firstInseminacao;
 
+            List<Remedio> firstRemedio = carregarTodosRemedios();
+            for (Remedio insertRemedio : firstRemedio) {
+                insereRemedioFB(insertRemedio);
+            }
+
+            List<Enfermidade> firstEnfermidade = carregarEnfermidades();
+            for (Enfermidade insertEnfermidade : firstEnfermidade) {
+                insereEnfermidadeFB(insertEnfermidade);
+            }
+
+            List<Pessoa> firstPessoa = carregarFuncionariosDb();
+            for (Pessoa insertPessoa : firstPessoa) {
+                inserePessoaFB(insertPessoa);
+            }
+
+            Administrador adm = carregarAdminDatabase();
+            insereAdministradorFB(adm);
+
+            List<AdministradorNotificaPessoa> firstAdministradorNotificaPessoa = carregarTodosAdministradorNotificaPessoa();
+            for (AdministradorNotificaPessoa insertANP : firstAdministradorNotificaPessoa) {
+                insereAdministradorNotificaPessoaFB(insertANP);
+            }
+
+
+            for (Animal insert : firstAnimal) {
+                insereAnimalFB(insert);
+                firstAnimalRemedio = carregarRemediosAnimal(insert);
+                firstCio = carregarCiosAnimal(insert);
+                firstSinistro = carregarSinistrosAnimal(insert);
+                firstParto = carregarPartosAnimal(insert);
+                firstInseminacao = carregarInseminacoesAnimal(insert);
+                for (AnimalRemedio insertRemedio : firstAnimalRemedio) {
+                    insereAnimalRemedioFB(insertRemedio);
+                }
+                for (Cio insertCio : firstCio) {
+                    insereCioFB(insertCio);
+                }
+                for (Sinistro insertSinistro : firstSinistro) {
+                    insereSinistroFB(insertSinistro);
+                }
+                for (Parto insertParto : firstParto) {
+                    inserePartoFB(insertParto);
+                }
+                for (Inseminacao insertInseminacao : firstInseminacao) {
+                    insereInseminacaoFB(insertInseminacao);
+                }
+
+            }
+        }
+    }
+    public void insereAdministradorFB(Administrador administrador)
+    {
+        DatabaseReference databaseAnimal = FirebaseHelper.child("Administrador");
+        databaseAnimal.child(String.valueOf(administrador.getIdAdministrador())).setValue(administrador);
+        databaseAnimal.keepSynced(true);
+    }
+    public void insereAdministradorNotificaPessoaFB(AdministradorNotificaPessoa administradorNotificaPessoa)
+    {
+        DatabaseReference databaseAnimal = FirebaseHelper.child("AdministradorNotificaPessoa");
+        databaseAnimal.child(String.valueOf(administradorNotificaPessoa.getIdAdministradorNotificaPessoa())).setValue(administradorNotificaPessoa);
+        databaseAnimal.keepSynced(true);
+    }
+    public void inserePessoaFB(Pessoa pessoa)
+    {
+        DatabaseReference databaseAnimal = FirebaseHelper.child("Pessoa");
+        databaseAnimal.child(String.valueOf(pessoa.getIdPessoa())).setValue(pessoa);
+        databaseAnimal.keepSynced(true);
+    }
+    public void insereEnfermidadeFB(Enfermidade enfermidade)
+    {
+        DatabaseReference databaseAnimal = FirebaseHelper.child("Enfermidade");
+        databaseAnimal.child(String.valueOf(enfermidade.getId())).setValue(enfermidade);
+        databaseAnimal.keepSynced(true);
+    }
+    public void insereAnimalFB(Animal animal)
+    {
+        DatabaseReference databaseAnimal = FirebaseHelper.child("Animal");
+        databaseAnimal.child(String.valueOf(animal.getId())).setValue(animal);
+        databaseAnimal.keepSynced(true);
+    }
+    public void insereMedidaFB(Medida medida)
+    {
+        DatabaseReference databaseMedida = FirebaseHelper.child("Medida");
+        databaseMedida.child(String.valueOf(medida.getIdMedida())).setValue(medida);
+        databaseMedida.keepSynced(true);
+    }
+    public void insereRemedioFB(Remedio remedio)
+    {
+        DatabaseReference databaseRemedio = FirebaseHelper.child("Remedio");
+        databaseRemedio.child(String.valueOf(remedio.getIdRemedio())).setValue(remedio);
+        databaseRemedio.keepSynced(true);
+    }
+    public void insereAnimalRemedioFB(AnimalRemedio AR)
+    {
+        DatabaseReference databaseAnimal = FirebaseHelper.child("AnimalRemedio");
+        databaseAnimal.child(String.valueOf(AR.getIdAnimalRemedio())).setValue(AR);
+        databaseAnimal.keepSynced(true);
+    }
+    public void insereCioFB(Cio cio)
+    {
+        DatabaseReference databaseAnimal = FirebaseHelper.child("Cio");
+        databaseAnimal.child(String.valueOf(cio.getIdCio())).setValue(cio);
+        databaseAnimal.keepSynced(true);
+    }
+    public void insereSinistroFB(Sinistro sinistro)
+    {
+        DatabaseReference databaseAnimal = FirebaseHelper.child("Sinistro");
+        databaseAnimal.child(String.valueOf(sinistro.getIdSinistro())).setValue(sinistro);
+        databaseAnimal.keepSynced(true);
+    }
+    public void inserePartoFB(Parto parto)
+    {
+        DatabaseReference databaseAnimal = FirebaseHelper.child("Parto");
+        databaseAnimal.child(String.valueOf(parto.getId())).setValue(parto);
+        databaseAnimal.keepSynced(true);
+    }
+    public void insereInseminacaoFB(Inseminacao inseminacao)
+    {
+        DatabaseReference databaseAnimal = FirebaseHelper.child("Inseminacao");
+        databaseAnimal.child(String.valueOf(inseminacao.getIdInseminacao())).setValue(inseminacao);
+        databaseAnimal.keepSynced(true);
+    }
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Database creation scripts should be placed in assets/sql
@@ -71,7 +205,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
                 " RAISE (ABORT,'RG inválido')\n" +
                 " END;\n" +
                 "END;";
-        String triggerCio1 = "CREATE TRIGGER verificaCio BEFORE INSERT ON Cio WHEN EXISTS(SELECT Animal_idAnimal FROM \"Inseminacao\"  WHERE Animal_idAnimal == NEW.Animal_idAnimalPorCima AND (julianday(NEW.data)-julianday(data))<18) BEGIN INSERT INTO Administrador_Notifica_Pessoa(\"Administrador_idNotifica\",\"data\",\"descricao\")  VALUES ((SELECT idAdministrador FROM Administrador WHERE admin == 1) ,date('now'), \"Animal está com provável problema reprodutivo\"); END;";
+        //String triggerCio1 = "CREATE TRIGGER verificaCio BEFORE INSERT ON Cio WHEN EXISTS(SELECT Animal_idAnimal FROM \"Inseminacao\"  WHERE Animal_idAnimal == NEW.Animal_idAnimalPorCima AND (julianday(NEW.data)-julianday(data))<18) BEGIN INSERT INTO Administrador_Notifica_Pessoa(\"Administrador_idNotifica\",\"data\",\"descricao\")  VALUES ((SELECT idAdministrador FROM Administrador WHERE admin == 1) ,date('now'), \"Animal está com provável problema reprodutivo\"); END;";
         String triggerCio2 = "CREATE TRIGGER verificaCio2 BEFORE INSERT ON Cio WHEN (SELECT 1 FROM Inseminacao a WHERE a.Animal_idAnimal == NEW.Animal_idAnimalPorBaixo AND (julianday(NEW.data)-julianday(a.data))<18)\n" +
                 "BEGIN\n" +
                 " INSERT INTO Administrador_Notifica_Pessoa(\"Administrador_idNotifica\",\"data\",\"descricao\")  VALUES ((SELECT idAdministrador FROM Administrador WHERE admin == 1) ,date('now'), \"Animal está com provável problema reprodutivo\");\n" +
@@ -117,8 +251,8 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
                     createStatement.setLength(0);
                 }
             }
-            Log.d(TAG, "Executing SQL: \r\n" + triggerCio1);
-            db.execSQL(triggerCio1);
+            //Log.d(TAG, "Executing SQL: \r\n" + triggerCio1);
+            //db.execSQL(triggerCio1);
             br.close();
         } catch (IOException e) {
             Log.e(TAG, "IOException thrown while attempting to "
@@ -132,7 +266,10 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
                 + createDbFile + " in " +
                 (System.currentTimeMillis() - startTime) + "ms.");
     }
-
+    public void setFirstInput(Boolean first)
+    {
+        firstInput = first;
+    }
     @Override
     public void onUpgrade(SQLiteDatabase db, int from, int to) {
         Log.v(TAG, "Delete database");
@@ -387,7 +524,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
             String senha = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.AdministradorEntry.COLUMN_NAME_SENHA));
             int idPessoa = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.AdministradorEntry.COLUMN_NAME_PESSOA_IDPESSOA));
             int idUsuario = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.AdministradorEntry.COLUMN_NAME_IDADMINISTRADOR));
-            adminAdministrador = new Administrador(1,login, senha, idPessoa, idUsuario);
+            adminAdministrador = new Administrador(1, login, senha, idPessoa, idUsuario);
         }
         cursor.close();
         mDb.close();
@@ -395,8 +532,6 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
     }
 
     public long inserirAnimal(Animal animal) {
-
-        DatabaseReference databaseAnimal = FirebaseHelper.child("Animal");
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_NUMERO, animal.getNumero());
@@ -406,8 +541,9 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
             values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_IDANIMAL, animal.getId());
         }
         long id = db.insert(HerdsmanContract.AnimalEntry.TABLE_NAME, null, values);
-        if (id != -1) {
+        if (id > 0 && !this.isSync()) {
             animal.setId((int) id);
+            DatabaseReference databaseAnimal = FirebaseHelper.child("Animal");
             databaseAnimal.child(String.valueOf(id)).setValue(animal);
             databaseAnimal.keepSynced(true);
         }
@@ -416,7 +552,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
     }
 
     public long replaceAnimal(Animal animal) {
-        DatabaseReference databaseAnimal = FirebaseHelper.child("Animal");
+
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_IDANIMAL, animal.getId());
@@ -424,7 +560,8 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_NOME, animal.getNome());
         values.put(HerdsmanContract.AnimalEntry.COLUMN_NAME_ATIVO, animal.getAtivo());
         long id = db.replace(HerdsmanContract.AnimalEntry.TABLE_NAME, null, values);
-        if (id != -1) {
+        if (id > 0 && !this.isSync()) {
+            DatabaseReference databaseAnimal = FirebaseHelper.child("Animal");
             databaseAnimal.child(String.valueOf(id)).setValue(animal);
             databaseAnimal.keepSynced(true);
         }
@@ -508,7 +645,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
     }
 
     public long inserirEnfermidade(Enfermidade enfermidade) {
-        DatabaseReference databaseEnfermidade = FirebaseHelper.child("Enfermidade");
+
         SQLiteDatabase mDb = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(HerdsmanContract.EnfermidadeEntry.COLUMN_NAME_DESCRICAO, enfermidade.getDescricao());
@@ -516,7 +653,8 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
             values.put(HerdsmanContract.EnfermidadeEntry.COLUMN_NAME_IDENFERMIDADE, enfermidade.getId());
         }
         long id = mDb.insert(HerdsmanContract.EnfermidadeEntry.TABLE_NAME, null, values);
-        if (id != -1) {
+        if (id > 0 && !this.isSync()) {
+            DatabaseReference databaseEnfermidade = FirebaseHelper.child("Enfermidade");
             enfermidade.setId((int) id);
             databaseEnfermidade.child(String.valueOf(id)).setValue(enfermidade);
             databaseEnfermidade.keepSynced(true);
@@ -533,14 +671,20 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         valuesP.put(HerdsmanContract.PessoaEntry.COLUMN_NAME_CPF, pessoa.getCpf());
         valuesP.put(HerdsmanContract.PessoaEntry.COLUMN_NAME_RG, pessoa.getRg());
         valuesP.put(HerdsmanContract.PessoaEntry.COLUMN_NAME_ATIVO, pessoa.getAtivo());
-        long newRowId = mDb.replace(HerdsmanContract.PessoaEntry.TABLE_NAME, null, valuesP);
+        long id = mDb.replace(HerdsmanContract.PessoaEntry.TABLE_NAME, null, valuesP);
+        if (id > 0 && !this.isSync()) {
+            DatabaseReference databaseFuncionario = FirebaseHelper.child("Pessoa");
+            pessoa.setIdPessoa((int) id);
+            databaseFuncionario.child(String.valueOf(id)).setValue(pessoa);
+            databaseFuncionario.keepSynced(true);
+        }
         mDb.close();
-        return newRowId;
+        return id;
 
     }
 
     public long inserirFuncionario(Pessoa pessoa) {
-        DatabaseReference databaseFuncionario = FirebaseHelper.child("Funcionario");
+
         SQLiteDatabase mDb = this.getWritableDatabase();
 
         ContentValues valuesP = new ContentValues();
@@ -552,7 +696,8 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
             valuesP.put(HerdsmanContract.PessoaEntry.COLUMN_NAME_IDPESSOA, pessoa.getIdPessoa());
         }
         long id = mDb.insert(HerdsmanContract.PessoaEntry.TABLE_NAME, null, valuesP);
-        if (id != -1) {
+        if (id > 0 && !this.isSync()) {
+            DatabaseReference databaseFuncionario = FirebaseHelper.child("Pessoa");
             pessoa.setIdPessoa((int) id);
             databaseFuncionario.child(String.valueOf(id)).setValue(pessoa);
             databaseFuncionario.keepSynced(true);
@@ -563,7 +708,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
     }
 
     public long inserirParto(Parto parto) {
-        DatabaseReference databaseParto = FirebaseHelper.child("Parto");
+
         SQLiteDatabase mDb = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(HerdsmanContract.PartoEntry.COLUMN_NAME_ANIMAL_IDANIMAL, parto.getAnimal_idAnimal());
@@ -573,7 +718,8 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
             values.put(HerdsmanContract.PartoEntry.COLUMN_NAME_IDPARTO, parto.getId());
         }
         long id = mDb.insert(HerdsmanContract.PartoEntry.TABLE_NAME, null, values);
-        if (id != -1) {
+        if (id > 0 && !this.isSync()) {
+            DatabaseReference databaseParto = FirebaseHelper.child("Parto");
             parto.setId((int) id);
             databaseParto.child(String.valueOf(id)).setValue(parto);
             databaseParto.keepSynced(true);
@@ -584,7 +730,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
     }
 
     public long inserirRemedio(Remedio remedio) {
-        DatabaseReference databaseRemedio = FirebaseHelper.child("Remedio");
+
         SQLiteDatabase mDb = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(HerdsmanContract.RemedioEntry.COLUMN_NAME_NOME, remedio.getNome());
@@ -592,15 +738,16 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
             values.put(HerdsmanContract.RemedioEntry.COLUMN_NAME_IDREMEDIO, remedio.getIdRemedio());
         }
         long id = mDb.insert(HerdsmanContract.RemedioEntry.TABLE_NAME, null, values);
-        if (id != -1) {
+        if (id > 0 && !this.isSync()) {
             remedio.setIdRemedio((int) id);
+            DatabaseReference databaseRemedio = FirebaseHelper.child("Remedio");
             databaseRemedio.child(String.valueOf(id)).setValue(remedio);
             databaseRemedio.keepSynced(true);
         }
         mDb.close();
         return id;
 
-    }
+}
 
     public ArrayList carregarTelefonesPessoa(Pessoa pessoa) {
         SQLiteDatabase mDb = this.getReadableDatabase();
@@ -662,7 +809,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
     }
 
     public long inserirCio(Cio cio) {
-        DatabaseReference databaseCio = FirebaseHelper.child("Cio");
+
         ContentValues values = new ContentValues();
         values.put(HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORCIMA, cio.getIdAnimalPorCima());
         values.put(HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORBAIXO, cio.getIdAnimalPorBaixo());
@@ -676,9 +823,9 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
                 HerdsmanContract.CioEntry.TABLE_NAME,
                 null,
                 values
-
         );
-        if (id != -1) {
+        if (id > 0 && !this.isSync()) {
+            DatabaseReference databaseCio = FirebaseHelper.child("Cio");
             cio.setIdCio((int) id);
             databaseCio.child(String.valueOf(id)).setValue(cio);
             databaseCio.keepSynced(true);
@@ -688,7 +835,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
     }
 
     public long inserirSinistro(Sinistro sinistro) {
-        DatabaseReference databaseSinistro = FirebaseHelper.child("Sinistro");
+
         ContentValues values = new ContentValues();
         values.put(HerdsmanContract.SinistroEntry.COLUMN_NAME_ANIMAL_IDANIMAL, sinistro.getIdAnimal());
         values.put(HerdsmanContract.SinistroEntry.COLUMN_NAME_ENFERMIDADE_IDENFERMIDADE, sinistro.getIdEnfermidade());
@@ -702,7 +849,8 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
                 null,
                 values
         );
-        if (id != -1) {
+        if (id > 0 && !this.isSync()) {
+            DatabaseReference databaseSinistro = FirebaseHelper.child("Sinistro");
             sinistro.setIdSinistro((int) id);
             databaseSinistro.child(String.valueOf(id)).setValue(sinistro);
             databaseSinistro.keepSynced(true);
@@ -810,8 +958,6 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
     }
 
     public void updateAdminTelefone(String s) {
-        //DatabaseReference databaseFuncionario = FirebaseHelper.child("Funcionario");
-
         SQLiteDatabase mDb = this.getWritableDatabase();
         String[] where = {"1"};
         mDb.delete(
@@ -823,10 +969,13 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         values.put(HerdsmanContract.TelefoneEntry.COLUMN_NAME_PESSOA_IDPESSOA, "1");
         values.put(HerdsmanContract.TelefoneEntry.COLUMN_NAME_NUMERO, s);
         long id = mDb.insert(HerdsmanContract.TelefoneEntry.TABLE_NAME, null, values);
-
+        if (id > 0 && !this.isSync()) {
+            DatabaseReference databaseTelefone = FirebaseHelper.child("Telefone").child("1");
+            databaseTelefone.child("numero").setValue(s);
+            databaseTelefone.keepSynced(true);
+        }
         mDb.close();
     }
-
 
     public Animal carregarAnimal(int idAnimal) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -924,7 +1073,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
     }
 
     public long inserirInseminacao(Inseminacao inseminacao) {
-        DatabaseReference databaseInseminacao = FirebaseHelper.child("Inseminacao");
+
         SQLiteDatabase mDb = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -934,7 +1083,8 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
             values.put(HerdsmanContract.AnimalInseminacaoEntry.COLUMN_NAME_IDANIMAL_INSEMINACAO, inseminacao.getIdInseminacao());
         }
         long id = mDb.insert(HerdsmanContract.AnimalInseminacaoEntry.TABLE_NAME, null, values);
-        if (id != -1) {
+        if (id > 0 && !this.isSync()) {
+            DatabaseReference databaseInseminacao = FirebaseHelper.child("Inseminacao");
             inseminacao.setIdInseminacao((int) id);
             databaseInseminacao.child(String.valueOf(id)).setValue(inseminacao);
             databaseInseminacao.keepSynced(true);
@@ -1077,7 +1227,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
     }
 
     public long inserirAnimalRemedio(AnimalRemedio animalRemedio) {
-        DatabaseReference databaseAnimalRemedio = FirebaseHelper.child("AnimalRemedio");
+
         SQLiteDatabase mDb = this.getReadableDatabase();
         ContentValues values = new ContentValues();
 
@@ -1090,10 +1240,10 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         if (this.isSync()) {
             values.put(HerdsmanContract.AnimalRemedioEntry.COLUMN_NAME_IDANIMAL_REMEDIO, animalRemedio.getIdAnimalRemedio());
         }
-
         long id = mDb.insert(HerdsmanContract.AnimalRemedioEntry.TABLE_NAME, null, values);
-        if (id != -1) {
+        if (id > 0 && !this.isSync()) {
             animalRemedio.setIdAnimalRemedio((int) id);
+            DatabaseReference databaseAnimalRemedio = FirebaseHelper.child("Animal_Remedio");
             databaseAnimalRemedio.child(String.valueOf(id)).setValue(animalRemedio);
             databaseAnimalRemedio.keepSynced(true);
         }
@@ -1170,7 +1320,6 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
 
     public long inserirTelefone(Telefone telefone) {
         //TODO Firebase
-        DatabaseReference databaseTelefone = FirebaseHelper.child("Telefone");
         SQLiteDatabase mDb = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -1182,7 +1331,8 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         }
 
         long id = mDb.insert(HerdsmanContract.TelefoneEntry.TABLE_NAME, null, values);
-        if (id != -1) {
+        if (id > 0 && !this.isSync()) {
+            DatabaseReference databaseTelefone = FirebaseHelper.child("Telefone");
             telefone.setIdTelefone((int) id);
             databaseTelefone.child(String.valueOf(id)).setValue(telefone);
             databaseTelefone.keepSynced(true);
@@ -1202,12 +1352,18 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
                 HerdsmanContract.TelefoneEntry.TABLE_NAME,
                 where,
                 whereArgs);
+        if(delete>0)
+        {
+            DatabaseReference databaseTelefone = FirebaseHelper.child("Telefone").child(String.valueOf(telefone.getIdTelefone()));
+            databaseTelefone.removeValue();
+            databaseTelefone.keepSynced(true);
+        }
         mDb.close();
         return delete;
     }
 
     public long inserirAdministradorNotificaPessoa(AdministradorNotificaPessoa outro) {
-        DatabaseReference databaseOutro = FirebaseHelper.child("Outro");
+
         SQLiteDatabase mDb = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -1219,7 +1375,8 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         }
 
         long id = mDb.insert(HerdsmanContract.AdministradorNotificaPessoaEntry.TABLE_NAME, null, values);
-        if (id != -1) {
+        if (id > 0 && !this.isSync()) {
+            DatabaseReference databaseOutro = FirebaseHelper.child("AdministradorNotificaPessoa");
             outro.setIdAdministradorNotificaPessoa((int) id);
             databaseOutro.child(String.valueOf(id)).setValue(outro);
             databaseOutro.keepSynced(true);

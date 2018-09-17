@@ -68,6 +68,7 @@ public class TelaFuncionarioActivity extends AppCompatActivity implements Naviga
         pessoa = (Pessoa) getIntent().getSerializableExtra("Pessoa");
         TextView titulo = findViewById(R.id.tela_funcionario_titulo);
         TextView cpfText = findViewById(R.id.tela_funcionario_cpf);
+
         TextView rgText = findViewById(R.id.tela_funcionario_rg);
         listaTelefones = findViewById(R.id.tela_funcionario_lista_telefone);
         titulo.setText(pessoa.getNome());

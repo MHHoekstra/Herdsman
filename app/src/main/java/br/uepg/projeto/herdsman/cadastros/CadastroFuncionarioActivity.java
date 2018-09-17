@@ -28,7 +28,6 @@ import br.uepg.projeto.herdsman.drawer.notificacao.NotificarCioActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarOutroActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarSinistroActivity;
 import br.uepg.projeto.herdsman.objetos.Pessoa;
-import br.uepg.projeto.herdsman.objetos.Administrador;
 import br.uepg.projeto.herdsman.R;
 
 public class CadastroFuncionarioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -90,14 +89,12 @@ public class CadastroFuncionarioActivity extends AppCompatActivity implements Na
                     if (campoNome.getText().length() == 0) {
                         return;
                     }
-
                     if (campoCpf.getText().length() == 0) {
                         return;
                     }
                     if (campoRg.getText().length() == 0) {
                         return;
                     }
-
                     pessoa = new Pessoa(campoNome.getText().toString(), campoCpf.getText().toString(), campoRg.getText().toString());
 
                     HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(CadastroFuncionarioActivity.this);
@@ -121,7 +118,7 @@ public class CadastroFuncionarioActivity extends AppCompatActivity implements Na
                         return;
                     }
 
-                    pessoa = new Pessoa(campoNome.getText().toString(), campoCpf.getText().toString(), campoRg.getText().toString());
+                    pessoa = new Pessoa(campoNome.getText().toString(),campoCpf.getText().toString(), campoRg.getText().toString());
                     pessoa.setIdPessoa(intent_pessoa.getIdPessoa());
                     HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(CadastroFuncionarioActivity.this);
 

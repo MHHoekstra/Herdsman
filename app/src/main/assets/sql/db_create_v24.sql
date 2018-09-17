@@ -161,6 +161,8 @@ CREATE INDEX "mydb"."Administrador_Notifica_Pessoa.fk_Administrador_Notifica_Pes
 INSERT INTO "Medida"("idMedida","nome") VALUES(1, "Miligramas");
 INSERT INTO "Administrador"("idAdministrador","Pessoa_idPessoa","login","senha","admin") VALUES(1, 1, 'admin', '5050', 1);
 
+INSERT INTO "Pessoa"("idPessoa","nome","cpf","rg") VALUES(1, 'Administrador', '08491584943', '124600081');
+
 INSERT INTO "Animal"("idAnimal","nome","ativo","numero") VALUES (1, "Frisio Uman Cassandra", 1, "012");
 INSERT INTO "Inseminacao"("idAnimal_Inseminacao","Animal_idAnimal","data") VALUES(1,1,"2018-08-12");
 INSERT INTO "Parto"("idAnimal_Parto", "Animal_idAnimal", "data", "cria") VALUES(1,1,"2018-02-27",1);

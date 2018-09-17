@@ -3,23 +3,30 @@ package br.uepg.projeto.herdsman.objetos;
 import java.io.Serializable;
 
 public class Administrador implements Serializable {
-    private int admin;
+
+    private int idAdministrador;
     private String login;
     private String senha;
     private int idPessoa;
-    private int idUsuario;
+    private int admin;
 
     public Administrador()
     {
 
     }
+    public int getIdAdministrador() {
+        return idAdministrador;
+    }
+
+    public void setIdAdministrador(int idAdministrador) {
+        this.idAdministrador = idAdministrador;
+    }
 
     public Administrador(int admin, String login, String senha, int idPessoa, int idUsuario) {
-        this.admin = admin;
         this.login = login;
         this.senha = senha;
         this.idPessoa = idPessoa;
-        this.idUsuario = idUsuario;
+        this.idAdministrador = idUsuario;
     }
 
     public int isAdmin() {
