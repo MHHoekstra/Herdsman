@@ -1,6 +1,8 @@
 package br.uepg.projeto.herdsman.objetos;
 
-public class Remedio {
+import java.io.Serializable;
+
+public class Remedio implements Serializable {
     private int idRemedio;
     private String nome;
 

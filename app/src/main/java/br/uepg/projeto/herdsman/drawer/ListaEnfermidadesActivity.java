@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.ListView;
@@ -24,11 +25,14 @@ import java.util.ArrayList;
 
 import br.uepg.projeto.herdsman.MainActivity;
 import br.uepg.projeto.herdsman.cadastros.CadastroEnfermidadeActivity;
+import br.uepg.projeto.herdsman.cadastros.CadastroFuncionarioActivity;
 import br.uepg.projeto.herdsman.dao.HerdsmanDbHelper;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarCioActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarOutroActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarSinistroActivity;
 import br.uepg.projeto.herdsman.R;
+import br.uepg.projeto.herdsman.objetos.Enfermidade;
+import br.uepg.projeto.herdsman.objetos.Pessoa;
 
 public class ListaEnfermidadesActivity extends TelasActivity implements SearchView.OnQueryTextListener{
     ListView listaEnfermidades;
@@ -65,6 +69,17 @@ public class ListaEnfermidadesActivity extends TelasActivity implements SearchVi
             public void onClick(View v) {
                 Intent intent = new Intent(ListaEnfermidadesActivity.this, CadastroEnfermidadeActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        listaEnfermidades.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Enfermidade enfermidade = (Enfermidade) listaEnfermidades.getItemAtPosition(position);
+                Intent intent = new Intent(ListaEnfermidadesActivity.this, CadastroEnfermidadeActivity.class);
+                intent.putExtra("Enfermidade", enfermidade);
+                startActivity(intent);
+                return true;
             }
         });
         setupSearchView();

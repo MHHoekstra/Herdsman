@@ -51,13 +51,17 @@ public class CadastroEnfermidadeActivity extends AppCompatActivity implements Na
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-
         FloatingActionButton cadastrar = (FloatingActionButton) findViewById(R.id.cadastro_enfermidade_add);
         FloatingActionButton cancelar = (FloatingActionButton) findViewById(R.id.cadastro_enfermidade_cancelar);
         final EditText descricao = (EditText) findViewById(R.id.cadastro_enfermidade_descricão);
 
-        cadastrar.setOnClickListener(new View.OnClickListener() {
+        enfermidade = (Enfermidade) getIntent().getSerializableExtra("Enfermidade");
+        if(enfermidade != null)
+        {
+            descricao.setText(enfermidade.getDescricao());
+        }
+
+            cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(descricao.getText().length() == 0)
@@ -65,12 +69,22 @@ public class CadastroEnfermidadeActivity extends AppCompatActivity implements Na
                     Toast.makeText(CadastroEnfermidadeActivity.this, "Preencha o campo", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                enfermidade = new Enfermidade(descricao.getText().toString());
                 HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(CadastroEnfermidadeActivity.this);
-                long insert = mDbHelper.inserirEnfermidade(enfermidade);
-                if (insert > 0)
+
+                if(enfermidade == null) {
+                    enfermidade = new Enfermidade(descricao.getText().toString());
+
+                    long insert = mDbHelper.inserirEnfermidade(enfermidade);
+                    if (insert > 0) {
+                        Toast.makeText(CadastroEnfermidadeActivity.this, "Enfermidade cadastrada", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else
                 {
-                    Toast.makeText(CadastroEnfermidadeActivity.this, "Enfermidade cadastrada", Toast.LENGTH_SHORT).show();
+                    enfermidade.setDescricao(descricao.getText().toString());
+                    mDbHelper.updateEnfermidade(enfermidade);
+                    Toast.makeText(CadastroEnfermidadeActivity.this, "Enfermidade alterada", Toast.LENGTH_SHORT).show();
+
                 }
                 finish();
             }

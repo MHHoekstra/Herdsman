@@ -1263,4 +1263,33 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         mContext.deleteDatabase("mydb.db");
     }
 
+    public void updateEnfermidade(Enfermidade enfermidade) {
+        //TODO Atualizar no firebase
+        SQLiteDatabase mDb = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(HerdsmanContract.EnfermidadeEntry.COLUMN_NAME_IDENFERMIDADE, enfermidade.getId());
+        values.put(HerdsmanContract.EnfermidadeEntry.COLUMN_NAME_DESCRICAO, enfermidade.getDescricao());
+        mDb.update(
+                HerdsmanContract.EnfermidadeEntry.TABLE_NAME,
+                values,
+                null,
+                null
+        );
+        mDb.close();
+    }
+
+    public void updateRemedio(Remedio remedio) {
+        //TODO Atualizar no firebase
+        SQLiteDatabase mDb = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(HerdsmanContract.RemedioEntry.COLUMN_NAME_IDREMEDIO, remedio.getIdRemedio());
+        values.put(HerdsmanContract.RemedioEntry.COLUMN_NAME_NOME, remedio.getNome());
+        mDb.update(
+                HerdsmanContract.RemedioEntry.TABLE_NAME,
+                values,
+                null,
+                null
+        );
+        mDb.close();
+    }
 }

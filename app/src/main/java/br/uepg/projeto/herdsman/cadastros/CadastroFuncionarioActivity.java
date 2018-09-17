@@ -34,7 +34,6 @@ import br.uepg.projeto.herdsman.R;
 public class CadastroFuncionarioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     Pessoa pessoa;
     Pessoa intent_pessoa;
-    Administrador administrador;
     Boolean adm;
     public static final String myPref = "preferenceName";
     SharedPreferences pref;

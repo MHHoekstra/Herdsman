@@ -1,6 +1,8 @@
 package br.uepg.projeto.herdsman.objetos;
 
-public class Enfermidade {
+import java.io.Serializable;
+
+public class Enfermidade implements Serializable{
     private int id;
     private String descricao;
 

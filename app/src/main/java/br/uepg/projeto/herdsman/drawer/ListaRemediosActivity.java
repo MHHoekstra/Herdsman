@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.ListView;
@@ -23,12 +24,15 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import br.uepg.projeto.herdsman.MainActivity;
+import br.uepg.projeto.herdsman.cadastros.CadastroEnfermidadeActivity;
 import br.uepg.projeto.herdsman.cadastros.CadastroRemedioActivity;
 import br.uepg.projeto.herdsman.dao.HerdsmanDbHelper;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarCioActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarOutroActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarSinistroActivity;
 import br.uepg.projeto.herdsman.R;
+import br.uepg.projeto.herdsman.objetos.Enfermidade;
+import br.uepg.projeto.herdsman.objetos.Remedio;
 
 public class ListaRemediosActivity extends TelasActivity implements SearchView.OnQueryTextListener{
     SearchView pesquisa;
@@ -70,7 +74,16 @@ public class ListaRemediosActivity extends TelasActivity implements SearchView.O
         });
         setupSearchView();
         listarRemedios();
-        //TODO Poder alterar uma entrada de remedio
+        listaRemedios.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Remedio remedio = (Remedio) listaRemedios.getItemAtPosition(position);
+                Intent intent = new Intent(ListaRemediosActivity.this, CadastroRemedioActivity.class);
+                intent.putExtra("Remedio", remedio);
+                startActivity(intent);
+                return true;
+            }
+        });
     }
 
     private void setupSearchView() {

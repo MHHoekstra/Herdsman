@@ -56,7 +56,11 @@ public class CadastroRemedioActivity extends AppCompatActivity implements Naviga
         FloatingActionButton cadastrar = (FloatingActionButton) findViewById(R.id.cadastro_remedio_add);
         FloatingActionButton cancelar = (FloatingActionButton) findViewById(R.id.cadastro_remedio_cancelar);
         final EditText descricao = (EditText) findViewById(R.id.cadastro_remedio_nome);
-
+        final Remedio remedio = (Remedio) getIntent().getSerializableExtra("Remedio");
+        if(remedio != null)
+        {
+            descricao.setText(remedio.getNome());
+        }
         cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,9 +71,18 @@ public class CadastroRemedioActivity extends AppCompatActivity implements Naviga
                     return;
                 }
                 HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(CadastroRemedioActivity.this);
-                Remedio remedio = new Remedio(descricao.getText().toString());
-                mDbHelper.inserirRemedio(remedio);
-                Toast.makeText(CadastroRemedioActivity.this, "Remédio cadastrado", Toast.LENGTH_SHORT).show();
+
+                if(remedio == null) {
+                    Remedio remedio = new Remedio(descricao.getText().toString());
+                    mDbHelper.inserirRemedio(remedio);
+                    Toast.makeText(CadastroRemedioActivity.this, "Remédio cadastrado", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    remedio.setNome(descricao.getText().toString());
+                    mDbHelper.updateRemedio(remedio);
+                    Toast.makeText(CadastroRemedioActivity.this, "Remédio alterado", Toast.LENGTH_SHORT).show();
+
+                }
                 finish();
             }
         });
