@@ -57,6 +57,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="80dp"
+        android:maxLength="100"
         android:ems="10"
         android:hint="Insira aqui uma breve descrição..."
         android:inputType="textPersonName"
