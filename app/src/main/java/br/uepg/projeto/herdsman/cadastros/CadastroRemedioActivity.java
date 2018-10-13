@@ -23,7 +23,7 @@ import br.uepg.projeto.herdsman.drawer.ListaFuncionariosActivity;
 import br.uepg.projeto.herdsman.drawer.ListaRemediosActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarCioActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarOutroActivity;
-import br.uepg.projeto.herdsman.drawer.notificacao.NotificarSinistroActivity;
+import br.uepg.projeto.herdsman.drawer.notificacao.NotificarAnimalEnfermidadeActivity;
 import br.uepg.projeto.herdsman.objetos.Remedio;
 import br.uepg.projeto.herdsman.R;
 
@@ -162,7 +162,7 @@ public class CadastroRemedioActivity extends AppCompatActivity implements Naviga
 
         } else if (id == R.id.nav_sinistro) {
 
-            Intent intent = new Intent(CadastroRemedioActivity.this, NotificarSinistroActivity.class);
+            Intent intent = new Intent(CadastroRemedioActivity.this, NotificarAnimalEnfermidadeActivity.class);
             CadastroRemedioActivity.this.startActivity(intent);
 
         } else if (id == R.id.nav_outro) {

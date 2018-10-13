@@ -205,7 +205,7 @@ public class NotificarCioActivity extends AppCompatActivity implements Navigatio
 
         } else if (id == R.id.nav_sinistro) {
 
-            Intent intent = new Intent(NotificarCioActivity.this, NotificarSinistroActivity.class);
+            Intent intent = new Intent(NotificarCioActivity.this, NotificarAnimalEnfermidadeActivity.class);
             NotificarCioActivity.this.startActivity(intent);
 
         } else if (id == R.id.nav_outro) {

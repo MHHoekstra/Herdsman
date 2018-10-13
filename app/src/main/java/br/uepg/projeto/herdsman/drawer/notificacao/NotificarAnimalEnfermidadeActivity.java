@@ -31,12 +31,12 @@ import br.uepg.projeto.herdsman.drawer.ListaEnfermidadesActivity;
 import br.uepg.projeto.herdsman.drawer.ListaFuncionariosActivity;
 import br.uepg.projeto.herdsman.drawer.ListaRemediosActivity;
 import br.uepg.projeto.herdsman.objetos.Animal;
+import br.uepg.projeto.herdsman.objetos.AnimalEnfermidade;
 import br.uepg.projeto.herdsman.objetos.Enfermidade;
-import br.uepg.projeto.herdsman.objetos.Sinistro;
 import br.uepg.projeto.herdsman.objetos.Telefone;
 import br.uepg.projeto.herdsman.R;
 
-public class NotificarSinistroActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class NotificarAnimalEnfermidadeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Spinner animalSpinner;
     Spinner enfermidadeSpinner;
     FloatingActionButton cancelar;
@@ -72,8 +72,8 @@ public class NotificarSinistroActivity extends AppCompatActivity implements Navi
         ArrayList animais = mDbHelper.carregarAnimaisAtivos();
         final Telefone adminTelefone = mDbHelper.carregarTelefoneAdmin();
         ArrayList enfermidades = mDbHelper.carregarEnfermidades();
-        ArrayAdapter<String> animalAdapter = new ArrayAdapter(NotificarSinistroActivity.this, R.layout.support_simple_spinner_dropdown_item, animais);
-        ArrayAdapter<String> enfermidadeAdapter = new ArrayAdapter(NotificarSinistroActivity.this, R.layout.support_simple_spinner_dropdown_item, enfermidades);
+        ArrayAdapter<String> animalAdapter = new ArrayAdapter(NotificarAnimalEnfermidadeActivity.this, R.layout.support_simple_spinner_dropdown_item, animais);
+        ArrayAdapter<String> enfermidadeAdapter = new ArrayAdapter(NotificarAnimalEnfermidadeActivity.this, R.layout.support_simple_spinner_dropdown_item, enfermidades);
         animalSpinner.setAdapter(animalAdapter);
         enfermidadeSpinner.setAdapter(enfermidadeAdapter);
 
@@ -103,17 +103,17 @@ public class NotificarSinistroActivity extends AppCompatActivity implements Navi
                     }
 
                     String data = String.valueOf(ano) + '-' + String.valueOf(mes) + '-' + diaFormatado;
-                    Sinistro sinistro = new Sinistro(animal.getId(), enfermidade.getId(), 1, data);
-                    HerdsmanDbHelper herdsmanDbHelper = new HerdsmanDbHelper(NotificarSinistroActivity.this);
-                    long ins = herdsmanDbHelper.inserirSinistro(sinistro);
+                    AnimalEnfermidade animalEnfermidade = new AnimalEnfermidade(animal.getId(), enfermidade.getId(), 1, data);
+                    HerdsmanDbHelper herdsmanDbHelper = new HerdsmanDbHelper(NotificarAnimalEnfermidadeActivity.this);
+                    long ins = herdsmanDbHelper.inserirSinistro(animalEnfermidade);
                     if(ins > 0 )
                     {
-                        Toast.makeText(NotificarSinistroActivity.this, "Sinistro registrado", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(NotificarAnimalEnfermidadeActivity.this, "AnimalEnfermidadeOcorrencia registrada", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                     else
                     {
-                        Toast.makeText(NotificarSinistroActivity.this, "Erro ao registrar", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(NotificarAnimalEnfermidadeActivity.this, "Erro ao registrar", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
@@ -122,23 +122,23 @@ public class NotificarSinistroActivity extends AppCompatActivity implements Navi
                     Enfermidade enfermidade = (Enfermidade) enfermidadeSpinner.getSelectedItem();
                     Animal animal = (Animal) animalSpinner.getSelectedItem();
                     int SMS_PERMISSION_CODE = 0;
-                    if (ContextCompat.checkSelfPermission(NotificarSinistroActivity.this, android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                        if (ActivityCompat.shouldShowRequestPermissionRationale(NotificarSinistroActivity.this, android.Manifest.permission.SEND_SMS)) {
+                    if (ContextCompat.checkSelfPermission(NotificarAnimalEnfermidadeActivity.this, android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+                        if (ActivityCompat.shouldShowRequestPermissionRationale(NotificarAnimalEnfermidadeActivity.this, android.Manifest.permission.SEND_SMS)) {
 
                         } else {
-                            ActivityCompat.requestPermissions(NotificarSinistroActivity.this, new String[]{Manifest.permission.SEND_SMS}, SMS_PERMISSION_CODE);
+                            ActivityCompat.requestPermissions(NotificarAnimalEnfermidadeActivity.this, new String[]{Manifest.permission.SEND_SMS}, SMS_PERMISSION_CODE);
                         }
 
                     }
                     String text = "Herdsman's Companion;\n2;" + String.valueOf(enfermidade.getId()) + ";" + String.valueOf(animal.getId());
                     try {
                         smsManager.sendTextMessage(adminTelefone.getNumero(), null, text, null, null);
-                        Toast.makeText(NotificarSinistroActivity.this, "SMS enviado para " + adminTelefone.getNumero(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(NotificarAnimalEnfermidadeActivity.this, "SMS enviado para " + adminTelefone.getNumero(), Toast.LENGTH_SHORT).show();
                         finish();
                     }
                     catch (Exception e)
                     {
-                        Toast.makeText(NotificarSinistroActivity.this, "Erro ao enviar, telefone inválido", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(NotificarAnimalEnfermidadeActivity.this, "Erro ao enviar, telefone inválido", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 }
@@ -166,36 +166,36 @@ public class NotificarSinistroActivity extends AppCompatActivity implements Navi
         if (id == R.id.nav_animais) {
             if (!adm)
             {
-                Toast.makeText(NotificarSinistroActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NotificarAnimalEnfermidadeActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
 
             }
             else {
-                Intent intent = new Intent(NotificarSinistroActivity.this, ListaAnimaisActivity.class);
-                NotificarSinistroActivity.this.startActivity(intent);
+                Intent intent = new Intent(NotificarAnimalEnfermidadeActivity.this, ListaAnimaisActivity.class);
+                NotificarAnimalEnfermidadeActivity.this.startActivity(intent);
             }
 
         } else if (id == R.id.nav_enfermidades) {
 
             if (!adm)
             {
-                Toast.makeText(NotificarSinistroActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NotificarAnimalEnfermidadeActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
 
             }
             else {
-                Intent intent = new Intent(NotificarSinistroActivity.this, ListaEnfermidadesActivity.class);
-                NotificarSinistroActivity.this.startActivity(intent);
+                Intent intent = new Intent(NotificarAnimalEnfermidadeActivity.this, ListaEnfermidadesActivity.class);
+                NotificarAnimalEnfermidadeActivity.this.startActivity(intent);
             }
 
         } else if (id == R.id.nav_remedios) {
 
             if (!adm)
             {
-                Toast.makeText(NotificarSinistroActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NotificarAnimalEnfermidadeActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
 
             }
             else {
-                Intent intent = new Intent(NotificarSinistroActivity.this, ListaRemediosActivity.class);
-                NotificarSinistroActivity.this.startActivity(intent);
+                Intent intent = new Intent(NotificarAnimalEnfermidadeActivity.this, ListaRemediosActivity.class);
+                NotificarAnimalEnfermidadeActivity.this.startActivity(intent);
             }
 
 
@@ -203,33 +203,33 @@ public class NotificarSinistroActivity extends AppCompatActivity implements Navi
 
             if (!adm)
             {
-                Toast.makeText(NotificarSinistroActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NotificarAnimalEnfermidadeActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
             }
             else {
-                Intent intent = new Intent(NotificarSinistroActivity.this, ListaFuncionariosActivity.class);
-                NotificarSinistroActivity.this.startActivity(intent);
+                Intent intent = new Intent(NotificarAnimalEnfermidadeActivity.this, ListaFuncionariosActivity.class);
+                NotificarAnimalEnfermidadeActivity.this.startActivity(intent);
             }
 
         } else if (id == R.id.nav_cio) {
 
-            Intent intent = new Intent(NotificarSinistroActivity.this, NotificarCioActivity.class);
-            NotificarSinistroActivity.this.startActivity(intent);
+            Intent intent = new Intent(NotificarAnimalEnfermidadeActivity.this, NotificarCioActivity.class);
+            NotificarAnimalEnfermidadeActivity.this.startActivity(intent);
 
         } else if (id == R.id.nav_sinistro) {
 
-            Intent intent = new Intent(NotificarSinistroActivity.this, NotificarSinistroActivity.class);
-            NotificarSinistroActivity.this.startActivity(intent);
+            Intent intent = new Intent(NotificarAnimalEnfermidadeActivity.this, NotificarAnimalEnfermidadeActivity.class);
+            NotificarAnimalEnfermidadeActivity.this.startActivity(intent);
 
         } else if (id == R.id.nav_outro) {
 
             if (!adm)
             {
-                Toast.makeText(NotificarSinistroActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NotificarAnimalEnfermidadeActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
 
             }
             else {
-                Intent intent = new Intent(NotificarSinistroActivity.this, NotificarOutroActivity.class);
-                NotificarSinistroActivity.this.startActivity(intent);
+                Intent intent = new Intent(NotificarAnimalEnfermidadeActivity.this, NotificarOutroActivity.class);
+                NotificarAnimalEnfermidadeActivity.this.startActivity(intent);
             }
 
         }

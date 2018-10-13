@@ -18,9 +18,9 @@ import java.util.List;
 import br.uepg.projeto.herdsman.dao.HerdsmanContract;
 import br.uepg.projeto.herdsman.dao.HerdsmanDbHelper;
 import br.uepg.projeto.herdsman.objetos.Animal;
+import br.uepg.projeto.herdsman.objetos.AnimalEnfermidade;
 import br.uepg.projeto.herdsman.objetos.Cio;
 import br.uepg.projeto.herdsman.objetos.AdministradorNotificaPessoa;
-import br.uepg.projeto.herdsman.objetos.Sinistro;
 import br.uepg.projeto.herdsman.objetos.Telefone;
 
 public class SMSReceiver extends BroadcastReceiver {
@@ -174,15 +174,15 @@ public class SMSReceiver extends BroadcastReceiver {
                         dia_formatado = '0' + String.valueOf(c.get(Calendar.DAY_OF_MONTH));
                     }
                     String data = String.valueOf(c.get(Calendar.YEAR))+"-"+String.valueOf(c.get(Calendar.MONTH))+"-"+dia_formatado;
-                    Sinistro sinistro = new Sinistro(idAnimal, idEnfermidade, senderTelefone.getPessoa_idPessoa(), data);
+                    AnimalEnfermidade animalEnfermidade = new AnimalEnfermidade(idAnimal, idEnfermidade, senderTelefone.getPessoa_idPessoa(), data);
                     //TODO Inserir no Firebase
-                    long insert = mDbHelper.inserirSinistro(sinistro);
+                    long insert = mDbHelper.inserirSinistro(animalEnfermidade);
                     if(insert > 0) {
-                        Log.d("SMSReceiver", "Sinistro inserido");
+                        Log.d("SMSReceiver", "AnimalEnfermidade inserido");
                     }
                     else
                     {
-                        Log.d("SMSReceiver", "Falha ao inserir sinistro");
+                        Log.d("SMSReceiver", "Falha ao inserir animalEnfermidade");
                     }
                     break;
                 }

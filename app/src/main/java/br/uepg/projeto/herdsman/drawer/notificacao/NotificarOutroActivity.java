@@ -182,7 +182,7 @@ public class NotificarOutroActivity extends AppCompatActivity implements Navigat
 
         } else if (id == R.id.nav_sinistro) {
 
-            Intent intent = new Intent(NotificarOutroActivity.this, NotificarSinistroActivity.class);
+            Intent intent = new Intent(NotificarOutroActivity.this, NotificarAnimalEnfermidadeActivity.class);
             NotificarOutroActivity.this.startActivity(intent);
 
         } else if (id == R.id.nav_outro) {

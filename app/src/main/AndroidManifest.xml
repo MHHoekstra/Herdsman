@@ -56,7 +56,7 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".drawer.notificacao.NotificarOutroActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".drawer.notificacao.NotificarSinistroActivity"
+        <activity android:name=".drawer.notificacao.NotificarAnimalEnfermidadeActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".drawer.funcionario.TelaFuncionarioActivity"
             android:theme="@style/AppTheme.NoActionBar"/>

@@ -25,11 +25,11 @@
             android:layout_marginRight="16dp"
             android:layout_marginTop="60dp"
             android:text="Cios"
-            app:layout_constraintEnd_toStartOf="@+id/main_activity_button_sinistros"
+            app:layout_constraintEnd_toStartOf="@+id/main_activity_button_animal_enfermidades"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/main_activity_button_sinistros"
+            android:id="@+id/main_activity_button_animal_enfermidades"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -50,7 +50,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="60dp"
             android:text="Outros"
-            app:layout_constraintStart_toEndOf="@+id/main_activity_button_sinistros"
+            app:layout_constraintStart_toEndOf="@+id/main_activity_button_animal_enfermidades"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ListView
@@ -64,7 +64,7 @@
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_activity_button_sinistros" />
+            app:layout_constraintTop_toBottomOf="@+id/main_activity_button_animal_enfermidades" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.NavigationView

@@ -43,7 +43,7 @@ import br.uepg.projeto.herdsman.drawer.ListaFuncionariosActivity;
 import br.uepg.projeto.herdsman.drawer.ListaRemediosActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarCioActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarOutroActivity;
-import br.uepg.projeto.herdsman.drawer.notificacao.NotificarSinistroActivity;
+import br.uepg.projeto.herdsman.drawer.notificacao.NotificarAnimalEnfermidadeActivity;
 import br.uepg.projeto.herdsman.objetos.Administrador;
 
 public class MainActivity extends AppCompatActivity
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity
     Administrador administrador = null;
     ListView lista;
     Button buttonCio;
-    Button buttonSinistro;
+    Button buttonAnimalEnfermidade;
     Button buttonOutros;
     ArrayList listaCios;
     ArrayList listaEnfermidades;
@@ -106,24 +106,24 @@ public class MainActivity extends AppCompatActivity
         lista = (ListView) findViewById(R.id.main_activity_lista);
         buttonCio = findViewById(R.id.main_activity_button_cios);
         buttonCio.getBackground().setColorFilter(Color.parseColor(azul), PorterDuff.Mode.MULTIPLY);
-        buttonSinistro = findViewById(R.id.main_activity_button_sinistros);
+        buttonAnimalEnfermidade = findViewById(R.id.main_activity_button_animal_enfermidades);
         buttonOutros = findViewById(R.id.main_activity_button_outros);
         buttonCio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listarCios();
                 buttonCio.getBackground().setColorFilter(Color.parseColor(azul), PorterDuff.Mode.MULTIPLY);
-                buttonSinistro.getBackground().setColorFilter(Color.parseColor(cinza), PorterDuff.Mode.MULTIPLY);
+                buttonAnimalEnfermidade.getBackground().setColorFilter(Color.parseColor(cinza), PorterDuff.Mode.MULTIPLY);
                 buttonOutros.getBackground().setColorFilter(Color.parseColor(cinza), PorterDuff.Mode.MULTIPLY);
 
             }
         });
-        buttonSinistro.setOnClickListener(new View.OnClickListener() {
+        buttonAnimalEnfermidade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listarSinistros();
                 buttonCio.getBackground().setColorFilter(Color.parseColor(cinza), PorterDuff.Mode.MULTIPLY);
-                buttonSinistro.getBackground().setColorFilter(Color.parseColor(azul), PorterDuff.Mode.MULTIPLY);
+                buttonAnimalEnfermidade.getBackground().setColorFilter(Color.parseColor(azul), PorterDuff.Mode.MULTIPLY);
                 buttonOutros.getBackground().setColorFilter(Color.parseColor(cinza), PorterDuff.Mode.MULTIPLY);
             }
         });
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 listarOutros();
                 buttonCio.getBackground().setColorFilter(Color.parseColor(cinza), PorterDuff.Mode.MULTIPLY);
-                buttonSinistro.getBackground().setColorFilter(Color.parseColor(cinza), PorterDuff.Mode.MULTIPLY);
+                buttonAnimalEnfermidade.getBackground().setColorFilter(Color.parseColor(cinza), PorterDuff.Mode.MULTIPLY);
                 buttonOutros.getBackground().setColorFilter(Color.parseColor(azul), PorterDuff.Mode.MULTIPLY);
             }
         });
@@ -360,7 +360,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_sinistro) {
 
-            Intent intent = new Intent(MainActivity.this, NotificarSinistroActivity.class);
+            Intent intent = new Intent(MainActivity.this, NotificarAnimalEnfermidadeActivity.class);
             MainActivity.this.startActivity(intent);
 
         } else if (id == R.id.nav_outro) {

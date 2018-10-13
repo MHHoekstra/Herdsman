@@ -21,7 +21,7 @@ import br.uepg.projeto.herdsman.objetos.Enfermidade;
 import br.uepg.projeto.herdsman.objetos.Parto;
 import br.uepg.projeto.herdsman.objetos.Pessoa;
 import br.uepg.projeto.herdsman.objetos.Remedio;
-import br.uepg.projeto.herdsman.objetos.Sinistro;
+import br.uepg.projeto.herdsman.objetos.AnimalEnfermidade;
 import br.uepg.projeto.herdsman.objetos.Telefone;
 
 public class HerdsmanDbSync {
@@ -76,13 +76,13 @@ public class HerdsmanDbSync {
     }
 
     private void syncSinistro() {
-        DatabaseReference database = FirebaseSync.child("Sinistro");
+        DatabaseReference database = FirebaseSync.child("AnimalEnfermidade");
 
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    Sinistro S =  postSnapshot.getValue(Sinistro.class);
+                    AnimalEnfermidade S =  postSnapshot.getValue(AnimalEnfermidade.class);
                     mDbHelper.inserirSinistro(S);
                 }
             }

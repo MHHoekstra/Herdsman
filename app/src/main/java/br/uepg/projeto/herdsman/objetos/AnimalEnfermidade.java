@@ -1,7 +1,7 @@
 package br.uepg.projeto.herdsman.objetos;
 
-public class Sinistro {
-    private long idSinistro;
+public class AnimalEnfermidade {
+    private long idAnimalEnfermidade;
     private long idAnimal;
     private long idEnfermidade;
     private long idFuncionario;
@@ -11,30 +11,30 @@ public class Sinistro {
     private Enfermidade enfermidade;
     private Pessoa pessoa;
 
-    public Sinistro() {
+    public AnimalEnfermidade() {
     }
 
-    public Sinistro(long idSinistro, long idAnimal, long idEnfermidade, long idFuncionario, String data) {
-        this.idSinistro = idSinistro;
+    public AnimalEnfermidade(long idAnimalEnfermidade, long idAnimal, long idEnfermidade, long idFuncionario, String data) {
+        this.idAnimalEnfermidade = idAnimalEnfermidade;
         this.idAnimal = idAnimal;
         this.idEnfermidade = idEnfermidade;
         this.idFuncionario = idFuncionario;
         this.data = data;
     }
 
-    public Sinistro(long idAnimal, long idEnfermidade, long idFuncionario, String data) {
+    public AnimalEnfermidade(long idAnimal, long idEnfermidade, long idFuncionario, String data) {
         this.idAnimal = idAnimal;
         this.idEnfermidade = idEnfermidade;
         this.idFuncionario = idFuncionario;
         this.data = data;
     }
 
-    public long getIdSinistro() {
-        return idSinistro;
+    public long getIdAnimalEnfermidade() {
+        return idAnimalEnfermidade;
     }
 
-    public void setIdSinistro(long idSinistro) {
-        this.idSinistro = idSinistro;
+    public void setIdAnimalEnfermidade(long idAnimalEnfermidade) {
+        this.idAnimalEnfermidade = idAnimalEnfermidade;
     }
 
     public long getIdAnimal() {

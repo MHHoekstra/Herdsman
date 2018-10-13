@@ -1,6 +1,10 @@
 package br.uepg.projeto.herdsman.objetos;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Animal implements Serializable {
     private long id;
@@ -73,5 +77,23 @@ public class Animal implements Serializable {
 
     public void setAtivo(int ativo) {
         this.ativo = ativo;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Animal animal = (Animal) o;
+        return id == animal.id &&
+                ativo == animal.ativo &&
+                Objects.equals(numero, animal.numero) &&
+                Objects.equals(nome, animal.nome);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, numero, nome, ativo);
     }
 }

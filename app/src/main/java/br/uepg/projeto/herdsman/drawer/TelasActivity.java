@@ -2,7 +2,6 @@ package br.uepg.projeto.herdsman.drawer;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,7 +17,7 @@ import br.uepg.projeto.herdsman.MainActivity;
 import br.uepg.projeto.herdsman.R;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarCioActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarOutroActivity;
-import br.uepg.projeto.herdsman.drawer.notificacao.NotificarSinistroActivity;
+import br.uepg.projeto.herdsman.drawer.notificacao.NotificarAnimalEnfermidadeActivity;
 
 public class TelasActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private Boolean adm;
@@ -55,7 +54,7 @@ public class TelasActivity extends AppCompatActivity implements NavigationView.O
         }
         if (id == R.id.nav_sinistro) {
 
-            Intent intent = new Intent(this, NotificarSinistroActivity.class);
+            Intent intent = new Intent(this, NotificarAnimalEnfermidadeActivity.class);
             this.startActivity(intent);
         }
         adm = pref.getBoolean("isAdmin", false);

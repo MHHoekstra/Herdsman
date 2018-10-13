@@ -9,17 +9,14 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,9 +24,6 @@ import java.util.ArrayList;
 import br.uepg.projeto.herdsman.MainActivity;
 import br.uepg.projeto.herdsman.cadastros.CadastroAnimalActivity;
 import br.uepg.projeto.herdsman.dao.HerdsmanDbHelper;
-import br.uepg.projeto.herdsman.drawer.notificacao.NotificarCioActivity;
-import br.uepg.projeto.herdsman.drawer.notificacao.NotificarOutroActivity;
-import br.uepg.projeto.herdsman.drawer.notificacao.NotificarSinistroActivity;
 import br.uepg.projeto.herdsman.objetos.Animal;
 import br.uepg.projeto.herdsman.R;
 import br.uepg.projeto.herdsman.drawer.animal.TelaAnimalActivity;
@@ -110,7 +104,7 @@ public class ListaAnimaisActivity extends TelasActivity implements SearchView.On
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaAnimal);
         animaisListView.setAdapter(adapter);
         animaisListView.setTextFilterEnabled(false);
-
+        mDbHelper.searchDuplicateAnimals();
     }
 
     @Override

@@ -9,7 +9,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -24,14 +23,12 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import br.uepg.projeto.herdsman.MainActivity;
-import br.uepg.projeto.herdsman.cadastros.CadastroEnfermidadeActivity;
 import br.uepg.projeto.herdsman.cadastros.CadastroRemedioActivity;
 import br.uepg.projeto.herdsman.dao.HerdsmanDbHelper;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarCioActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarOutroActivity;
-import br.uepg.projeto.herdsman.drawer.notificacao.NotificarSinistroActivity;
+import br.uepg.projeto.herdsman.drawer.notificacao.NotificarAnimalEnfermidadeActivity;
 import br.uepg.projeto.herdsman.R;
-import br.uepg.projeto.herdsman.objetos.Enfermidade;
 import br.uepg.projeto.herdsman.objetos.Remedio;
 
 public class ListaRemediosActivity extends TelasActivity implements SearchView.OnQueryTextListener{
@@ -199,7 +196,7 @@ public class ListaRemediosActivity extends TelasActivity implements SearchView.O
 
         } else if (id == R.id.nav_sinistro) {
 
-            Intent intent = new Intent(ListaRemediosActivity.this, NotificarSinistroActivity.class);
+            Intent intent = new Intent(ListaRemediosActivity.this, NotificarAnimalEnfermidadeActivity.class);
             ListaRemediosActivity.this.startActivity(intent);
 
         } else if (id == R.id.nav_outro) {

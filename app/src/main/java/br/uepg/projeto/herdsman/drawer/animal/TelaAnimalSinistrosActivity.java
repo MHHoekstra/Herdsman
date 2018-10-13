@@ -25,7 +25,7 @@ import br.uepg.projeto.herdsman.drawer.ListaFuncionariosActivity;
 import br.uepg.projeto.herdsman.drawer.ListaRemediosActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarCioActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarOutroActivity;
-import br.uepg.projeto.herdsman.drawer.notificacao.NotificarSinistroActivity;
+import br.uepg.projeto.herdsman.drawer.notificacao.NotificarAnimalEnfermidadeActivity;
 import br.uepg.projeto.herdsman.objetos.Animal;
 import br.uepg.projeto.herdsman.R;
 
@@ -57,7 +57,7 @@ public class TelaAnimalSinistrosActivity extends AppCompatActivity implements Na
         TextView titulo = findViewById(R.id.lista_cios_titulo);
         listView = findViewById(R.id.lista_cios_listview);
         animal = (Animal) getIntent().getSerializableExtra("Animal");
-        titulo.setText("Sinistros de " + animal.getNumero());
+        titulo.setText("Enfermidades de " + animal.getNumero() + "\n" + animal.getNome());
 
         carregarSinistros();
 
@@ -141,7 +141,7 @@ public class TelaAnimalSinistrosActivity extends AppCompatActivity implements Na
 
         } else if (id == R.id.nav_sinistro) {
 
-            Intent intent = new Intent(TelaAnimalSinistrosActivity.this, NotificarSinistroActivity.class);
+            Intent intent = new Intent(TelaAnimalSinistrosActivity.this, NotificarAnimalEnfermidadeActivity.class);
             TelaAnimalSinistrosActivity.this.startActivity(intent);
 
         } else if (id == R.id.nav_outro) {
