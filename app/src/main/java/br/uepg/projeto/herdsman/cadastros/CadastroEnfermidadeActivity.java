@@ -82,7 +82,7 @@ public class CadastroEnfermidadeActivity extends AppCompatActivity implements Na
                 else
                 {
                     enfermidade.setDescricao(descricao.getText().toString());
-                    mDbHelper.updateEnfermidade(enfermidade);
+                    mDbHelper.replaceEnfermidade(enfermidade);
                     Toast.makeText(CadastroEnfermidadeActivity.this, "Enfermidade alterada", Toast.LENGTH_SHORT).show();
 
                 }

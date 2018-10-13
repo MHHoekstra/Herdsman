@@ -1,10 +1,10 @@
 package br.uepg.projeto.herdsman.objetos;
 
 public class Sinistro {
-    private int idSinistro;
-    private int idAnimal;
-    private int idEnfermidade;
-    private int idFuncionario;
+    private long idSinistro;
+    private long idAnimal;
+    private long idEnfermidade;
+    private long idFuncionario;
     private String data;
 
     private Animal animal;
@@ -14,7 +14,7 @@ public class Sinistro {
     public Sinistro() {
     }
 
-    public Sinistro(int idSinistro, int idAnimal, int idEnfermidade, int idFuncionario, String data) {
+    public Sinistro(long idSinistro, long idAnimal, long idEnfermidade, long idFuncionario, String data) {
         this.idSinistro = idSinistro;
         this.idAnimal = idAnimal;
         this.idEnfermidade = idEnfermidade;
@@ -22,42 +22,42 @@ public class Sinistro {
         this.data = data;
     }
 
-    public Sinistro(int idAnimal, int idEnfermidade, int idFuncionario, String data) {
+    public Sinistro(long idAnimal, long idEnfermidade, long idFuncionario, String data) {
         this.idAnimal = idAnimal;
         this.idEnfermidade = idEnfermidade;
         this.idFuncionario = idFuncionario;
         this.data = data;
     }
 
-    public int getIdSinistro() {
+    public long getIdSinistro() {
         return idSinistro;
     }
 
-    public void setIdSinistro(int idSinistro) {
+    public void setIdSinistro(long idSinistro) {
         this.idSinistro = idSinistro;
     }
 
-    public int getIdAnimal() {
+    public long getIdAnimal() {
         return idAnimal;
     }
 
-    public void setIdAnimal(int idAnimal) {
+    public void setIdAnimal(long idAnimal) {
         this.idAnimal = idAnimal;
     }
 
-    public int getIdEnfermidade() {
+    public long getIdEnfermidade() {
         return idEnfermidade;
     }
 
-    public void setIdEnfermidade(int idEnfermidade) {
+    public void setIdEnfermidade(long idEnfermidade) {
         this.idEnfermidade = idEnfermidade;
     }
 
-    public int getIdFuncionario() {
+    public long getIdFuncionario() {
         return idFuncionario;
     }
 
-    public void setIdFuncionario(int idFuncionario) {
+    public void setIdFuncionario(long idFuncionario) {
         this.idFuncionario = idFuncionario;
     }
 

@@ -3,7 +3,7 @@ package br.uepg.projeto.herdsman.objetos;
 import java.io.Serializable;
 
 public class Enfermidade implements Serializable{
-    private int id;
+    private long id;
     private String descricao;
 
     public Enfermidade()
@@ -20,11 +20,11 @@ public class Enfermidade implements Serializable{
         this.descricao = descricao;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

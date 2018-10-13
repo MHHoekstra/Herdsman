@@ -3,34 +3,34 @@ package br.uepg.projeto.herdsman.objetos;
 import java.io.Serializable;
 
 public class Telefone implements Serializable {
-    private int idTelefone;
-    private int Pessoa_idPessoa;
+    private long idTelefone;
+    private long Pessoa_idPessoa;
     private String numero;
 
     public Telefone()
     {
 
     }
-    public Telefone(int pessoa_idPessoa, String numero) {
+    public Telefone(long pessoa_idPessoa, String numero) {
         this.Pessoa_idPessoa = pessoa_idPessoa;
         this.numero = numero;
     }
 
-    public Telefone(int idTelefone, int pessoa_idPessoa, String numero) {
+    public Telefone(long idTelefone, long pessoa_idPessoa, String numero) {
         this.idTelefone = idTelefone;
         this.Pessoa_idPessoa = pessoa_idPessoa;
         this.numero = numero;
     }
 
-    public int getIdTelefone() {
+    public long getIdTelefone() {
         return idTelefone;
     }
 
-    public void setIdTelefone(int idTelefone) {
+    public void setIdTelefone(long idTelefone) {
         this.idTelefone = idTelefone;
     }
 
-    public int getPessoa_idPessoa() {
+    public long getPessoa_idPessoa() {
         return Pessoa_idPessoa;
     }
 

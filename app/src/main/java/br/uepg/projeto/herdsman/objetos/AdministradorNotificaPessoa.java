@@ -1,15 +1,15 @@
 package br.uepg.projeto.herdsman.objetos;
 
 public class AdministradorNotificaPessoa {
-    private int idAdministradorNotificaPessoa;
+    private long idAdministradorNotificaPessoa;
     private String mensagem;
     private String data;
-    private int idAdministrador;
+    private long idAdministrador;
 
     public AdministradorNotificaPessoa() {
     }
 
-    public AdministradorNotificaPessoa(int idAdministradorNotificaPessoa, String mensagem, String data) {
+    public AdministradorNotificaPessoa(long idAdministradorNotificaPessoa, String mensagem, String data) {
         this.idAdministradorNotificaPessoa = idAdministradorNotificaPessoa;
         this.mensagem = mensagem;
         this.data = data;
@@ -21,18 +21,18 @@ public class AdministradorNotificaPessoa {
         idAdministrador = 1;
     }
 
-    public AdministradorNotificaPessoa(int idAdministradorNotificaPessoa, String mensagem, String data, int idAdministrador) {
+    public AdministradorNotificaPessoa(long idAdministradorNotificaPessoa, String mensagem, String data, long idAdministrador) {
         this.idAdministradorNotificaPessoa = idAdministradorNotificaPessoa;
         this.mensagem = mensagem;
         this.data = data;
         this.idAdministrador = idAdministrador;
     }
 
-    public int getIdAdministradorNotificaPessoa() {
+    public long getIdAdministradorNotificaPessoa() {
         return idAdministradorNotificaPessoa;
     }
 
-    public void setIdAdministradorNotificaPessoa(int idAdministradorNotificaPessoa) {
+    public void setIdAdministradorNotificaPessoa(long idAdministradorNotificaPessoa) {
         this.idAdministradorNotificaPessoa = idAdministradorNotificaPessoa;
     }
 
@@ -52,11 +52,11 @@ public class AdministradorNotificaPessoa {
         this.data = data;
     }
 
-    public int getIdAdministrador() {
+    public long getIdAdministrador() {
         return idAdministrador;
     }
 
-    public void setIdAdministrador(int idAdministrador) {
+    public void setIdAdministrador(long idAdministrador) {
         this.idAdministrador = idAdministrador;
     }
 

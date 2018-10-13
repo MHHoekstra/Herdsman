@@ -3,7 +3,7 @@ package br.uepg.projeto.herdsman.objetos;
 import java.io.Serializable;
 
 public class Pessoa implements Serializable {
-    private  int idPessoa;
+    private long idPessoa;
     private  String nome;
     private  String cpf;
     private  String rg;
@@ -42,11 +42,11 @@ public class Pessoa implements Serializable {
         this.rg = rg;
     }
 
-    public int getIdPessoa() {
+    public long getIdPessoa() {
         return idPessoa;
     }
 
-    public void setIdPessoa(int idPessoa) {
+    public void setIdPessoa(long idPessoa) {
         this.idPessoa = idPessoa;
     }
 
@@ -57,7 +57,7 @@ public class Pessoa implements Serializable {
 
     }
 
-    public Pessoa(int id, String nome, String cpf, String rg) {
+    public Pessoa(long id, String nome, String cpf, String rg) {
         this.idPessoa = id;
         this.nome = nome;
         this.cpf = cpf;

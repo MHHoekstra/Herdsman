@@ -3,7 +3,7 @@ package br.uepg.projeto.herdsman.objetos;
 import java.io.Serializable;
 
 public class Animal implements Serializable {
-    private int id;
+    private long id;
     private String numero;
     private String nome;
     private int ativo;
@@ -11,7 +11,7 @@ public class Animal implements Serializable {
     {
 
     }
-    public Animal(int id, String n, String s)
+    public Animal(long id, String n, String s)
     {
         this.id = id;
         this.numero = n;
@@ -24,7 +24,7 @@ public class Animal implements Serializable {
         this.nome = nome;
     }
 
-    public Animal(int id, String numero, String nome, int ativo) {
+    public Animal(long id, String numero, String nome, int ativo) {
         this.id = id;
         this.numero = numero;
         this.nome = nome;
@@ -37,11 +37,11 @@ public class Animal implements Serializable {
         this.ativo = ativo;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

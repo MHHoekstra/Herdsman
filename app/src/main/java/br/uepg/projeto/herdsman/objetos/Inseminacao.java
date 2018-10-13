@@ -1,37 +1,37 @@
 package br.uepg.projeto.herdsman.objetos;
 
 public class Inseminacao {
-    private int idInseminacao;
-    private int idAnimal;
+    private long idInseminacao;
+    private long idAnimal;
     private String data;
 
     public Inseminacao(){
 
     }
-    public Inseminacao(int idInseminacao, int idAnimal, String data) {
+    public Inseminacao(long idInseminacao, long idAnimal, String data) {
         this.idInseminacao = idInseminacao;
         this.idAnimal = idAnimal;
         this.data = data;
     }
 
-    public Inseminacao(int idAnimal, String data) {
+    public Inseminacao(long idAnimal, String data) {
         this.idAnimal = idAnimal;
         this.data = data;
     }
 
-    public int getIdInseminacao() {
+    public long getIdInseminacao() {
         return idInseminacao;
     }
 
-    public void setIdInseminacao(int idInseminacao) {
+    public void setIdInseminacao(long idInseminacao) {
         this.idInseminacao = idInseminacao;
     }
 
-    public int getIdAnimal() {
+    public long getIdAnimal() {
         return idAnimal;
     }
 
-    public void setIdAnimal(int idAnimal) {
+    public void setIdAnimal(long idAnimal) {
         this.idAnimal = idAnimal;
     }
 

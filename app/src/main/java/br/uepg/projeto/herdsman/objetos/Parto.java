@@ -1,40 +1,40 @@
 package br.uepg.projeto.herdsman.objetos;
 
 public class Parto {
-    private int id;
-    private int Animal_idAnimal;
+    private long id;
+    private long Animal_idAnimal;
     private int cria;
     private String data;
     public Parto()
     {
 
     }
-    public Parto(int animal_idAnimal, int cria, String data) {
+    public Parto(long animal_idAnimal, int cria, String data) {
         Animal_idAnimal = animal_idAnimal;
         this.cria = cria;
         this.data = data;
     }
 
-    public Parto(int id, int animal_idAnimal, int cria, String data) {
+    public Parto(long id, long animal_idAnimal, int cria, String data) {
         this.id = id;
         Animal_idAnimal = animal_idAnimal;
         this.cria = cria;
         this.data = data;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getAnimal_idAnimal() {
+    public long getAnimal_idAnimal() {
         return Animal_idAnimal;
     }
 
-    public void setAnimal_idAnimal(int animal_idAnimal) {
+    public void setAnimal_idAnimal(long animal_idAnimal) {
         Animal_idAnimal = animal_idAnimal;
     }
 

@@ -3,17 +3,17 @@ package br.uepg.projeto.herdsman.objetos;
 import java.io.Serializable;
 
 public class Remedio implements Serializable {
-    private int idRemedio;
+    private long idRemedio;
     private String nome;
 
     public Remedio() {
     }
 
-    public int getIdRemedio() {
+    public long getIdRemedio() {
         return idRemedio;
     }
 
-    public void setIdRemedio(int idRemedio) {
+    public void setIdRemedio(long idRemedio) {
         this.idRemedio = idRemedio;
     }
 
@@ -30,7 +30,7 @@ public class Remedio implements Serializable {
 
     }
 
-    public Remedio(int idRemedio, String nome) {
+    public Remedio(long idRemedio, String nome) {
         this.idRemedio = idRemedio;
         this.nome = nome;
     }

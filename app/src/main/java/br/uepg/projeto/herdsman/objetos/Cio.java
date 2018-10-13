@@ -1,19 +1,19 @@
 package br.uepg.projeto.herdsman.objetos;
 
 public class Cio {
-    private int idCio;
-    private int idAnimalPorCima;
-    private int idAnimalPorBaixo;
+    private long idCio;
+    private long idAnimalPorCima;
+    private long idAnimalPorBaixo;
     private Animal animalPorCima;
     private Animal animalPorBaixo;
     private String data;
-    private int idFuncionario;
+    private long idFuncionario;
 
     public Cio()
     {
 
     }
-    public Cio(int animalPorCima, int animalPorBaixo, String data, int pessoa_idPessoa) {
+    public Cio(long animalPorCima, long animalPorBaixo, String data, long pessoa_idPessoa) {
         idAnimalPorCima = animalPorCima;
         idAnimalPorBaixo = animalPorBaixo;
         this.data = data;
@@ -21,14 +21,14 @@ public class Cio {
     }
 
 
-    public Cio(int idCio, int idAnimalPorCima, int idAnimalPorBaixo, String data) {
+    public Cio(long idCio, long idAnimalPorCima, long idAnimalPorBaixo, String data) {
         this.idCio = idCio;
         this.idAnimalPorCima = idAnimalPorCima;
         this.idAnimalPorBaixo = idAnimalPorBaixo;
         this.data = data;
     }
 
-    public Cio(int idCio, int idAnimalPorCima, int idAnimalPorBaixo, String data, int pessoa_idPessoa) {
+    public Cio(long idCio, long idAnimalPorCima, long idAnimalPorBaixo, String data, long pessoa_idPessoa) {
         this.idCio = idCio;
         this.idAnimalPorCima = idAnimalPorCima;
         this.idAnimalPorBaixo = idAnimalPorBaixo;
@@ -52,27 +52,27 @@ public class Cio {
         this.animalPorBaixo = animalPorBaixo;
     }
 
-    public int getIdCio() {
+    public long getIdCio() {
         return idCio;
     }
 
-    public void setIdCio(int idCio) {
+    public void setIdCio(long idCio) {
         this.idCio = idCio;
     }
 
-    public int getIdAnimalPorCima() {
+    public long getIdAnimalPorCima() {
         return idAnimalPorCima;
     }
 
-    public void setIdAnimalPorCima(int idAnimalPorCima) {
+    public void setIdAnimalPorCima(long idAnimalPorCima) {
         this.idAnimalPorCima = idAnimalPorCima;
     }
 
-    public int getIdAnimalPorBaixo() {
+    public long getIdAnimalPorBaixo() {
         return idAnimalPorBaixo;
     }
 
-    public void setIdAnimalPorBaixo(int idAnimalPorBaixo) {
+    public void setIdAnimalPorBaixo(long idAnimalPorBaixo) {
         this.idAnimalPorBaixo = idAnimalPorBaixo;
     }
 
@@ -89,11 +89,11 @@ public class Cio {
         return s;
     }
 
-    public int getIdFuncionario() {
+    public long getIdFuncionario() {
         return idFuncionario;
     }
 
-    public void setIdFuncionario(int idFuncionario) {
+    public void setIdFuncionario(long idFuncionario) {
         this.idFuncionario = idFuncionario;
     }
 }

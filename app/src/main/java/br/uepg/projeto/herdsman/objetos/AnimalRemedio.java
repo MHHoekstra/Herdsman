@@ -1,17 +1,17 @@
 package br.uepg.projeto.herdsman.objetos;
 
 public class AnimalRemedio {
-    private int idAnimalRemedio;
-    private int Remedio_idRemedio;
-    private int Animal_idAnimal;
-    private int Medida_idMedida;
-    private int quantidade;
+    private long idAnimalRemedio;
+    private long Remedio_idRemedio;
+    private long Animal_idAnimal;
+    private long Medida_idMedida;
+    private long quantidade;
     private String data;
     private Animal animal;
     private Remedio remedio;
     private Medida medida;
 
-    public AnimalRemedio(int remedio_idRemedio, int animal_idAnimal, int medida_idMedida, int quantidade, String data) {
+    public AnimalRemedio(long remedio_idRemedio, long animal_idAnimal, long medida_idMedida, long quantidade, String data) {
         Remedio_idRemedio = remedio_idRemedio;
         Animal_idAnimal = animal_idAnimal;
         Medida_idMedida = medida_idMedida;
@@ -23,7 +23,7 @@ public class AnimalRemedio {
 
     }
 
-    public AnimalRemedio(int idAnimalRemedio, int remedio_idRemedio, int animal_idAnimal, int medida_idMedida, String data, int quantidade) {
+    public AnimalRemedio(long idAnimalRemedio, long remedio_idRemedio, long animal_idAnimal, long medida_idMedida, String data, long quantidade) {
         this.idAnimalRemedio = idAnimalRemedio;
         Remedio_idRemedio = remedio_idRemedio;
         Animal_idAnimal = animal_idAnimal;
@@ -33,15 +33,15 @@ public class AnimalRemedio {
         this.data = data;
     }
 
-    public int getIdAnimalRemedio() {
+    public long getIdAnimalRemedio() {
         return idAnimalRemedio;
     }
 
-    public void setIdAnimalRemedio(int idAnimalRemedio) {
+    public void setIdAnimalRemedio(long idAnimalRemedio) {
         this.idAnimalRemedio = idAnimalRemedio;
     }
 
-    public int getRemedio_idRemedio() {
+    public long getRemedio_idRemedio() {
         return Remedio_idRemedio;
     }
 
@@ -49,7 +49,7 @@ public class AnimalRemedio {
         Remedio_idRemedio = remedio_idRemedio;
     }
 
-    public int getAnimal_idAnimal() {
+    public long getAnimal_idAnimal() {
         return Animal_idAnimal;
     }
 
@@ -57,7 +57,7 @@ public class AnimalRemedio {
         Animal_idAnimal = animal_idAnimal;
     }
 
-    public int getMedida_idMedida() {
+    public long getMedida_idMedida() {
         return Medida_idMedida;
     }
 
@@ -97,11 +97,11 @@ public class AnimalRemedio {
         this.medida = medida;
     }
 
-    public int getQuantidade() {
+    public long getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
+    public void setQuantidade(long quantidade) {
         this.quantidade = quantidade;
     }
 

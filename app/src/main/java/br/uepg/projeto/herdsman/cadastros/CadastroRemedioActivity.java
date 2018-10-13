@@ -77,7 +77,7 @@ public class CadastroRemedioActivity extends AppCompatActivity implements Naviga
                 }
                 else{
                     remedio.setNome(descricao.getText().toString());
-                    mDbHelper.updateRemedio(remedio);
+                    mDbHelper.replaceRemedio(remedio);
                     Toast.makeText(CadastroRemedioActivity.this, "Remédio alterado", Toast.LENGTH_SHORT).show();
 
                 }
