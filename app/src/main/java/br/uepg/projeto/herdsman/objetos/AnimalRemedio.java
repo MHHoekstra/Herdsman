@@ -53,7 +53,7 @@ public class AnimalRemedio {
         return Animal_idAnimal;
     }
 
-    public void setAnimal_idAnimal(int animal_idAnimal) {
+    public void setAnimal_idAnimal(long animal_idAnimal) {
         Animal_idAnimal = animal_idAnimal;
     }
 

@@ -10,7 +10,7 @@ public class Enfermidade implements Serializable{
     {
 
     }
-    public Enfermidade(int id, String descricao) {
+    public Enfermidade(long id, String descricao) {
         this.id = id;
         this.descricao = descricao;
     }

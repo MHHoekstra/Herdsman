@@ -91,6 +91,7 @@ public class Animal implements Serializable {
                 Objects.equals(nome, animal.nome);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public int hashCode() {
 

@@ -4,25 +4,25 @@ import java.io.Serializable;
 
 public class Administrador implements Serializable {
 
-    private int idAdministrador;
+    private long idAdministrador;
     private String login;
     private String senha;
-    private int idPessoa;
+    private long idPessoa;
     private int admin;
 
     public Administrador()
     {
 
     }
-    public int getIdAdministrador() {
+    public long getIdAdministrador() {
         return idAdministrador;
     }
 
-    public void setIdAdministrador(int idAdministrador) {
+    public void setIdAdministrador(long idAdministrador) {
         this.idAdministrador = idAdministrador;
     }
 
-    public Administrador(int admin, String login, String senha, int idPessoa, int idUsuario) {
+    public Administrador(int admin, String login, String senha, long idPessoa, long idUsuario) {
         this.login = login;
         this.senha = senha;
         this.idPessoa = idPessoa;
@@ -33,11 +33,11 @@ public class Administrador implements Serializable {
         return admin;
     }
 
-    public int getIdPessoa() {
+    public long getIdPessoa() {
         return idPessoa;
     }
 
-    public void setIdPessoa(int idPessoa) {
+    public void setIdPessoa(long idPessoa) {
         this.idPessoa = idPessoa;
     }
 

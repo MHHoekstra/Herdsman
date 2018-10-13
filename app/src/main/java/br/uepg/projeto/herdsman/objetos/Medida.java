@@ -2,22 +2,22 @@ package br.uepg.projeto.herdsman.objetos;
 
 public class Medida {
 
-    private int idMedida;
+    private long idMedida;
     private String nome;
     public Medida(){
 
     }
 
-    public Medida(int idMedida, String nome) {
+    public Medida(long idMedida, String nome) {
         this.idMedida = idMedida;
         this.nome = nome;
     }
 
-    public int getIdMedida() {
+    public long getIdMedida() {
         return idMedida;
     }
 
-    public void setIdMedida(int idMedida) {
+    public void setIdMedida(long idMedida) {
         this.idMedida = idMedida;
     }
 
