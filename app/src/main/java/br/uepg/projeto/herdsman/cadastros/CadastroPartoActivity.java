@@ -136,7 +136,9 @@ public class CadastroPartoActivity extends AppCompatActivity implements DatePick
                 {
                     dia_formatado = '0' + String.valueOf(dia);
                 }
-                parto = new Parto(animal.getId(), tipoCria,ano + "-" + mes + "-" + String.valueOf(dia_formatado));
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(ano,dia,mes);
+                parto = new Parto(animal.getId(), tipoCria, calendar.getTimeInMillis());
                 HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(CadastroPartoActivity.this);
                 long insert = mDbHelper.inserirParto(parto);
                 if (insert > 0) {

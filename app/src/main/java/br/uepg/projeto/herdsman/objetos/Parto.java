@@ -4,18 +4,18 @@ public class Parto {
     private long id;
     private long Animal_idAnimal;
     private int cria;
-    private String data;
+    private long data;
     public Parto()
     {
 
     }
-    public Parto(long animal_idAnimal, int cria, String data) {
+    public Parto(long animal_idAnimal, int cria, long data) {
         Animal_idAnimal = animal_idAnimal;
         this.cria = cria;
         this.data = data;
     }
 
-    public Parto(long id, long animal_idAnimal, int cria, String data) {
+    public Parto(long id, long animal_idAnimal, int cria, long data) {
         this.id = id;
         Animal_idAnimal = animal_idAnimal;
         this.cria = cria;
@@ -46,11 +46,11 @@ public class Parto {
         this.cria = cria;
     }
 
-    public String getData() {
+    public long getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(long data) {
         this.data = data;
     }
 

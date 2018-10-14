@@ -3,18 +3,18 @@ package br.uepg.projeto.herdsman.objetos;
 public class Inseminacao {
     private long idInseminacao;
     private long idAnimal;
-    private String data;
+    private long data;
 
     public Inseminacao(){
 
     }
-    public Inseminacao(long idInseminacao, long idAnimal, String data) {
+    public Inseminacao(long idInseminacao, long idAnimal, long data) {
         this.idInseminacao = idInseminacao;
         this.idAnimal = idAnimal;
         this.data = data;
     }
 
-    public Inseminacao(long idAnimal, String data) {
+    public Inseminacao(long idAnimal, long data) {
         this.idAnimal = idAnimal;
         this.data = data;
     }
@@ -35,11 +35,11 @@ public class Inseminacao {
         this.idAnimal = idAnimal;
     }
 
-    public String getData() {
+    public long getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(long data) {
         this.data = data;
     }
 

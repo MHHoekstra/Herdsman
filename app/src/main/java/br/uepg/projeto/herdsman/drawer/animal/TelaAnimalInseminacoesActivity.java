@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import br.uepg.projeto.herdsman.dao.HerdsmanDbHelper;
 import br.uepg.projeto.herdsman.utils.DatePickerFragment;
@@ -98,7 +99,9 @@ public class TelaAnimalInseminacoesActivity extends AppCompatActivity implements
         else {
             dia = String.valueOf(i2);
         }
-        String data = String.valueOf(i) + '-' + String.valueOf(i1) + '-' + dia;
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(i,i1,i2);
+        long data = calendar.getTimeInMillis();
         Inseminacao inseminacao = new Inseminacao(animal.getId(), data);
         HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(TelaAnimalInseminacoesActivity.this);
         //TODO Inserir no firebase

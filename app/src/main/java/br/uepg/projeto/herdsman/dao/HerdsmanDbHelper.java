@@ -42,7 +42,7 @@ import static br.uepg.projeto.herdsman.dao.HerdsmanContract.RemedioEntry.TABLE_N
 
 public class HerdsmanDbHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "mydb.db";
-    private static final int DB_VERSION = 25;
+    private static final int DB_VERSION = 26;
     private static final String TAG = "DatabaseHelper";
     private DatabaseReference FirebaseHelper;
     private Context mContext;
@@ -381,7 +381,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
             long id = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.PartoEntry.COLUMN_NAME_IDPARTO));
             long Animal_idAnimal = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.PartoEntry.COLUMN_NAME_ANIMAL_IDANIMAL));
             int cria = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.PartoEntry.COLUMN_NAME_CRIA));
-            String data = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.PartoEntry.COLUMN_NAME_DATA));
+            long data = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.PartoEntry.COLUMN_NAME_DATA));
             Parto parto = new Parto(id, Animal_idAnimal, cria, data);
             lista.add(parto);
         }
@@ -1099,7 +1099,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         while (cursor.moveToNext()) {
             long idInseminacao = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalInseminacaoEntry.COLUMN_NAME_IDANIMAL_INSEMINACAO));
             long idAnimal = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalInseminacaoEntry.COLUMN_NAME_ANIMAL_IDANIMAL));
-            String data = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalInseminacaoEntry.COLUMN_NAME_DATA));
+            long data = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalInseminacaoEntry.COLUMN_NAME_DATA));
             Inseminacao inseminacao = new Inseminacao(idInseminacao, idAnimal, data);
             lista.add(inseminacao);
         }
