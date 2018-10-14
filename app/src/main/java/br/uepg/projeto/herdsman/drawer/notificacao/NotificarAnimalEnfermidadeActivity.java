@@ -102,7 +102,7 @@ public class NotificarAnimalEnfermidadeActivity extends AppCompatActivity implem
                         diaFormatado = '0' + diaFormatado;
                     }
 
-                    String data = String.valueOf(ano) + '-' + String.valueOf(mes) + '-' + diaFormatado;
+                    long data = c.getTimeInMillis();
                     AnimalEnfermidade animalEnfermidade = new AnimalEnfermidade(animal.getId(), enfermidade.getId(), 1, data);
                     HerdsmanDbHelper herdsmanDbHelper = new HerdsmanDbHelper(NotificarAnimalEnfermidadeActivity.this);
                     long ins = herdsmanDbHelper.inserirSinistro(animalEnfermidade);

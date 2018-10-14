@@ -5,7 +5,7 @@ public class AnimalEnfermidade {
     private long idAnimal;
     private long idEnfermidade;
     private long idFuncionario;
-    private String data;
+    private long data;
 
     private Animal animal;
     private Enfermidade enfermidade;
@@ -14,7 +14,7 @@ public class AnimalEnfermidade {
     public AnimalEnfermidade() {
     }
 
-    public AnimalEnfermidade(long idAnimalEnfermidade, long idAnimal, long idEnfermidade, long idFuncionario, String data) {
+    public AnimalEnfermidade(long idAnimalEnfermidade, long idAnimal, long idEnfermidade, long idFuncionario, long data) {
         this.idAnimalEnfermidade = idAnimalEnfermidade;
         this.idAnimal = idAnimal;
         this.idEnfermidade = idEnfermidade;
@@ -22,7 +22,7 @@ public class AnimalEnfermidade {
         this.data = data;
     }
 
-    public AnimalEnfermidade(long idAnimal, long idEnfermidade, long idFuncionario, String data) {
+    public AnimalEnfermidade(long idAnimal, long idEnfermidade, long idFuncionario, long data) {
         this.idAnimal = idAnimal;
         this.idEnfermidade = idEnfermidade;
         this.idFuncionario = idFuncionario;
@@ -61,11 +61,11 @@ public class AnimalEnfermidade {
         this.idFuncionario = idFuncionario;
     }
 
-    public String getData() {
+    public long getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(long data) {
         this.data = data;
     }
 

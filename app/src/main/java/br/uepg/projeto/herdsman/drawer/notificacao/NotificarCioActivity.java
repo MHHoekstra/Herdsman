@@ -94,7 +94,7 @@ public class NotificarCioActivity extends AppCompatActivity implements Navigatio
                         diaFormatado = '0' + diaFormatado;
                     }
 
-                    String data = String.valueOf(ano) + '-' + String.valueOf(mes) + '-' + diaFormatado;
+                    long data = c.getTimeInMillis();
                     Cio cio = new Cio(animalPorCima.getId(), animalPorBaixo.getId(), data, 1);
                     HerdsmanDbHelper herdsmanDbHelper = new HerdsmanDbHelper(NotificarCioActivity.this);
                     long ins = herdsmanDbHelper.inserirCio(cio);

@@ -128,7 +128,7 @@ public class SMSReceiver extends BroadcastReceiver {
                     {
                         dia_formatado = '0' + String.valueOf(c.get(Calendar.DAY_OF_MONTH));
                     }
-                    String data = String.valueOf(c.get(Calendar.YEAR))+"-"+String.valueOf(c.get(Calendar.MONTH))+"-"+dia_formatado;                    if (!mDbHelper.existeAnimal(animalPorCima))
+                    long data = c.getTimeInMillis();                    if (!mDbHelper.existeAnimal(animalPorCima))
                     {
                         Log.d("SMSReceiver", "Animal por cima inválido");
                         return;
@@ -173,7 +173,7 @@ public class SMSReceiver extends BroadcastReceiver {
                     {
                         dia_formatado = '0' + String.valueOf(c.get(Calendar.DAY_OF_MONTH));
                     }
-                    String data = String.valueOf(c.get(Calendar.YEAR))+"-"+String.valueOf(c.get(Calendar.MONTH))+"-"+dia_formatado;
+                    long data = c.getTimeInMillis();
                     AnimalEnfermidade animalEnfermidade = new AnimalEnfermidade(idAnimal, idEnfermidade, senderTelefone.getPessoa_idPessoa(), data);
                     //TODO Inserir no Firebase
                     long insert = mDbHelper.inserirSinistro(animalEnfermidade);
@@ -194,7 +194,7 @@ public class SMSReceiver extends BroadcastReceiver {
                     {
                         dia_formatado = '0' + String.valueOf(c.get(Calendar.DAY_OF_MONTH));
                     }
-                    String data = String.valueOf(c.get(Calendar.YEAR))+"-"+String.valueOf(c.get(Calendar.MONTH))+"-"+dia_formatado;
+                    long data =c.getTimeInMillis();
                     String mensagem = tokens[2];
                     Log.d("OUTRO: ", mensagem);
                     AdministradorNotificaPessoa outro = new AdministradorNotificaPessoa(mensagem, data);

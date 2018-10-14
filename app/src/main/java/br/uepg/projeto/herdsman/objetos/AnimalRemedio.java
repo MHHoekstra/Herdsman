@@ -6,12 +6,12 @@ public class AnimalRemedio {
     private long Animal_idAnimal;
     private long Medida_idMedida;
     private long quantidade;
-    private String data;
+    private long data;
     private Animal animal;
     private Remedio remedio;
     private Medida medida;
 
-    public AnimalRemedio(long remedio_idRemedio, long animal_idAnimal, long medida_idMedida, long quantidade, String data) {
+    public AnimalRemedio(long remedio_idRemedio, long animal_idAnimal, long medida_idMedida, long quantidade, long data) {
         Remedio_idRemedio = remedio_idRemedio;
         Animal_idAnimal = animal_idAnimal;
         Medida_idMedida = medida_idMedida;
@@ -23,7 +23,7 @@ public class AnimalRemedio {
 
     }
 
-    public AnimalRemedio(long idAnimalRemedio, long remedio_idRemedio, long animal_idAnimal, long medida_idMedida, String data, long quantidade) {
+    public AnimalRemedio(long idAnimalRemedio, long remedio_idRemedio, long animal_idAnimal, long medida_idMedida, long data, long quantidade) {
         this.idAnimalRemedio = idAnimalRemedio;
         Remedio_idRemedio = remedio_idRemedio;
         Animal_idAnimal = animal_idAnimal;
@@ -65,11 +65,11 @@ public class AnimalRemedio {
         Medida_idMedida = medida_idMedida;
     }
 
-    public String getData() {
+    public long getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(long data) {
         this.data = data;
     }
 

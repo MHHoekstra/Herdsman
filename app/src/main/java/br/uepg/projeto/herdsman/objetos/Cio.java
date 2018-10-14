@@ -6,14 +6,14 @@ public class Cio {
     private long idAnimalPorBaixo;
     private Animal animalPorCima;
     private Animal animalPorBaixo;
-    private String data;
+    private long data;
     private long idFuncionario;
 
     public Cio()
     {
 
     }
-    public Cio(long animalPorCima, long animalPorBaixo, String data, long pessoa_idPessoa) {
+    public Cio(long animalPorCima, long animalPorBaixo, long data, long pessoa_idPessoa) {
         idAnimalPorCima = animalPorCima;
         idAnimalPorBaixo = animalPorBaixo;
         this.data = data;
@@ -21,18 +21,13 @@ public class Cio {
     }
 
 
-    public Cio(long idCio, long idAnimalPorCima, long idAnimalPorBaixo, String data) {
-        this.idCio = idCio;
-        this.idAnimalPorCima = idAnimalPorCima;
-        this.idAnimalPorBaixo = idAnimalPorBaixo;
-        this.data = data;
-    }
 
-    public Cio(long idCio, long idAnimalPorCima, long idAnimalPorBaixo, String data, long pessoa_idPessoa) {
+    public Cio(long idCio, long idAnimalPorCima, long idAnimalPorBaixo, long data, long pessoa_idPessoa) {
         this.idCio = idCio;
         this.idAnimalPorCima = idAnimalPorCima;
         this.idAnimalPorBaixo = idAnimalPorBaixo;
         this.data = data;
+        this.idFuncionario = pessoa_idPessoa;
     }
 
 
@@ -76,11 +71,11 @@ public class Cio {
         this.idAnimalPorBaixo = idAnimalPorBaixo;
     }
 
-    public String getData() {
+    public long getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(long data) {
         this.data = data;
     }
     public String toString()

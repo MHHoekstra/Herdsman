@@ -47,7 +47,7 @@ public class TelaAnimalCadastroAnimalRemedio extends AppCompatActivity implement
     Button data;
     FloatingActionButton done;
     FloatingActionButton cancel;
-    String dataString;
+    long dataString;
     Boolean adm;
     public static final String myPref = "preferenceName";
     SharedPreferences pref;
@@ -89,7 +89,7 @@ public class TelaAnimalCadastroAnimalRemedio extends AppCompatActivity implement
         {
             dia = String.valueOf(diaMes);
         }
-        dataString = String.valueOf(ano) + '-' + String.valueOf(mes) + '-' + dia;
+        dataString = c.getTimeInMillis();
         data.setText("Data: " + dia+'/'+String.valueOf(mes)+'/'+String.valueOf(ano));
         carregarMedidas();
         carregarRemedios();
@@ -176,7 +176,9 @@ public class TelaAnimalCadastroAnimalRemedio extends AppCompatActivity implement
         {
             dia = String.valueOf(i2);
         }
-        dataString = String.valueOf(i) + "-" + String.valueOf(i1)+'-'+ dia;
+        Calendar c = Calendar.getInstance();
+        c.set(i,i1,i2);
+        dataString = c.getTimeInMillis();
         data.setText("Data: "+ dia + '/' + String.valueOf(i1) + '/' + String.valueOf(i));
     }
 

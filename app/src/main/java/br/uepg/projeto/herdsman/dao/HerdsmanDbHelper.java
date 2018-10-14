@@ -42,7 +42,7 @@ import static br.uepg.projeto.herdsman.dao.HerdsmanContract.RemedioEntry.TABLE_N
 
 public class HerdsmanDbHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "mydb.db";
-    private static final int DB_VERSION = 23;
+    private static final int DB_VERSION = 25;
     private static final String TAG = "DatabaseHelper";
     private DatabaseReference FirebaseHelper;
     private Context mContext;
@@ -398,7 +398,8 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
                         HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORBAIXO,
                         HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORCIMA,
                         HerdsmanContract.CioEntry.COLUMN_NAME_IDANIMAL_CIO,
-                        HerdsmanContract.CioEntry.COLUMN_NAME_DATA
+                        HerdsmanContract.CioEntry.COLUMN_NAME_DATA,
+                        HerdsmanContract.CioEntry.COLUMN_NAME_PESSOA_IDPESSOA
                 },
                 null,
                 null,
@@ -411,8 +412,9 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
             long idAnimalPorBaixo = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORBAIXO));
             long idAnimalPorCima = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORCIMA));
             long idAnimalCio = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_IDANIMAL_CIO));
-            String data = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_DATA));
-            Cio cio = new Cio(idAnimalCio, idAnimalPorCima, idAnimalPorBaixo, data);
+            long data = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_DATA));
+            long idPessoa = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_PESSOA_IDPESSOA));
+            Cio cio = new Cio(idAnimalCio, idAnimalPorCima, idAnimalPorBaixo, data, idPessoa);
             Cursor cursor2 = mDb.query(
                     HerdsmanContract.AnimalEntry.TABLE_NAME,
                     new String[]{HerdsmanContract.AnimalEntry.COLUMN_NAME_IDANIMAL,
@@ -483,7 +485,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
             long idAnimalPorCima = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORCIMA));
             long idAnimalPorBaixo = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORBAIXO));
             long usuario = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_PESSOA_IDPESSOA));
-            String data = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_DATA));
+            long data = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_DATA));
             Cio cio = new Cio(idCio, idAnimalPorCima, idAnimalPorBaixo, data, usuario);
             Log.d("CarregarCiosAnimal: ", String.valueOf(idAnimalPorBaixo));
             Log.d("CarregarCiosAnimal: ", String.valueOf(idAnimalPorCima));
@@ -601,7 +603,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
             long Animal_idAnimal = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_ANIMAL_IDANIMAL));
             long Enfermidade_idEnfermidade = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_ENFERMIDADE_IDENFERMIDADE));
             long Usuario_idUsuario = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_PESSOA_IDOPESSOA));
-            String data = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_DATA));
+            long data = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_DATA));
             AnimalEnfermidade animalEnfermidade = new AnimalEnfermidade(idAnimalEnfermidade, Animal_idAnimal, Enfermidade_idEnfermidade, Usuario_idUsuario, data);
             Log.d("Carregar Sinistros: ", String.valueOf(Animal_idAnimal));
             cursor_animal = db.query(
@@ -1071,7 +1073,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
             long Animal_idAnimal = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_ANIMAL_IDANIMAL));
             long Enfermidade_idEnfermidade = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_ENFERMIDADE_IDENFERMIDADE));
             long Usuario_idUsuario = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_PESSOA_IDOPESSOA));
-            String data = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_DATA));
+            long data = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_DATA));
             AnimalEnfermidade animalEnfermidade = new AnimalEnfermidade(idAnimalEnfermidade, Animal_idAnimal, Enfermidade_idEnfermidade, Usuario_idUsuario, data);
             animalEnfermidade.setAnimal(this.carregarAnimal(Animal_idAnimal));
             animalEnfermidade.setEnfermidade(this.carregarEnfermidade(Enfermidade_idEnfermidade));
@@ -1152,7 +1154,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         ArrayList list = new ArrayList();
         while (cursor.moveToNext()) {
             long Animal_idAnimal = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalRemedioEntry.COLUMN_NAME_ANIMAL_IDANIMAL));
-            String data = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalRemedioEntry.COLUMN_NAME_DATA));
+            long data = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalRemedioEntry.COLUMN_NAME_DATA));
             long Remedio_idRemedio = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalRemedioEntry.COLUMN_NAME_REMEDIO_IDREMEDIO));
             int quantidade = cursor.getInt(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalRemedioEntry.COLUMN_NAME_QUANTIDADE));
             long id = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalRemedioEntry.COLUMN_NAME_IDANIMAL_REMEDIO));
@@ -1316,7 +1318,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
             long idAnimalEnfermidade = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_IDANIMAL_ENFERMIDADE));
             long enfermidade_idEnfermidade = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_ENFERMIDADE_IDENFERMIDADE));
             long animal_idAnimal = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_ANIMAL_IDANIMAL));
-            String data = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_DATA));
+            long data = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalEnfermidadeEntry.COLUMN_NAME_DATA));
             AnimalEnfermidade animalEnfermidade = new AnimalEnfermidade(idAnimalEnfermidade, animal_idAnimal, enfermidade_idEnfermidade, usuario_idUsuario, data);
             animalEnfermidade.setAnimal(this.carregarAnimal(animal_idAnimal));
             animalEnfermidade.setEnfermidade(this.carregarEnfermidade(enfermidade_idEnfermidade));
@@ -1350,7 +1352,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
             long animal_idAnimalPorCima = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORCIMA));
             long animal_idAnimalPorBaixo = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_ANIMAL_IDANIMALPORBAIXO));
             long usuario_idUsuario = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_PESSOA_IDPESSOA));
-            String data = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_DATA));
+            long data = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_DATA));
             Cio cio = new Cio(idAnimal_Cio, animal_idAnimalPorCima, animal_idAnimalPorBaixo, data, usuario_idUsuario);
             cio.setAnimalPorCima(this.carregarAnimal(animal_idAnimalPorCima));
             cio.setAnimalPorBaixo(this.carregarAnimal(animal_idAnimalPorBaixo));
@@ -1458,7 +1460,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         while (cursor.moveToNext()) {
             long idNotifica = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.AdministradorNotificaPessoaEntry.COLUMN_NAME_IDADMINISTRADOR_NOTIFICA_PESSOA));
             long idAdmin = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.AdministradorNotificaPessoaEntry.COLUMN_NAME_ADMINISTRADOR_IDNOTIFICA));
-            String data = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.AdministradorNotificaPessoaEntry.COLUMN_NAME_DATA));
+            long data = cursor.getLong(cursor.getColumnIndexOrThrow(HerdsmanContract.AdministradorNotificaPessoaEntry.COLUMN_NAME_DATA));
             String mensagem = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.AdministradorNotificaPessoaEntry.COLUMN_NAME_DESCRICAO));
             AdministradorNotificaPessoa outro = new AdministradorNotificaPessoa(idNotifica, mensagem, data, idAdmin);
             lista.add(outro);
