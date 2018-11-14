@@ -1,5 +1,7 @@
 package br.uepg.projeto.herdsman.objetos;
 
+import java.util.Calendar;
+
 public class Cio {
     private long idCio;
     private long idAnimalPorCima;
@@ -80,7 +82,9 @@ public class Cio {
     }
     public String toString()
     {
-        String s = "Animal por cima: " + animalPorCima.getNumero() + "\nAnimal por baixo: " + animalPorBaixo.getNumero() + "\nData: " + this.getData();
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(data);
+        String s = "Animal por cima: " + animalPorCima.getNumero() + "\nAnimal por baixo: " + animalPorBaixo.getNumero() + "\nData: " + c.get(Calendar.DAY_OF_MONTH) + '/' + c.get(Calendar.MONTH)+'/'+c.get(Calendar.YEAR);
         return s;
     }
 

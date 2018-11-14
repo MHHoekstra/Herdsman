@@ -60,7 +60,7 @@ public class SMSReceiver extends BroadcastReceiver {
         while(cursor.moveToNext())
         {
             String numero = cursor.getString(num);
-            int idPessoa = cursor.getInt(id);
+            long idPessoa = cursor.getLong(id);
             Telefone tel = new Telefone(idPessoa, numero);
             listaTelefones.add(tel);
         }
@@ -87,7 +87,7 @@ public class SMSReceiver extends BroadcastReceiver {
         while (cursor.moveToNext())
         {
             Animal animal = new Animal(
-                    cursor.getInt(indexID),
+                    cursor.getLong(indexID),
                     cursor.getString(indexNumero),
                     cursor.getString(indexNome),
                     cursor.getInt(indexAtivo)
@@ -121,13 +121,8 @@ public class SMSReceiver extends BroadcastReceiver {
                 case 1: {
                     Log.d("Tipo de msg:", "CIO");
                     Calendar c = Calendar.getInstance();
-                    int animalPorBaixo = Integer.parseInt(tokens[2]);
-                    int animalPorCima = Integer.parseInt(tokens[3]);
-                    String dia_formatado = String.valueOf(c.get(Calendar.DAY_OF_MONTH));
-                    if (dia_formatado.length()  == 1)
-                    {
-                        dia_formatado = '0' + String.valueOf(c.get(Calendar.DAY_OF_MONTH));
-                    }
+                    long animalPorBaixo = Integer.parseInt(tokens[2]);
+                    long animalPorCima = Integer.parseInt(tokens[3]);
                     long data = c.getTimeInMillis();                    if (!mDbHelper.existeAnimal(animalPorCima))
                     {
                         Log.d("SMSReceiver", "Animal por cima inválido");
@@ -155,8 +150,8 @@ public class SMSReceiver extends BroadcastReceiver {
                 case 2: {
                     Log.d("Tipo de msg:", "SINISTRO");
                     Calendar c = Calendar.getInstance();
-                    int idEnfermidade = Integer.parseInt(tokens[2]);
-                    int idAnimal = Integer.parseInt(tokens[3]);
+                    long idEnfermidade = Integer.parseInt(tokens[2]);
+                    long idAnimal = Integer.parseInt(tokens[3]);
                     if (!mDbHelper.existeAnimal(idAnimal))
                     {
                         Log.d("SMSReceiver", "Animal inválido");
@@ -166,12 +161,6 @@ public class SMSReceiver extends BroadcastReceiver {
                     {
                         Log.d("SMSReceiver", "Enfermidade inválida");
                         return;
-                    }
-
-                    String dia_formatado = String.valueOf(c.get(Calendar.DAY_OF_MONTH));
-                    if (dia_formatado.length()  == 1)
-                    {
-                        dia_formatado = '0' + String.valueOf(c.get(Calendar.DAY_OF_MONTH));
                     }
                     long data = c.getTimeInMillis();
                     AnimalEnfermidade animalEnfermidade = new AnimalEnfermidade(idAnimal, idEnfermidade, senderTelefone.getPessoa_idPessoa(), data);
@@ -189,11 +178,6 @@ public class SMSReceiver extends BroadcastReceiver {
                 case 3: {
                     Log.d("Tipo de msg:", "OUTRO");
                     Calendar c = Calendar.getInstance();
-                    String dia_formatado = String.valueOf(c.get(Calendar.DAY_OF_MONTH));
-                    if (dia_formatado.length()  == 1)
-                    {
-                        dia_formatado = '0' + String.valueOf(c.get(Calendar.DAY_OF_MONTH));
-                    }
                     long data =c.getTimeInMillis();
                     String mensagem = tokens[2];
                     Log.d("OUTRO: ", mensagem);

@@ -4,8 +4,10 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -79,12 +81,18 @@ public class NotificarCioActivity extends AppCompatActivity implements Navigatio
             }
         });
         done.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
                 adm = pref.getBoolean("isAdmin", false);
                 if(adm) {
                     Animal animalPorCima = (Animal) animalPorCimaSpinner.getSelectedItem();
                     Animal animalPorBaixo = (Animal) animalPorBaixoSpinner.getSelectedItem();
+                    if(animalPorBaixo.equals(animalPorCima))
+                    {
+                        Toast.makeText(NotificarCioActivity.this, "Selecionado o mesmo animal", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     Calendar c = Calendar.getInstance();
                     int dia = c.get(Calendar.DAY_OF_MONTH);
                     int mes = c.get(Calendar.MONTH);
@@ -110,6 +118,10 @@ public class NotificarCioActivity extends AppCompatActivity implements Navigatio
                     SmsManager smsManager = SmsManager.getDefault();
                     Animal animalPorBaixo = (Animal) animalPorBaixoSpinner.getSelectedItem();
                     Animal animalPorCima = (Animal) animalPorCimaSpinner.getSelectedItem();
+                    if(animalPorBaixo.equals(animalPorCima))
+                    {
+                        Toast.makeText(NotificarCioActivity.this, "Selecionado o mesmo animal", Toast.LENGTH_SHORT).show();
+                    }
                     int SMS_PERMISSION_CODE = 0;
                     if (ContextCompat.checkSelfPermission(NotificarCioActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
                         if (ActivityCompat.shouldShowRequestPermissionRationale(NotificarCioActivity.this, Manifest.permission.SEND_SMS)) {

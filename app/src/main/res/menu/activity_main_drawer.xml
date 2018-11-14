@@ -35,8 +35,15 @@
             <item
                 android:id="@+id/nav_outro"
                 android:icon="@drawable/ic_menu_sms"
-                android:title="Outro"/>
+                android:title="Outro" />
         </menu>
     </item>
+    <group >
+        <item android:title=" " />
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@android:drawable/ic_menu_help"
+            android:title="Ajuda" />
+    </group>
 
 </menu>

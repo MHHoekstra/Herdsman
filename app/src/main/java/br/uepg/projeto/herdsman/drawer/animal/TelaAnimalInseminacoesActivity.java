@@ -52,7 +52,6 @@ public class TelaAnimalInseminacoesActivity extends AppCompatActivity implements
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -64,11 +63,13 @@ public class TelaAnimalInseminacoesActivity extends AppCompatActivity implements
 
 
         animal = (Animal) getIntent().getSerializableExtra("Animal");
+
+        setTitle(animal.getNumero() + " - " + animal.getNome());
         titulo = findViewById(R.id.lista_partos_titulo);
         listView = findViewById(R.id.lista_partos_listview);
         add = findViewById(R.id.lista_partos_add);
 
-        titulo.setText("Inseminações de " + animal.getNumero());
+        titulo.setText("Inseminações");
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override

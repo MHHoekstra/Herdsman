@@ -40,7 +40,7 @@ public class ListaCiosActivity extends AppCompatActivity implements NavigationVi
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lista_cios);
-
+        setTitle(super.getTitle());
         pref = getApplicationContext().getSharedPreferences("isAdmin", MODE_PRIVATE);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -57,8 +57,10 @@ public class ListaCiosActivity extends AppCompatActivity implements NavigationVi
 
 
         animal = (Animal) getIntent().getSerializableExtra("Animal");
+
+        setTitle(animal.getNumero() + " - " + animal.getNome());
         TextView titulo = findViewById(R.id.lista_cios_titulo);
-        titulo.setText("Cios " + animal.getNumero());
+        titulo.setText("Cios");
         ListaCios = (ListView) findViewById(R.id.lista_cios_listview);
 
         listarCios();

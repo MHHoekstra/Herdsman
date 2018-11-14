@@ -50,7 +50,7 @@ public class ListaPartosActivity extends AppCompatActivity implements Navigation
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lista_partos);
-
+        setTitle(super.getTitle());
         pref = getApplicationContext().getSharedPreferences("isAdmin", MODE_PRIVATE);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -65,11 +65,10 @@ public class ListaPartosActivity extends AppCompatActivity implements Navigation
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-
         animal = (Animal) getIntent().getSerializableExtra("Animal");
+        setTitle(animal.getNumero() + " - " + animal.getNome());
         TextView titulo = (TextView) findViewById(R.id.lista_partos_titulo);
-        titulo.setText("Partos " + animal.getNumero());
+        titulo.setText("Partos");
         listaPartos = (ListView) findViewById(R.id.lista_partos_listview);
 
         FloatingActionButton add = (FloatingActionButton) findViewById(R.id.lista_partos_add);
@@ -91,6 +90,7 @@ public class ListaPartosActivity extends AppCompatActivity implements Navigation
                 alertDialogBuilder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        //TODO Encapsular e excluir do firebase também
                         SQLiteOpenHelper mDbHelper = new HerdsmanDbHelper(ListaPartosActivity.this);
                         SQLiteDatabase mDb = mDbHelper.getWritableDatabase();
                         String where = HerdsmanContract.PartoEntry.COLUMN_NAME_IDPARTO + "== ?";

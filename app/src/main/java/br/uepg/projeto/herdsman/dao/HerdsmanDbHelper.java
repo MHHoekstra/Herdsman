@@ -812,7 +812,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean existeAnimal(int idAnimal) {
+    public boolean existeAnimal(long idAnimal) {
         SQLiteDatabase mDb = this.getReadableDatabase();
         Cursor cursor = mDb.query(
                 HerdsmanContract.AnimalEntry.TABLE_NAME,
@@ -895,7 +895,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    public boolean existeEnfermidade(int idEnfermidade) {
+    public boolean existeEnfermidade(long idEnfermidade) {
         SQLiteDatabase mDb = this.getReadableDatabase();
         Cursor cursor = mDb.query(
                 HerdsmanContract.EnfermidadeEntry.TABLE_NAME,

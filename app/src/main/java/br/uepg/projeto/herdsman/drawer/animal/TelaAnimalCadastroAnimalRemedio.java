@@ -58,8 +58,8 @@ public class TelaAnimalCadastroAnimalRemedio extends AppCompatActivity implement
         pref = getApplicationContext().getSharedPreferences("isAdmin", MODE_PRIVATE);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
+        Animal animal = (Animal) getIntent().getSerializableExtra("Animal");
+        setTitle(animal.getNumero() + " - " + animal.getNome());
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

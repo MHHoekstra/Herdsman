@@ -47,7 +47,6 @@ public class TelaAnimalRemediosActivity extends AppCompatActivity implements Nav
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -60,10 +59,12 @@ public class TelaAnimalRemediosActivity extends AppCompatActivity implements Nav
 
 
         animal = (Animal) getIntent().getSerializableExtra("Animal");
+
+        setTitle(animal.getNumero() + " - " + animal.getNome());
         listView = findViewById(R.id.lista_partos_listview);
         add = findViewById(R.id.lista_partos_add);
         titulo = findViewById(R.id.lista_partos_titulo);
-        titulo.setText("Remédios de " + animal.getNumero());
+        titulo.setText("Remédios");
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

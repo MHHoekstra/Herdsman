@@ -1,5 +1,7 @@
 package br.uepg.projeto.herdsman.objetos;
 
+import java.util.Calendar;
+
 public class AnimalEnfermidade {
     private long idAnimalEnfermidade;
     private long idAnimal;
@@ -95,6 +97,8 @@ public class AnimalEnfermidade {
 
     @Override
     public String toString() {
-        return "Número: " + this.animal.getNumero() + "\n" + enfermidade.getDescricao() + "\n" +data;
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(data);
+        return "Número: " + this.animal.getNumero() + "\n" + "Enfermidade: "+ enfermidade.getDescricao() + "\n" +"Data: " + c.get(Calendar.DAY_OF_MONTH) +'/'+c.get(Calendar.MONTH)+'/'+c.get(Calendar.YEAR);
     }
 }

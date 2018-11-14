@@ -72,7 +72,7 @@ public class TelaAnimalActivity extends AppCompatActivity implements NavigationV
 
 
         animal = (Animal) getIntent().getSerializableExtra("Animal");
-
+        setTitle(animal.getNumero() +" - " + animal.getNome());
         campoNomeAnimal = (TextView) findViewById(R.id.tela_animal_nome_animal);
         campoNumeroAnimal = (TextView) findViewById(R.id.tela_animal_numero_animal);
         campoAtivoAnimal = (Switch) findViewById(R.id.tela_animal_switch_ativo);

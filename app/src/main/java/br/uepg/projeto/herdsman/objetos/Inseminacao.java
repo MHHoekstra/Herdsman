@@ -1,5 +1,7 @@
 package br.uepg.projeto.herdsman.objetos;
 
+import java.util.Calendar;
+
 public class Inseminacao {
     private long idInseminacao;
     private long idAnimal;
@@ -45,7 +47,10 @@ public class Inseminacao {
 
     @Override
     public String toString() {
-        return "Data: " + data;
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(data);
+
+        return "Data: " + c.get(Calendar.DAY_OF_MONTH) + '/' +c.get(Calendar.MONTH) + '/'+c.get(Calendar.YEAR);
 
     }
 }

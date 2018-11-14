@@ -108,7 +108,7 @@ public class NotificarAnimalEnfermidadeActivity extends AppCompatActivity implem
                     long ins = herdsmanDbHelper.inserirSinistro(animalEnfermidade);
                     if(ins > 0 )
                     {
-                        Toast.makeText(NotificarAnimalEnfermidadeActivity.this, "AnimalEnfermidadeOcorrencia registrada", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(NotificarAnimalEnfermidadeActivity.this, "Ocorrencia registrada", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                     else

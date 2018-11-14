@@ -1,5 +1,7 @@
 package br.uepg.projeto.herdsman.objetos;
 
+import java.util.Calendar;
+
 public class AnimalRemedio {
     private long idAnimalRemedio;
     private long Remedio_idRemedio;
@@ -108,6 +110,8 @@ public class AnimalRemedio {
     @Override
     public String toString()
     {
-        return remedio.getNome() + "\n"+ String.valueOf(quantidade) + " " + medida.getNome() + "\nData: " + data;
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(data);
+        return remedio.getNome() + "\n"+ String.valueOf(quantidade) + " " + medida.getNome() + "\nData: " + c.get(Calendar.DAY_OF_MONTH)+'/'+c.get(Calendar.MONTH)+'/'+c.get(Calendar.YEAR);
     }
 }

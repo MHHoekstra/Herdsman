@@ -44,8 +44,6 @@ public class TelaAnimalSinistrosActivity extends AppCompatActivity implements Na
         pref = getApplicationContext().getSharedPreferences("isAdmin", MODE_PRIVATE);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -57,7 +55,9 @@ public class TelaAnimalSinistrosActivity extends AppCompatActivity implements Na
         TextView titulo = findViewById(R.id.lista_cios_titulo);
         listView = findViewById(R.id.lista_cios_listview);
         animal = (Animal) getIntent().getSerializableExtra("Animal");
-        titulo.setText("Enfermidades de " + animal.getNumero() + "\n" + animal.getNome());
+
+        setTitle(animal.getNumero() + " - " + animal.getNome());
+        titulo.setText("Enfermidades");
 
         carregarSinistros();
 
