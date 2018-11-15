@@ -41,7 +41,6 @@ public class SMSReceiver extends BroadcastReceiver {
             return;
         }
 
-
         List<Telefone> listaTelefones = new <Telefone> ArrayList();
         HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(context);
         SQLiteDatabase mDb = mDbHelper.getReadableDatabase();

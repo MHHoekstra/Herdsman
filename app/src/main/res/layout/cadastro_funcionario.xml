@@ -80,7 +80,7 @@
         android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="CPF"
-        android:maxLength="14"
+        android:maxLength="11"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

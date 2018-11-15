@@ -32,6 +32,8 @@ import br.uepg.projeto.herdsman.drawer.notificacao.NotificarAnimalEnfermidadeAct
 import br.uepg.projeto.herdsman.objetos.Pessoa;
 import br.uepg.projeto.herdsman.R;
 
+import br.uepg.projeto.herdsman.utils.ValidaCPF;
+
 public class CadastroFuncionarioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     Pessoa pessoa;
     Pessoa intent_pessoa;
@@ -91,12 +93,14 @@ public class CadastroFuncionarioActivity extends AppCompatActivity implements Na
                     if (campoNome.getText().length() == 0) {
                         return;
                     }
-                    if (campoCpf.getText().length() == 0) {
+                    if ((campoCpf.getText().length() == 0) || !ValidaCPF.isCPF(campoCpf.getText().toString())) {
+                        Toast.makeText(CadastroFuncionarioActivity.this, "CPF Invalido", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     if (campoRg.getText().length() == 0) {
                         return;
                     }
+
                     pessoa = new Pessoa(campoNome.getText().toString(), campoCpf.getText().toString(), campoRg.getText().toString());
 
                     HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(CadastroFuncionarioActivity.this);
@@ -113,7 +117,8 @@ public class CadastroFuncionarioActivity extends AppCompatActivity implements Na
                     if (campoNome.getText().length() == 0) {
                         return;
                     }
-                    if (campoCpf.getText().length() == 0) {
+                    if ((campoCpf.getText().length() == 0) || !ValidaCPF.isCPF(campoCpf.getText().toString())){
+                        Toast.makeText(CadastroFuncionarioActivity.this, "CPF Invalido", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     if (campoRg.getText().length() == 0) {

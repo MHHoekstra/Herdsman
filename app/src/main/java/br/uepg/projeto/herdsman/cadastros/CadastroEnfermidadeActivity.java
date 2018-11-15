@@ -41,7 +41,6 @@ public class CadastroEnfermidadeActivity extends AppCompatActivity implements Na
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -60,7 +59,6 @@ public class CadastroEnfermidadeActivity extends AppCompatActivity implements Na
         {
             descricao.setText(enfermidade.getDescricao());
         }
-
             cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,8 +68,8 @@ public class CadastroEnfermidadeActivity extends AppCompatActivity implements Na
                     return;
                 }
                 HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(CadastroEnfermidadeActivity.this);
-
                 if(enfermidade == null) {
+
                     enfermidade = new Enfermidade(descricao.getText().toString());
 
                     long insert = mDbHelper.inserirEnfermidade(enfermidade);

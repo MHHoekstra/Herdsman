@@ -83,7 +83,8 @@
         app:elevation="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_done_white_24dp" />
+        app:srcCompat="@drawable/ic_done_white_24dp"
+        android:focusable="true" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/cadastro_animal_cancelar"

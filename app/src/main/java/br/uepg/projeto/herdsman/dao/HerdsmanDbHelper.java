@@ -205,24 +205,24 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
                 " RAISE (ABORT,'RG inválido')\n" +
                 " END;\n" +
                 "END;";
-        //String triggerCio1 = "CREATE TRIGGER verificaCio BEFORE INSERT ON Cio WHEN EXISTS(SELECT Animal_idAnimal FROM \"Inseminacao\"  WHERE Animal_idAnimal == NEW.Animal_idAnimalPorCima AND (julianday(NEW.data)-julianday(data))<18) BEGIN INSERT INTO Administrador_Notifica_Pessoa(\"Administrador_idNotifica\",\"data\",\"descricao\")  VALUES ((SELECT idAdministrador FROM Administrador WHERE admin == 1) ,date('now'), \"Animal está com provável problema reprodutivo\"); END;";
-        String triggerCio2 = "CREATE TRIGGER verificaCio2 BEFORE INSERT ON Cio WHEN (SELECT 1 FROM Inseminacao a WHERE a.Animal_idAnimal == NEW.Animal_idAnimalPorBaixo AND (julianday(NEW.data)-julianday(a.data))<18)\n" +
+        String triggerCio1 = "CREATE TRIGGER verificaCio BEFORE INSERT ON Cio WHEN EXISTS(SELECT Animal_idAnimal FROM \"Inseminacao\"  WHERE Animal_idAnimal == NEW.Animal_idAnimalPorCima AND ((NEW.data-data)<1555200000)) BEGIN INSERT INTO Administrador_Notifica_Pessoa(\"Administrador_idNotifica\",\"data\",\"descricao\")  VALUES ((SELECT idAdministrador FROM Administrador WHERE admin == 1) ,date('now'), \"Animal está com provável problema reprodutivo\"); END;";
+        String triggerCio2 = "CREATE TRIGGER verificaCio2 BEFORE INSERT ON Cio WHEN (SELECT 1 FROM Inseminacao a WHERE a.Animal_idAnimal == NEW.Animal_idAnimalPorBaixo AND (NEW.data-a.data)<1555200000)\n" +
                 "BEGIN\n" +
                 " INSERT INTO Administrador_Notifica_Pessoa(\"Administrador_idNotifica\",\"data\",\"descricao\")  VALUES ((SELECT idAdministrador FROM Administrador WHERE admin == 1) ,date('now'), \"Animal está com provável problema reprodutivo\");\n" +
                 "END;";
-        String triggerCio3 = "CREATE TRIGGER verificaCio3 BEFORE INSERT ON Cio WHEN (SELECT 1 FROM Inseminacao a WHERE a.Animal_idAnimal == NEW.Animal_idAnimalPorCima AND (julianday(NEW.data)-julianday(a.data))>18 AND (julianday(NEW.data)-julianday(a.data))<60)\n" +
+        String triggerCio3 = "CREATE TRIGGER verificaCio3 BEFORE INSERT ON Cio WHEN (SELECT 1 FROM Inseminacao a WHERE a.Animal_idAnimal == NEW.Animal_idAnimalPorCima AND (NEW.data-a.data)>1555200000 AND (NEW.data-a.data)<5184000000)\n" +
                 "BEGIN\n" +
                 " INSERT INTO Administrador_Notifica_Pessoa(\"Administrador_idNotifica\",\"data\",\"descricao\")  VALUES ((SELECT idAdministrador FROM Administrador WHERE admin == 1) ,date('now'), \"Animal necessita inseminação\");\n" +
                 "END;";
-        String triggerCio4 = "CREATE TRIGGER verificaCio4 BEFORE INSERT ON Cio WHEN (SELECT 1 FROM Inseminacao a WHERE a.Animal_idAnimal == NEW.Animal_idAnimalPorBaixo AND (julianday(NEW.data)-julianday(a.data))>18 AND (julianday(NEW.data)-julianday(a.data))<60)\n" +
+        String triggerCio4 = "CREATE TRIGGER verificaCio4 BEFORE INSERT ON Cio WHEN (SELECT 1 FROM Inseminacao a WHERE a.Animal_idAnimal == NEW.Animal_idAnimalPorBaixo AND (NEW.data-a.data)>1555200000 AND (NEW.data-a.data)<5184000000)\n" +
                 "BEGIN\n" +
                 " INSERT INTO Administrador_Notifica_Pessoa(\"Administrador_idNotifica\",\"data\",\"descricao\")  VALUES ((SELECT idAdministrador FROM Administrador WHERE admin == 1) ,date('now'), \"Animal necessita inseminação\");\n" +
                 "END;";
-        String triggerCio5 = "CREATE TRIGGER verificaCio5 BEFORE INSERT ON Cio WHEN (SELECT 1 FROM Inseminacao a WHERE a.Animal_idAnimal == NEW.Animal_idAnimalPorCima AND (julianday(NEW.data)-julianday(a.data))>60)\n" +
+        String triggerCio5 = "CREATE TRIGGER verificaCio5 BEFORE INSERT ON Cio WHEN (SELECT 1 FROM Inseminacao a WHERE a.Animal_idAnimal == NEW.Animal_idAnimalPorCima AND (NEW.data-a.data)>5184000000)\n" +
                 "BEGIN\n" +
                 " INSERT INTO Administrador_Notifica_Pessoa(\"Administrador_idNotifica\",\"data\",\"descricao\")  VALUES ((SELECT idAdministrador FROM Administrador WHERE admin == 1) ,date('now'), \"Animal necessita inspeção\");\n" +
                 "END;";
-        String triggerCio6 = "CREATE TRIGGER verificaCio6 BEFORE INSERT ON Cio WHEN (SELECT 1 FROM Inseminacao a WHERE a.Animal_idAnimal == NEW.Animal_idAnimalPorBaixo AND (julianday(NEW.data)-julianday(a.data))>60)\n" +
+        String triggerCio6 = "CREATE TRIGGER verificaCio6 BEFORE INSERT ON Cio WHEN (SELECT 1 FROM Inseminacao a WHERE a.Animal_idAnimal == NEW.Animal_idAnimalPorBaixo AND (NEW.data-a.data)>5184000000)\n" +
                 "BEGIN\n" +
                 " INSERT INTO Administrador_Notifica_Pessoa(\"Administrador_idNotifica\",\"data\",\"descricao\")  VALUES ((SELECT idAdministrador FROM Administrador WHERE admin == 1) ,date('now'), \"Animal necessita inspeção\");\n" +
                 "END;";
@@ -252,7 +252,15 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
                 }
             }
             //Log.d(TAG, "Executing SQL: \r\n" + triggerCio1);
-            //db.execSQL(triggerCio1);
+            db.execSQL(triggerRG);
+            db.execSQL(triggerTelefone);
+            db.execSQL(triggerCio1);
+            db.execSQL(triggerCio2);
+            db.execSQL(triggerCio3);
+            db.execSQL(triggerCio4);
+            db.execSQL(triggerCio5);
+            db.execSQL(triggerCio6);
+
             br.close();
         } catch (IOException e) {
             Log.e(TAG, "IOException thrown while attempting to "
@@ -695,7 +703,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
 
     }
 
-    public long inserirFuncionario(Pessoa pessoa) {
+    public long     inserirFuncionario(Pessoa pessoa) {
 
         SQLiteDatabase mDb = this.getWritableDatabase();
         ContentValues valuesP = new ContentValues();

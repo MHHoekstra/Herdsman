@@ -2,12 +2,15 @@ package br.uepg.projeto.herdsman;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -92,6 +95,10 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         pref = getApplicationContext().getSharedPreferences("isAdmin", MODE_PRIVATE);
 
+        if (isOnline(this)) {
+            setTitle("Herdsman");
+        } else {setTitle("Herdsman (OFFLINE)");
+        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -405,5 +412,14 @@ public class MainActivity extends AppCompatActivity
         listaOutros = herdsmanDbHelper.carregarTodosAdministradorNotificaPessoa();
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listaOutros);
         lista.setAdapter(adapter);
+    }
+
+    public static boolean isOnline(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnected())
+            return true;
+        else
+            return false;
     }
 }

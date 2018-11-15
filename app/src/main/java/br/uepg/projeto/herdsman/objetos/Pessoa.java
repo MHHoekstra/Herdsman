@@ -54,7 +54,7 @@ public class Pessoa implements Serializable {
         this.nome = nome;
         this.cpf = cpf;
         this.rg = rg;
-
+        this.ativo=1;
     }
 
     public Pessoa(long id, String nome, String cpf, String rg) {
@@ -62,6 +62,7 @@ public class Pessoa implements Serializable {
         this.nome = nome;
         this.cpf = cpf;
         this.rg = rg;
+        this.ativo=1;
     }
 
     @Override

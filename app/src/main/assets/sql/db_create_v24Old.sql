@@ -1,55 +1,29 @@
-
 INSERT INTO "Animal"("idAnimal","nome","ativo","numero") VALUES (1, "Frisio Uman Cassandra", 1, "012");
 INSERT INTO "Inseminacao"("idAnimal_Inseminacao","Animal_idAnimal","data") VALUES(1,1,"2018-08-12");
 INSERT INTO "Parto"("idAnimal_Parto", "Animal_idAnimal", "data", "cria") VALUES(1,1,"2018-02-27",1);
-
-
 INSERT INTO "Animal"("idAnimal","nome","ativo","numero") VALUES (2, "Djani Garrett Copel",1,"336");
 INSERT INTO "Inseminacao"("idAnimal_Inseminacao","Animal_idAnimal","data") VALUES(2,2,"2018-09-13");
 INSERT INTO "Parto"("idAnimal_Parto", "Animal_idAnimal", "data", "cria") VALUES(2,2,"2018-04-21", 1);
-
-
 INSERT INTO "Animal"("idAnimal","nome","ativo","numero") VALUES (3,"Frisio Super Kate",1,"004");
 INSERT INTO "Inseminacao"("idAnimal_Inseminacao","Animal_idAnimal","data") VALUES(3,3,"2017-12-05");
 INSERT INTO "Parto"("idAnimal_Parto", "Animal_idAnimal", "data", "cria") VALUES(3,3,"2018-09-10",1);
-
-
 INSERT INTO "Animal"("idAnimal","nome","ativo","numero") VALUES (4,"Frisio Dream Chique", 1, "041");
 INSERT INTO "Inseminacao"("idAnimal_Inseminacao","Animal_idAnimal","data") VALUES(4,4,"2018-05-15");
-
-
-
 INSERT INTO "Animal"("idAnimal","nome","ativo","numero") VALUES (5,"Frisio Yano Celeste", 1, "038");
 INSERT INTO "Inseminacao"("idAnimal_Inseminacao","Animal_idAnimal","data") VALUES(5,5,"2018-03-23");
-
-
 INSERT INTO "Animal"("idAnimal","nome","ativo","numero") VALUES (6,"Frisio Soprano Fibria", 1, "037");
-
-
-
 INSERT INTO "Animal"("idAnimal","nome","ativo","numero") VALUES (7,"Frisio Cabriolet Natasja",1, "36");
 INSERT INTO "Inseminacao"("idAnimal_Inseminacao","Animal_idAnimal","data") VALUES(6,7,"2017-10-14");
-
-
 INSERT INTO "Animal"("idAnimal","nome","ativo","numero") VALUES (8,"Frisio Cabriolet Natalie",1, "34");
 INSERT INTO "Inseminacao"("idAnimal_Inseminacao","Animal_idAnimal","data") VALUES(7,8,"2018-11-20");
-
-
 INSERT INTO "Animal"("idAnimal","nome","ativo","numero") VALUES (9,"Frisio Yano Upload", 1, "0032");
 INSERT INTO "Inseminacao"("idAnimal_Inseminacao","Animal_idAnimal","data") VALUES(8,9,"2017-05-18");
 INSERT INTO "Parto"("idAnimal_Parto", "Animal_idAnimal", "data", "cria") VALUES(4,9,"2018-02-19",2);
-
-
 INSERT INTO "Animal"("idAnimal","nome","ativo","numero") VALUES (10, "Frisio Soprano Umikaze", 1, "031");
 INSERT INTO "Inseminacao"("idAnimal_Inseminacao","Animal_idAnimal","data") VALUES(9,10,"2018-04-19");
-
-
-
 INSERT INTO "Animal"("idAnimal","nome","ativo","numero") VALUES (11,"Frisio Cabriolet Jessy",1,"029");
 INSERT INTO "Inseminacao"("idAnimal_Inseminacao","Animal_idAnimal","data") VALUES(83,11,"2018-08-14");
 INSERT INTO "Parto"("idAnimal_Parto", "Animal_idAnimal", "data", "cria") VALUES(5,11,"2017-10-09",1);
-
-
 INSERT INTO "Animal"("idAnimal","nome","ativo","numero") VALUES (12,"Frisio Cabriolet Caixa",1, "028");
 INSERT INTO "Inseminacao"("idAnimal_Inseminacao","Animal_idAnimal","data") VALUES(10,12,"2018-06-10");
 INSERT INTO "Parto"("idAnimal_Parto", "Animal_idAnimal", "data", "cria") VALUES(6,12,"2017-11-27",1);
@@ -451,3 +425,4 @@ INSERT INTO "Parto"("idAnimal_Parto", "Animal_idAnimal", "data", "cria") VALUES(
 INSERT INTO "Animal"("idAnimal","nome","ativo","numero") VALUES (107, "Djani Goldwyn Koreana", 1, "015");
 INSERT INTO "Inseminacao"("idAnimal_Inseminacao","Animal_idAnimal","data") VALUES(82, 107, "2014-05-17");
 INSERT INTO "Parto"("idAnimal_Parto", "Animal_idAnimal", "data", "cria") VALUES(76, 107, "2015-02-16", 1);
+COMMIT;

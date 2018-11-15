@@ -21,6 +21,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 import br.uepg.projeto.herdsman.dao.HerdsmanContract;
 import br.uepg.projeto.herdsman.dao.HerdsmanDbHelper;
 import br.uepg.projeto.herdsman.drawer.ListaAnimaisActivity;
@@ -136,12 +138,7 @@ public class TelaAnimalActivity extends AppCompatActivity implements NavigationV
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 HerdsmanDbHelper update = new HerdsmanDbHelper(TelaAnimalActivity.this);
-                if(b){
-                    animal.setAtivo(1);
-                }
-                else{
-                    animal.setAtivo(0);
-                }
+                animal.setAtivo(b?1 :0);
                 update.replaceAnimal(animal);
             }
         });
@@ -182,7 +179,10 @@ public class TelaAnimalActivity extends AppCompatActivity implements NavigationV
         {
             dataUltimoCio = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.CioEntry.COLUMN_NAME_DATA));
             Log.d("DATA CIO: ", dataUltimoCio);
-            campoUltimoCio.setText(dataUltimoCio);
+            Calendar c = Calendar.getInstance();
+            c.setTimeInMillis(Long.valueOf(dataUltimoCio));
+            String data = "" + c.get(Calendar.DAY_OF_MONTH) + '/' + c.get(Calendar.MONTH)+'/'+c.get(Calendar.YEAR);
+            campoUltimoCio.setText(data);
         }
         cursor.close();
         order = HerdsmanContract.PartoEntry.COLUMN_NAME_DATA + " DESC";
@@ -201,7 +201,10 @@ public class TelaAnimalActivity extends AppCompatActivity implements NavigationV
         {
             dataUltimoParto = (cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.PartoEntry.COLUMN_NAME_DATA)));
             Log.d("DATA PARTO: ", dataUltimoParto);
-            campoUltimoParto.setText(dataUltimoParto);
+            Calendar c = Calendar.getInstance();
+            c.setTimeInMillis(Long.valueOf(dataUltimoParto));
+            String data = "" + c.get(Calendar.DAY_OF_MONTH) + '/' + c.get(Calendar.MONTH)+'/'+c.get(Calendar.YEAR);
+            campoUltimoParto.setText(data);
         }
 
         cursor.close();
@@ -219,7 +222,10 @@ public class TelaAnimalActivity extends AppCompatActivity implements NavigationV
         if (cursor.moveToNext())
         {
             dataUltimaInseminacao = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalInseminacaoEntry.COLUMN_NAME_DATA));
-            campoUltimaInseminacao.setText(dataUltimaInseminacao);
+            Calendar c = Calendar.getInstance();
+            c.setTimeInMillis(Long.valueOf(dataUltimaInseminacao));
+            String data = "" + c.get(Calendar.DAY_OF_MONTH) + '/' + c.get(Calendar.MONTH)+'/'+c.get(Calendar.YEAR);
+            campoUltimaInseminacao.setText(data);
         }
         cursor.close();
         cursor = mDb.query(

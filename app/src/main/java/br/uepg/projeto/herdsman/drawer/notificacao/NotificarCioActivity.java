@@ -231,10 +231,7 @@ public class NotificarCioActivity extends AppCompatActivity implements Navigatio
                 Intent intent = new Intent(NotificarCioActivity.this, NotificarOutroActivity.class);
                 NotificarCioActivity.this.startActivity(intent);
             }
-
         }
-
-
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

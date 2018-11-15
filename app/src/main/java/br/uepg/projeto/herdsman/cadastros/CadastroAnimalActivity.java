@@ -41,6 +41,7 @@ public class CadastroAnimalActivity extends AppCompatActivity implements Navigat
     Boolean adm;
     public static final String myPref = "preferenceName";
     SharedPreferences pref;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +50,6 @@ public class CadastroAnimalActivity extends AppCompatActivity implements Navigat
         pref = getApplicationContext().getSharedPreferences("isAdmin", MODE_PRIVATE);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -75,16 +75,12 @@ public class CadastroAnimalActivity extends AppCompatActivity implements Navigat
             numeroAnimal.setText(intent_animal.getNumero());
             nomeAnimal.setText(intent_animal.getNome());
             radioGroup.setVisibility(View.VISIBLE);
-            if(intent_animal.getAtivo() == 1)
-            {
+            if (intent_animal.getAtivo() == 1) {
                 ativoRadio.toggle();
-            }
-            else
-            {
+            } else {
                 inativoRadio.toggle();
             }
         }
-
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,9 +98,7 @@ public class CadastroAnimalActivity extends AppCompatActivity implements Navigat
                     long id = mDbHelper.inserirAnimal(animal);
                     Toast.makeText(CadastroAnimalActivity.this, "Animal " + animal.getNumero() + " cadastrado", Toast.LENGTH_SHORT).show();
                     finish();
-                }
-                else
-                {
+                } else {
                     if (numeroAnimal.getText().length() == 0) {
                         Toast.makeText(CadastroAnimalActivity.this, "Preencha o número", Toast.LENGTH_SHORT).show();
                         return;
@@ -115,13 +109,10 @@ public class CadastroAnimalActivity extends AppCompatActivity implements Navigat
                     }
                     HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(CadastroAnimalActivity.this);
 
-                    if(ativoRadio.isChecked())
-                    {
+                    if (ativoRadio.isChecked()) {
                         animal = new Animal(intent_animal.getId(), numeroAnimal.getText().toString(), nomeAnimal.getText().toString(), 1);
-                    }
-                    else
-                    {
-                        animal = new Animal(intent_animal.getId(),numeroAnimal.getText().toString(), nomeAnimal.getText().toString(), 0);
+                    } else {
+                        animal = new Animal(intent_animal.getId(), numeroAnimal.getText().toString(), nomeAnimal.getText().toString(), 0);
                     }
                     long newRowId = mDbHelper.replaceAnimal(animal);
                     Toast.makeText(CadastroAnimalActivity.this, "Animal " + intent_animal.getNumero() + " alterado", Toast.LENGTH_SHORT).show();
@@ -137,6 +128,7 @@ public class CadastroAnimalActivity extends AppCompatActivity implements Navigat
             }
         });
     }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -154,52 +146,34 @@ public class CadastroAnimalActivity extends AppCompatActivity implements Navigat
         int id = item.getItemId();
         adm = pref.getBoolean("isAdmin", false);
         if (id == R.id.nav_animais) {
-            if (!adm)
-            {
+            if (!adm) {
                 Toast.makeText(CadastroAnimalActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
-
-            }
-            else {
+            } else {
                 Intent intent = new Intent(CadastroAnimalActivity.this, ListaAnimaisActivity.class);
                 CadastroAnimalActivity.this.startActivity(intent);
             }
-
         } else if (id == R.id.nav_enfermidades) {
-
-            if (!adm)
-            {
+            if (!adm) {
                 Toast.makeText(CadastroAnimalActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
 
-            }
-            else {
+            } else {
                 Intent intent = new Intent(CadastroAnimalActivity.this, ListaEnfermidadesActivity.class);
                 CadastroAnimalActivity.this.startActivity(intent);
             }
-
         } else if (id == R.id.nav_remedios) {
-
-            if (!adm)
-            {
+            if (!adm) {
                 Toast.makeText(CadastroAnimalActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
-
-            }
-            else {
+            } else {
                 Intent intent = new Intent(CadastroAnimalActivity.this, ListaRemediosActivity.class);
                 CadastroAnimalActivity.this.startActivity(intent);
             }
-
-
         } else if (id == R.id.nav_funcionarios) {
-
-            if (!adm)
-            {
+            if (!adm) {
                 Toast.makeText(CadastroAnimalActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
-            }
-            else {
+            } else {
                 Intent intent = new Intent(CadastroAnimalActivity.this, ListaFuncionariosActivity.class);
                 CadastroAnimalActivity.this.startActivity(intent);
             }
-
         } else if (id == R.id.nav_cio) {
 
             Intent intent = new Intent(CadastroAnimalActivity.this, NotificarCioActivity.class);
@@ -211,19 +185,13 @@ public class CadastroAnimalActivity extends AppCompatActivity implements Navigat
             CadastroAnimalActivity.this.startActivity(intent);
 
         } else if (id == R.id.nav_outro) {
-
-            if (!adm)
-            {
+            if (!adm) {
                 Toast.makeText(CadastroAnimalActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
-
-            }
-            else {
+            } else {
                 Intent intent = new Intent(CadastroAnimalActivity.this, NotificarOutroActivity.class);
                 CadastroAnimalActivity.this.startActivity(intent);
             }
-
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

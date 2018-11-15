@@ -61,7 +61,6 @@ public class HerdsmanDbSync {
                     syncAnimalRemedio();
                     syncTelefone();
                     syncOutro();
-
                 }
             });
             AlertDialog alert = confirm.create();
