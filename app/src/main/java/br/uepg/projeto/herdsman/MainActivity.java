@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity
     //TODO Atualizar automaticamente ao inserir um novo cio
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        FirebaseDatabase.getInstance().getReference("Hoekstra");
+        FirebaseDatabase.getInstance().getReference("Hoekstra - Base de Testes");
         int reqCod = 0;
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED)
         {

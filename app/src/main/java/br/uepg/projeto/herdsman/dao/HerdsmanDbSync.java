@@ -33,7 +33,7 @@ public class HerdsmanDbSync {
     {
         this.mContext = context;
         this.mDbHelper = new HerdsmanDbHelper(mContext);
-        this.FirebaseSync = FirebaseDatabase.getInstance().getReference("Hoekstra");
+        this.FirebaseSync = FirebaseDatabase.getInstance().getReference("Hoekstra - Base de Testes");
         this.mDbHelper.setSync(true);
     }
 
@@ -49,7 +49,7 @@ public class HerdsmanDbSync {
                 public void onClick(DialogInterface dialogInterface, int i) {
                     //TODO Sincronizar todas as instancias
                     //FIXME O que acontece se alguem excluir em um celular e em outro celular ainda existir o objeto?
-                    HerdsmanDbHelper.deleteDatabase(HerdsmanDbSync.this.mContext);
+                    mDbHelper.deleteDatabase(mContext);
                     syncAnimal();
                     syncEnfermidade();
                     syncParto();

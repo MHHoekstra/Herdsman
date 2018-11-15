@@ -51,7 +51,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
     public HerdsmanDbHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         mContext = context;
-        this.FirebaseHelper = FirebaseDatabase.getInstance().getReference("Hoekstra");
+        this.FirebaseHelper = FirebaseDatabase.getInstance().getReference("Hoekstra - Base de Testes");
         if(firstInput) {
             //firstExec();
         }
@@ -708,9 +708,9 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         }
         else
         {
-            valuesP.put(HerdsmanContract.PessoaEntry.COLUMN_NAME_IDPESSOA, pessoa.getIdPessoa());
             Calendar calendar = Calendar.getInstance();
             pessoa.setIdPessoa(calendar.getTimeInMillis());
+            valuesP.put(HerdsmanContract.PessoaEntry.COLUMN_NAME_IDPESSOA, pessoa.getIdPessoa());
         }
         long id = mDb.insert(HerdsmanContract.PessoaEntry.TABLE_NAME, null, valuesP);
         if (id > 0 && !this.isSync()) {
