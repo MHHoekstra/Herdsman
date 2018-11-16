@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="-5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="600dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="-15dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:src="@drawable/tela_animal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:text="1 - Menu de navegação: Um toque aqui abre o menu de navegação, possibilitando o acesso a outras funcionalidades do sistema." />
+
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:text='2 - Informação referente ao número de registro, ou "número do brinco" do animal.' />
+
+            <EditText
+                android:id="@+id/editText3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:text="3 - Informação referente ao nome de registro do animal." />
+
+            <EditText
+                android:id="@+id/editText4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:text="4 -  Data do parto mais recente cadastrado no sistema para o animal em questão." />
+
+            <EditText
+                android:id="@+id/editText6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:text="5 - Data referente à inseminação mais recente cadastrada no sistema para o animal em questão." />
+
+            <EditText
+                android:id="@+id/editText7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:text="7 - Indica o status do animal na propriedade, onde ativo representa um animal que esteja presente na propriedade. Um toque no interruptor alterará este status." />
+
+            <EditText
+                android:id="@+id/editText8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:text="8 - Cios do animal: Um toque neste botão navegará para a tela contentndo uma lista com todos os cios registrados do animal." />
+
+            <EditText
+                android:id="@+id/editText9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:text="9 - Inseminações do animal: Um toque neste botão navegará para a tela contendo uma lista com todas as inseminações registradas do animal e também para uma opção do cadastro de uma nova entrada de inseminação." />
+
+            <EditText
+                android:id="@+id/editText11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:text="10 - Partos do animal: Um toque neste botão navegará para uma tela listando todos os partos cadastrados do animal, além de possibilitar o cadastro de uma nova entrada de parto." />
+
+            <EditText
+                android:id="@+id/editText12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:text="11 - Remédios administrados: Um toque neste botão navegará para uma tela listando todas as administrações de remédios ao animal, além de possibilitar o cadastro de uma nova entrada de remédio administrado." />
+
+            <EditText
+                android:id="@+id/editText13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:text="12 - Enfermidades do animal: Um toque neste botão navegará para uma tela listando todas as enfermidades cadastradas do animal." />
+
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

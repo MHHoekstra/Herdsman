@@ -32,6 +32,7 @@ import br.uepg.projeto.herdsman.drawer.ListaRemediosActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarCioActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarOutroActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarAnimalEnfermidadeActivity;
+import br.uepg.projeto.herdsman.helper.HelperTelaAnimal;
 import br.uepg.projeto.herdsman.objetos.Animal;
 import br.uepg.projeto.herdsman.R;
 
@@ -347,6 +348,12 @@ public class TelaAnimalActivity extends AppCompatActivity implements NavigationV
                 TelaAnimalActivity.this.startActivity(intent);
             }
 
+
+        }
+        else if (id == R.id.nav_help)
+        {
+            Intent intent = new Intent(TelaAnimalActivity.this, HelperTelaAnimal.class);
+            TelaAnimalActivity.this.startActivity(intent);
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

@@ -70,6 +70,7 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".drawer.funcionario.TelaFuncionarioNotificacoesActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".helper.HelperTelaAnimal" />
 
         <receiver
             android:name=".utils.SMSReceiver"
