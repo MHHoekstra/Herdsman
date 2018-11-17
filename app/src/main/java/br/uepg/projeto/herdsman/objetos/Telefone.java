@@ -34,7 +34,7 @@ public class Telefone implements Serializable {
         return Pessoa_idPessoa;
     }
 
-    public void setPessoa_idPessoa(int pessoa_idPessoa) {
+    public void setPessoa_idPessoa(long pessoa_idPessoa) {
         this.Pessoa_idPessoa = pessoa_idPessoa;
     }
 

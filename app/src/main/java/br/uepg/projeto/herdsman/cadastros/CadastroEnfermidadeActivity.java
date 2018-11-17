@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import br.uepg.projeto.herdsman.dao.HerdsmanDbHelper;
@@ -28,6 +29,7 @@ import br.uepg.projeto.herdsman.objetos.Enfermidade;
 import br.uepg.projeto.herdsman.R;
 
 public class CadastroEnfermidadeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+    TextView titulo;
     Enfermidade enfermidade;
     Boolean adm;
     public static final String myPref = "preferenceName";
@@ -49,7 +51,7 @@ public class CadastroEnfermidadeActivity extends AppCompatActivity implements Na
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        titulo = (TextView) findViewById(R.id.cadastro_enfermidade_titulo);
         FloatingActionButton cadastrar = (FloatingActionButton) findViewById(R.id.cadastro_enfermidade_add);
         FloatingActionButton cancelar = (FloatingActionButton) findViewById(R.id.cadastro_enfermidade_cancelar);
         final EditText descricao = (EditText) findViewById(R.id.cadastro_enfermidade_descricão);
@@ -57,6 +59,7 @@ public class CadastroEnfermidadeActivity extends AppCompatActivity implements Na
         enfermidade = (Enfermidade) getIntent().getSerializableExtra("Enfermidade");
         if(enfermidade != null)
         {
+            titulo.setText("Alterar Enfermidade");
             descricao.setText(enfermidade.getDescricao());
         }
             cadastrar.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +70,13 @@ public class CadastroEnfermidadeActivity extends AppCompatActivity implements Na
                     Toast.makeText(CadastroEnfermidadeActivity.this, "Preencha o campo", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(CadastroEnfermidadeActivity.this);
+                if(mDbHelper.searchDuplicateEnfermidade(descricao.getText().toString()))
+                {
+                    Toast.makeText(CadastroEnfermidadeActivity.this, "Enfermidade já cadastrada", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if(enfermidade == null) {
 
                     enfermidade = new Enfermidade(descricao.getText().toString());

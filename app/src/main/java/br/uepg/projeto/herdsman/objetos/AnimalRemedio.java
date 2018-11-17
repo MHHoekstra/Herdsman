@@ -47,7 +47,7 @@ public class AnimalRemedio {
         return Remedio_idRemedio;
     }
 
-    public void setRemedio_idRemedio(int remedio_idRemedio) {
+    public void setRemedio_idRemedio(long remedio_idRemedio) {
         Remedio_idRemedio = remedio_idRemedio;
     }
 
@@ -63,7 +63,7 @@ public class AnimalRemedio {
         return Medida_idMedida;
     }
 
-    public void setMedida_idMedida(int medida_idMedida) {
+    public void setMedida_idMedida(long medida_idMedida) {
         Medida_idMedida = medida_idMedida;
     }
 
@@ -112,6 +112,6 @@ public class AnimalRemedio {
     {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(data);
-        return remedio.getNome() + "\n"+ String.valueOf(quantidade) + " " + medida.getNome() + "\nData: " + c.get(Calendar.DAY_OF_MONTH)+'/'+c.get(Calendar.MONTH)+'/'+c.get(Calendar.YEAR);
+        return remedio.getNome() + "\n"+ String.valueOf(quantidade) + " " + medida.getNome() + "\nData: " + c.get(Calendar.DAY_OF_MONTH)+'/'+(c.get(Calendar.MONTH)+1)+'/'+c.get(Calendar.YEAR);
     }
 }

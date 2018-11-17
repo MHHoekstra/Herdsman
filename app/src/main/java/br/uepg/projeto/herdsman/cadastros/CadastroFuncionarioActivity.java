@@ -97,13 +97,19 @@ public class CadastroFuncionarioActivity extends AppCompatActivity implements Na
                         Toast.makeText(CadastroFuncionarioActivity.this, "CPF Invalido", Toast.LENGTH_SHORT).show();
                         return;
                     }
+
                     if (campoRg.getText().length() == 0) {
                         return;
                     }
-
+                    HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(CadastroFuncionarioActivity.this);
+                    if(mDbHelper.searchDuplicateFuncionario(campoCpf.getText().toString()))
+                    {
+                        Toast.makeText(CadastroFuncionarioActivity.this, "CPF já cadastrado", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     pessoa = new Pessoa(campoNome.getText().toString(), campoCpf.getText().toString(), campoRg.getText().toString());
 
-                    HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(CadastroFuncionarioActivity.this);
+
                     long insert = mDbHelper.inserirFuncionario(pessoa);
                     if (insert > 0)
                     {
@@ -124,10 +130,15 @@ public class CadastroFuncionarioActivity extends AppCompatActivity implements Na
                     if (campoRg.getText().length() == 0) {
                         return;
                     }
+                    HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(CadastroFuncionarioActivity.this);
+                    if(mDbHelper.searchDuplicateFuncionario(campoCpf.getText().toString()))
+                    {
+                        Toast.makeText(CadastroFuncionarioActivity.this, "CPF já cadastrado", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
                     pessoa = new Pessoa(campoNome.getText().toString(),campoCpf.getText().toString(), campoRg.getText().toString());
                     pessoa.setIdPessoa(intent_pessoa.getIdPessoa());
-                    HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(CadastroFuncionarioActivity.this);
 
                     if(radioButtonAtivo.isActivated())
                     {

@@ -51,6 +51,7 @@ import br.uepg.projeto.herdsman.objetos.Administrador;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    HerdsmanDbHelper mDbHelper;
     Administrador administrador = null;
     ListView lista;
     Button buttonCio;
@@ -99,6 +100,10 @@ public class MainActivity extends AppCompatActivity
             setTitle("Herdsman");
         } else {setTitle("Herdsman (OFFLINE)");
         }
+        this.mDbHelper = new HerdsmanDbHelper(this);
+        this.mDbHelper.searchDuplicateAnimals();
+        this.mDbHelper.searchDuplicateRemedios();
+        this.mDbHelper.searchDuplicateSinistros();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -392,24 +397,21 @@ public class MainActivity extends AppCompatActivity
 
     private void listarCios()
     {
-        HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(this);
-        listaCios = mDbHelper.carregarTodosCios();
+        listaCios = this.mDbHelper.carregarTodosCios();
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaCios);
         lista.setAdapter(adapter);
     }
 
     private void listarSinistros()
     {
-        HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(this);
-        listaEnfermidades = mDbHelper.carregarTodosSinistros();
+        listaEnfermidades = this.mDbHelper.carregarTodosSinistros();
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaEnfermidades);
         lista.setAdapter(adapter);
     }
 
     private void listarOutros()
     {
-        HerdsmanDbHelper herdsmanDbHelper = new HerdsmanDbHelper(this);
-        listaOutros = herdsmanDbHelper.carregarTodosAdministradorNotificaPessoa();
+        listaOutros = this.mDbHelper.carregarTodosAdministradorNotificaPessoa();
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listaOutros);
         lista.setAdapter(adapter);
     }

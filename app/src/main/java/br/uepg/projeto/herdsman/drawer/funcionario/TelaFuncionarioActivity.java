@@ -135,7 +135,7 @@ public class TelaFuncionarioActivity extends AppCompatActivity implements Naviga
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(TelaFuncionarioActivity.this);
-                        int delete = mDbHelper.removerTelefone(telefone);
+                        int delete = mDbHelper.deletaTelefone(telefone);
                         if(delete == 0)
                         {
                             Toast.makeText(TelaFuncionarioActivity.this, "Erro ao deletar", Toast.LENGTH_SHORT).show();

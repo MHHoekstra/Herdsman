@@ -1,16 +1,22 @@
 package br.uepg.projeto.herdsman.drawer.animal;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,6 +24,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import br.uepg.projeto.herdsman.dao.HerdsmanContract;
 import br.uepg.projeto.herdsman.dao.HerdsmanDbHelper;
 import br.uepg.projeto.herdsman.drawer.ListaAnimaisActivity;
 import br.uepg.projeto.herdsman.drawer.ListaEnfermidadesActivity;
@@ -28,6 +36,8 @@ import br.uepg.projeto.herdsman.drawer.notificacao.NotificarOutroActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarAnimalEnfermidadeActivity;
 import br.uepg.projeto.herdsman.objetos.Animal;
 import br.uepg.projeto.herdsman.R;
+import br.uepg.projeto.herdsman.objetos.Cio;
+import br.uepg.projeto.herdsman.objetos.Parto;
 
 public class ListaCiosActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     ListView ListaCios;
@@ -64,6 +74,27 @@ public class ListaCiosActivity extends AppCompatActivity implements NavigationVi
         ListaCios = (ListView) findViewById(R.id.lista_cios_listview);
 
         listarCios();
+        ListaCios.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                final Cio cio = (Cio) ListaCios.getItemAtPosition(position);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ListaCiosActivity.this);
+                alertDialogBuilder.setTitle("Deletar Cio?");
+                alertDialogBuilder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(ListaCiosActivity.this);
+                        mDbHelper.deletaCio(cio);
+                        listarCios();
+                    }
+
+                });
+                alertDialogBuilder.setNegativeButton("Não", null);
+                AlertDialog alert = alertDialogBuilder.create();
+                alert.show();
+                return true;
+            }
+        });
 
     }
 

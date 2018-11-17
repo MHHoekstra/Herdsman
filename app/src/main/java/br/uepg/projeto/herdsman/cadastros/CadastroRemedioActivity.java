@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import br.uepg.projeto.herdsman.dao.HerdsmanDbHelper;
@@ -28,6 +29,7 @@ import br.uepg.projeto.herdsman.objetos.Remedio;
 import br.uepg.projeto.herdsman.R;
 
 public class CadastroRemedioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    TextView titulo;
     Boolean adm;
     public static final String myPref = "preferenceName";
     SharedPreferences pref;
@@ -54,9 +56,10 @@ public class CadastroRemedioActivity extends AppCompatActivity implements Naviga
         FloatingActionButton cancelar = (FloatingActionButton) findViewById(R.id.cadastro_remedio_cancelar);
         final EditText descricao = (EditText) findViewById(R.id.cadastro_remedio_nome);
         final Remedio remedio = (Remedio) getIntent().getSerializableExtra("Remedio");
+        titulo = (TextView) findViewById(R.id.cadastro_remedio_titulo);
         if(remedio != null)
         {
-
+            titulo.setText("Alterar Remédio");
             descricao.setText(remedio.getNome());
         }
         cadastrar.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +72,12 @@ public class CadastroRemedioActivity extends AppCompatActivity implements Naviga
                     return;
                 }
                 HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(CadastroRemedioActivity.this);
+
+                if(mDbHelper.searchDuplicateRemedio(descricao.getText().toString()))
+                {
+                    Toast.makeText(CadastroRemedioActivity.this,"Remedio já está cadastrado", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 if(remedio == null) {
                     Remedio remedio = new Remedio(descricao.getText().toString());

@@ -84,7 +84,7 @@ public class Cio {
     {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(data);
-        String s = "Animal por cima: " + animalPorCima.getNumero() + "\nAnimal por baixo: " + animalPorBaixo.getNumero() + "\nData: " + c.get(Calendar.DAY_OF_MONTH) + '/' + c.get(Calendar.MONTH)+'/'+c.get(Calendar.YEAR);
+        String s = "Animal por cima: " + animalPorCima.getNumero() + "\nAnimal por baixo: " + animalPorBaixo.getNumero() + "\nData: " + c.get(Calendar.DAY_OF_MONTH) + '/' + (c.get(Calendar.MONTH)+1)+'/'+c.get(Calendar.YEAR);
         return s;
     }
 

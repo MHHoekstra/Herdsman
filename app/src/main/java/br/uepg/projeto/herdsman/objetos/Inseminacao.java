@@ -49,8 +49,7 @@ public class Inseminacao {
     public String toString() {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(data);
-
-        return "Data: " + c.get(Calendar.DAY_OF_MONTH) + '/' +c.get(Calendar.MONTH) + '/'+c.get(Calendar.YEAR);
+        return "Data: " + c.get(Calendar.DAY_OF_MONTH) + '/' +(c.get(Calendar.MONTH)+1) + '/'+c.get(Calendar.YEAR);
 
     }
 }

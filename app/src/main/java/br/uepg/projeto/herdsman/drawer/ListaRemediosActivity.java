@@ -99,6 +99,7 @@ public class ListaRemediosActivity extends TelasActivity implements SearchView.O
     private void listarRemedios()
     {
         HerdsmanDbHelper herdsmanDbHelper = new HerdsmanDbHelper(this);
+        herdsmanDbHelper.searchDuplicateRemedios();
         ArrayList lista = herdsmanDbHelper.carregarTodosRemedios();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lista);
         listaRemedios.setAdapter(adapter);

@@ -1,9 +1,11 @@
 package br.uepg.projeto.herdsman.dao;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
@@ -13,11 +15,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import br.uepg.projeto.herdsman.MainActivity;
+import br.uepg.projeto.herdsman.cadastros.CadastroPartoActivity;
 import br.uepg.projeto.herdsman.objetos.AdministradorNotificaPessoa;
 import br.uepg.projeto.herdsman.objetos.Animal;
 import br.uepg.projeto.herdsman.objetos.AnimalRemedio;
 import br.uepg.projeto.herdsman.objetos.Cio;
 import br.uepg.projeto.herdsman.objetos.Enfermidade;
+import br.uepg.projeto.herdsman.objetos.Inseminacao;
 import br.uepg.projeto.herdsman.objetos.Parto;
 import br.uepg.projeto.herdsman.objetos.Pessoa;
 import br.uepg.projeto.herdsman.objetos.Remedio;
@@ -28,7 +33,7 @@ public class HerdsmanDbSync {
     HerdsmanDbHelper mDbHelper;
     Context mContext;
     private DatabaseReference FirebaseSync;
-
+    ProgressDialog progress;
     public HerdsmanDbSync(Context context)
     {
         this.mContext = context;
@@ -49,6 +54,7 @@ public class HerdsmanDbSync {
                 public void onClick(DialogInterface dialogInterface, int i) {
                     //TODO Sincronizar todas as instancias
                     //FIXME O que acontece se alguem excluir em um celular e em outro celular ainda existir o objeto?
+
                     mDbHelper.deleteDatabase(mContext);
                     syncAnimal();
                     syncEnfermidade();
@@ -61,6 +67,20 @@ public class HerdsmanDbSync {
                     syncAnimalRemedio();
                     syncTelefone();
                     syncOutro();
+
+                    final ProgressDialog dialog = ProgressDialog.show(mContext, "","Sincronizando..Aguarde.." , true);
+                    dialog.show();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            //your code here
+                            mDbHelper.searchDuplicateAnimals();
+                            mDbHelper.searchDuplicateRemedios();
+                            mDbHelper.searchDuplicateSinistros();
+                            dialog.dismiss();
+                        }
+                    }, 5000);
+
                 }
             });
             AlertDialog alert = confirm.create();
@@ -75,8 +95,7 @@ public class HerdsmanDbSync {
     }
 
     private void syncSinistro() {
-        DatabaseReference database = FirebaseSync.child("AnimalEnfermidade");
-
+        DatabaseReference database = FirebaseSync.child(HerdsmanContract.AnimalEnfermidadeEntry.TABLE_NAME);
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -92,7 +111,7 @@ public class HerdsmanDbSync {
     }
 
     private void syncRemedio() {
-        DatabaseReference database = FirebaseSync.child("Remedio");
+        DatabaseReference database = FirebaseSync.child(HerdsmanContract.RemedioEntry.TABLE_NAME);
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -110,7 +129,7 @@ public class HerdsmanDbSync {
     }
 
     private void syncFuncionario() {
-        DatabaseReference database = FirebaseSync.child("Pessoa");
+        DatabaseReference database = FirebaseSync.child(HerdsmanContract.PessoaEntry.TABLE_NAME);
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -128,7 +147,7 @@ public class HerdsmanDbSync {
     }
 
     private void syncParto() {
-        DatabaseReference database = FirebaseSync.child("Parto");
+        DatabaseReference database = FirebaseSync.child(HerdsmanContract.PartoEntry.TABLE_NAME);
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -146,7 +165,7 @@ public class HerdsmanDbSync {
     }
 
     private void syncEnfermidade() {
-        DatabaseReference database = FirebaseSync.child("Enfermidade");
+        DatabaseReference database = FirebaseSync.child(HerdsmanContract.EnfermidadeEntry.TABLE_NAME);
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -164,7 +183,7 @@ public class HerdsmanDbSync {
     }
 
     private void syncAnimal() {
-        DatabaseReference database = FirebaseSync.child("Animal");
+        DatabaseReference database = FirebaseSync.child(HerdsmanContract.AnimalEntry.TABLE_NAME);
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -182,7 +201,7 @@ public class HerdsmanDbSync {
     }
 
     private void syncCio() {
-        DatabaseReference database = FirebaseSync.child("Cio");
+        DatabaseReference database = FirebaseSync.child(HerdsmanContract.CioEntry.TABLE_NAME);
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -200,14 +219,14 @@ public class HerdsmanDbSync {
     }
 
     private void syncInseminacao(){
-        DatabaseReference database = FirebaseSync.child("Inseminacao");
+        DatabaseReference database = FirebaseSync.child(HerdsmanContract.AnimalInseminacaoEntry.TABLE_NAME);
 
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    AdministradorNotificaPessoa S =  postSnapshot.getValue(AdministradorNotificaPessoa.class);
-                    mDbHelper.inserirAdministradorNotificaPessoa(S);
+                    Inseminacao S =  postSnapshot.getValue(Inseminacao.class);
+                    mDbHelper.inserirInseminacao(S);
                 }
             }
             @Override
@@ -217,7 +236,7 @@ public class HerdsmanDbSync {
     }
 
     private void syncAnimalRemedio(){
-        DatabaseReference database = FirebaseSync.child("AnimalRemedio");
+        DatabaseReference database = FirebaseSync.child(HerdsmanContract.AnimalRemedioEntry.TABLE_NAME);
 
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -229,12 +248,13 @@ public class HerdsmanDbSync {
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(mContext, "Erro na sincronização", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void syncTelefone(){
-        DatabaseReference database = FirebaseSync.child("Telefone");
+        DatabaseReference database = FirebaseSync.child(HerdsmanContract.TelefoneEntry.TABLE_NAME);
 
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -246,13 +266,13 @@ public class HerdsmanDbSync {
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(mContext, "Erro na sincronização", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void syncOutro(){
-        DatabaseReference database = FirebaseSync.child("AdministradorNotificaPessoa");
-
+        DatabaseReference database = FirebaseSync.child(HerdsmanContract.AdministradorNotificaPessoaEntry.TABLE_NAME);
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

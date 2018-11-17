@@ -62,7 +62,7 @@ public class Parto {
         String s;
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(this.data);
-        s = "Data: " + calendar.get(Calendar.DAY_OF_MONTH)+ '/'+calendar.get(Calendar.MONTH) +'/'+calendar.get(Calendar.YEAR) + "\n";
+        s = "Data: " + calendar.get(Calendar.DAY_OF_MONTH)+ '/'+(calendar.get(Calendar.MONTH)+1) +'/'+calendar.get(Calendar.YEAR) + "\n";
         switch (this.getCria())
         {
             case 1:

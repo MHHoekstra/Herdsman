@@ -182,7 +182,7 @@ public class TelaAnimalActivity extends AppCompatActivity implements NavigationV
             Log.d("DATA CIO: ", dataUltimoCio);
             Calendar c = Calendar.getInstance();
             c.setTimeInMillis(Long.valueOf(dataUltimoCio));
-            String data = "" + c.get(Calendar.DAY_OF_MONTH) + '/' + c.get(Calendar.MONTH)+'/'+c.get(Calendar.YEAR);
+            String data = "" + c.get(Calendar.DAY_OF_MONTH) + '/' + (c.get(Calendar.MONTH)+1)+'/'+c.get(Calendar.YEAR);
             campoUltimoCio.setText(data);
         }
         cursor.close();
@@ -204,7 +204,7 @@ public class TelaAnimalActivity extends AppCompatActivity implements NavigationV
             Log.d("DATA PARTO: ", dataUltimoParto);
             Calendar c = Calendar.getInstance();
             c.setTimeInMillis(Long.valueOf(dataUltimoParto));
-            String data = "" + c.get(Calendar.DAY_OF_MONTH) + '/' + c.get(Calendar.MONTH)+'/'+c.get(Calendar.YEAR);
+            String data = "" + c.get(Calendar.DAY_OF_MONTH) + '/' + (c.get(Calendar.MONTH)+1)+'/'+c.get(Calendar.YEAR);
             campoUltimoParto.setText(data);
         }
 
@@ -225,7 +225,7 @@ public class TelaAnimalActivity extends AppCompatActivity implements NavigationV
             dataUltimaInseminacao = cursor.getString(cursor.getColumnIndexOrThrow(HerdsmanContract.AnimalInseminacaoEntry.COLUMN_NAME_DATA));
             Calendar c = Calendar.getInstance();
             c.setTimeInMillis(Long.valueOf(dataUltimaInseminacao));
-            String data = "" + c.get(Calendar.DAY_OF_MONTH) + '/' + c.get(Calendar.MONTH)+'/'+c.get(Calendar.YEAR);
+            String data = "" + c.get(Calendar.DAY_OF_MONTH) + '/' + (c.get(Calendar.MONTH)+1)+'/'+c.get(Calendar.YEAR);
             campoUltimaInseminacao.setText(data);
         }
         cursor.close();

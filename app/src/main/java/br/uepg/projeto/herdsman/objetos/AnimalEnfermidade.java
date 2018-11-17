@@ -99,6 +99,6 @@ public class AnimalEnfermidade {
     public String toString() {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(data);
-        return "Número: " + this.animal.getNumero() + "\n" + "Enfermidade: "+ enfermidade.getDescricao() + "\n" +"Data: " + c.get(Calendar.DAY_OF_MONTH) +'/'+c.get(Calendar.MONTH)+'/'+c.get(Calendar.YEAR);
+        return "Número: " + this.animal.getNumero() + "\n" + "Enfermidade: "+ enfermidade.getDescricao() + "\n" +"Data: " + c.get(Calendar.DAY_OF_MONTH) +'/'+(c.get(Calendar.MONTH)+1)+'/'+c.get(Calendar.YEAR);
     }
 }

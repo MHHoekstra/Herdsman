@@ -90,19 +90,8 @@ public class ListaPartosActivity extends AppCompatActivity implements Navigation
                 alertDialogBuilder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //TODO Encapsular e excluir do firebase também
-                        SQLiteOpenHelper mDbHelper = new HerdsmanDbHelper(ListaPartosActivity.this);
-                        SQLiteDatabase mDb = mDbHelper.getWritableDatabase();
-                        String where = HerdsmanContract.PartoEntry.COLUMN_NAME_IDPARTO + "== ?";
-                        String[] whereArgs =
-                                {
-                                        String.valueOf(parto.getId())
-                                };
-                        mDb.delete(
-                                HerdsmanContract.PartoEntry.TABLE_NAME,
-                                where,
-                                whereArgs);
-                        mDb.close();
+                        HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(ListaPartosActivity.this);
+                        mDbHelper.deletaParto(parto);
                         listarPartos();
                     }
 
