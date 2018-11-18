@@ -1,6 +1,7 @@
 package br.uepg.projeto.herdsman.drawer.notificacao;
 
 import android.Manifest;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -21,12 +22,15 @@ import android.telephony.SmsManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import br.uepg.projeto.herdsman.MainActivity;
 import br.uepg.projeto.herdsman.dao.HerdsmanDbHelper;
 import br.uepg.projeto.herdsman.drawer.ListaAnimaisActivity;
 import br.uepg.projeto.herdsman.drawer.ListaEnfermidadesActivity;
@@ -37,18 +41,21 @@ import br.uepg.projeto.herdsman.objetos.Animal;
 import br.uepg.projeto.herdsman.objetos.Cio;
 import br.uepg.projeto.herdsman.objetos.Telefone;
 import br.uepg.projeto.herdsman.R;
+import br.uepg.projeto.herdsman.utils.DatePickerFragment;
 
-public class NotificarCioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class NotificarCioActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, NavigationView.OnNavigationItemSelectedListener {
     Boolean adm;
     public static final String myPref = "preferenceName";
     SharedPreferences pref;
-
+    Button date;
+    long dataString;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notificar_cio);
 
         pref = getApplicationContext().getSharedPreferences("isAdmin", MODE_PRIVATE);
+        adm = pref.getBoolean("isAdmin", false);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -75,6 +82,35 @@ public class NotificarCioActivity extends AppCompatActivity implements Navigatio
         animalPorBaixoSpinner.setAdapter(adapter);
         animalPorCimaSpinner.setAdapter(adapter);
         final Telefone telefoneAdmin = mDbHelper.carregarTelefoneAdmin();
+        date = findViewById(R.id.cadastro_cio_data);
+
+        if(adm)
+        {
+            date.setVisibility(View.VISIBLE);
+            Calendar c = Calendar.getInstance();
+            int diaMes =  c.get(Calendar.DAY_OF_MONTH);
+            int mes = c.get(Calendar.MONTH);
+            int ano = c.get(Calendar.YEAR);
+            String dia;
+            if (String.valueOf(diaMes).length() == 1)
+            {
+                dia = '0' + String.valueOf(diaMes);
+            }
+            else
+            {
+                dia = String.valueOf(diaMes);
+            }
+            dataString = c.getTimeInMillis();
+            date.setText("Data: " + dia+'/'+String.valueOf(mes)+'/'+String.valueOf(ano));
+            date.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DatePickerFragment fragment = new DatePickerFragment();
+                    fragment.show(getFragmentManager(), "Data");
+                }
+            });
+        }
+
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,8 +138,13 @@ public class NotificarCioActivity extends AppCompatActivity implements Navigatio
                     if (diaFormatado.length() == 1) {
                         diaFormatado = '0' + diaFormatado;
                     }
-
-                    long data = c.getTimeInMillis();
+                    long data;
+                    if(adm)
+                    {
+                        data = dataString;
+                    }else {
+                        data = c.getTimeInMillis();
+                    }
                     Cio cio = new Cio(animalPorCima.getId(), animalPorBaixo.getId(), data, 1);
                     HerdsmanDbHelper herdsmanDbHelper = new HerdsmanDbHelper(NotificarCioActivity.this);
                     long ins = herdsmanDbHelper.inserirCio(cio);
@@ -239,5 +280,22 @@ public class NotificarCioActivity extends AppCompatActivity implements Navigatio
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+        String dia;
+        if(String.valueOf(i2).length() == 1)
+        {
+            dia = '0' + String.valueOf(i2);
+        }
+        else
+        {
+            dia = String.valueOf(i2);
+        }
+        Calendar c = Calendar.getInstance();
+        c.set(i,i1,i2);
+        dataString = c.getTimeInMillis();
+        date.setText("Data: "+ dia + '/' + String.valueOf(i1) + '/' + String.valueOf(i));
     }
 }

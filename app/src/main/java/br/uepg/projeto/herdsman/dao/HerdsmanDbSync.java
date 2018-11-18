@@ -43,7 +43,7 @@ public class HerdsmanDbSync {
     }
 
     public boolean startSync()
-    {
+        {
         if(isOnline(mContext)) {
             AlertDialog.Builder confirm = new AlertDialog.Builder(this.mContext);
             confirm.setTitle("Alert");
