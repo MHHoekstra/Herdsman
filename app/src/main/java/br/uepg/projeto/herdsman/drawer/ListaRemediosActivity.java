@@ -29,6 +29,8 @@ import br.uepg.projeto.herdsman.drawer.notificacao.NotificarCioActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarOutroActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarAnimalEnfermidadeActivity;
 import br.uepg.projeto.herdsman.R;
+import br.uepg.projeto.herdsman.helper.HelperTelaListaEnfermidades;
+import br.uepg.projeto.herdsman.helper.HelperTelaListaRemedios;
 import br.uepg.projeto.herdsman.objetos.Remedio;
 
 public class ListaRemediosActivity extends TelasActivity implements SearchView.OnQueryTextListener{
@@ -212,6 +214,10 @@ public class ListaRemediosActivity extends TelasActivity implements SearchView.O
                 ListaRemediosActivity.this.startActivity(intent);
             }
 
+        }
+        else {
+            Intent intent = new Intent(ListaRemediosActivity.this, HelperTelaListaRemedios.class);
+            ListaRemediosActivity.this.startActivity(intent);
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

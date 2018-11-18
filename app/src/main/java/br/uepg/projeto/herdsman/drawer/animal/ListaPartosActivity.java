@@ -36,6 +36,7 @@ import br.uepg.projeto.herdsman.drawer.ListaRemediosActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarCioActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarOutroActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarAnimalEnfermidadeActivity;
+import br.uepg.projeto.herdsman.helper.HelperTelaAnimalPartos;
 import br.uepg.projeto.herdsman.objetos.Animal;
 import br.uepg.projeto.herdsman.objetos.Parto;
 import br.uepg.projeto.herdsman.R;
@@ -202,6 +203,11 @@ public class ListaPartosActivity extends AppCompatActivity implements Navigation
                 ListaPartosActivity.this.startActivity(intent);
             }
 
+        }
+        else if (id == R.id.nav_help)
+        {
+            Intent intent = new Intent(ListaPartosActivity.this, HelperTelaAnimalPartos.class);
+            ListaPartosActivity.this.startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

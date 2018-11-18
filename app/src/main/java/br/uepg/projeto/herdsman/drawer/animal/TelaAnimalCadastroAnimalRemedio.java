@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import br.uepg.projeto.herdsman.dao.HerdsmanDbHelper;
+import br.uepg.projeto.herdsman.helper.HelperTelaAnimalRemedios;
+import br.uepg.projeto.herdsman.helper.HelperTelaCadastroRemedioAnimal;
 import br.uepg.projeto.herdsman.utils.DatePickerFragment;
 import br.uepg.projeto.herdsman.drawer.ListaAnimaisActivity;
 import br.uepg.projeto.herdsman.drawer.ListaEnfermidadesActivity;
@@ -90,7 +92,7 @@ public class TelaAnimalCadastroAnimalRemedio extends AppCompatActivity implement
             dia = String.valueOf(diaMes);
         }
         dataString = c.getTimeInMillis();
-        data.setText("Data: " + dia+'/'+String.valueOf(mes)+'/'+String.valueOf(ano));
+        data.setText("Data: " + dia+'/'+String.valueOf(mes+1)+'/'+String.valueOf(ano));
         carregarMedidas();
         carregarRemedios();
         data.setOnClickListener(new View.OnClickListener() {
@@ -179,7 +181,7 @@ public class TelaAnimalCadastroAnimalRemedio extends AppCompatActivity implement
         Calendar c = Calendar.getInstance();
         c.set(i,i1,i2);
         dataString = c.getTimeInMillis();
-        data.setText("Data: "+ dia + '/' + String.valueOf(i1) + '/' + String.valueOf(i));
+        data.setText("Data: "+ dia + '/' + String.valueOf(i1+1) + '/' + String.valueOf(i));
     }
 
 
@@ -268,6 +270,11 @@ public class TelaAnimalCadastroAnimalRemedio extends AppCompatActivity implement
                 TelaAnimalCadastroAnimalRemedio.this.startActivity(intent);
             }
 
+        }
+        else if (id == R.id.nav_help)
+        {
+            Intent intent = new Intent(TelaAnimalCadastroAnimalRemedio.this, HelperTelaCadastroRemedioAnimal.class);
+            TelaAnimalCadastroAnimalRemedio.this.startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -12,5 +12,6 @@ public class HelperTelaAnimal extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.helper_tela_animal);
+        setTitle("Ajuda");
     }
 }

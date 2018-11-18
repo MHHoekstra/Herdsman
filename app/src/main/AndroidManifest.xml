@@ -71,6 +71,24 @@
         <activity android:name=".drawer.funcionario.TelaFuncionarioNotificacoesActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".helper.HelperTelaAnimal" />
+        <activity android:name=".helper.HelperTelaAnimalInseminacoes" />
+        <activity android:name=".helper.HelperTelaAnimalPartos" />
+        <activity android:name=".helper.HelperTelaCadastroAnimal" />
+        <activity android:name=".helper.HelperTelaAnimalRemedios" />
+        <activity android:name=".helper.HelperTelaCadastroEnfermidade" />
+        <activity android:name=".helper.HelperTelaCadastroFuncionario" />
+        <activity android:name=".helper.HelperTelaCadastroParto" />
+        <activity android:name=".helper.HelperTelaCadastroRemedio" />
+        <activity android:name=".helper.HelperTelaCadastroRemedioAnimal" />
+        <activity android:name=".helper.HelperTelaFuncionario" />
+        <activity android:name=".helper.HelperTelaListaAnimais" />
+        <activity android:name=".helper.HelperTelaListaEnfermidades" />
+        <activity android:name=".helper.HelperTelaListaFuncionarios" />
+        <activity android:name=".helper.HelperTelaListaRemedios" />
+        <activity android:name=".helper.HelperTelaNotificaCio" />
+        <activity android:name=".helper.HelperTelaNotificaEnfermidade" />
+        <activity android:name=".helper.HelperTelaNotificaOutro" />
+        <activity android:name=".helper.HelperTelaPrincipal" />
 
         <receiver
             android:name=".utils.SMSReceiver"

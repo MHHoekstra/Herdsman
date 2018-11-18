@@ -184,6 +184,7 @@ public class TelaAnimalSinistrosActivity extends AppCompatActivity implements Na
             }
 
         }
+        //TODO HELPER
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

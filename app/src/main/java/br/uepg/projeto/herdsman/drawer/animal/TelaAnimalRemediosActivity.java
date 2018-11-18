@@ -31,6 +31,7 @@ import br.uepg.projeto.herdsman.drawer.ListaRemediosActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarCioActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarOutroActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarAnimalEnfermidadeActivity;
+import br.uepg.projeto.herdsman.helper.HelperTelaAnimalRemedios;
 import br.uepg.projeto.herdsman.objetos.Animal;
 import br.uepg.projeto.herdsman.R;
 import br.uepg.projeto.herdsman.objetos.AnimalRemedio;
@@ -201,6 +202,11 @@ public class TelaAnimalRemediosActivity extends AppCompatActivity implements Nav
                 TelaAnimalRemediosActivity.this.startActivity(intent);
             }
 
+        }
+        else if (id == R.id.nav_help)
+        {
+            Intent intent = new Intent(TelaAnimalRemediosActivity.this, HelperTelaAnimalRemedios.class);
+            TelaAnimalRemediosActivity.this.startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

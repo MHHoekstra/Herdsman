@@ -23,6 +23,7 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 import br.uepg.projeto.herdsman.dao.HerdsmanDbHelper;
+import br.uepg.projeto.herdsman.helper.HelperTelaCadastroParto;
 import br.uepg.projeto.herdsman.utils.DatePickerFragment;
 import br.uepg.projeto.herdsman.drawer.ListaAnimaisActivity;
 import br.uepg.projeto.herdsman.drawer.ListaEnfermidadesActivity;
@@ -71,8 +72,10 @@ public class CadastroPartoActivity extends AppCompatActivity implements DatePick
         mes = c.get(Calendar.MONTH);
         ano = c.get(Calendar.YEAR);
         animal = (Animal) getIntent().getSerializableExtra("Animal");
+        setTitle(animal.getNumero() +" - " + animal.getNome());
+
         data = (Button) findViewById(R.id.cadastro_parto_button_setDate);
-        data.setText(String.valueOf(dia) + "/" + String.valueOf(mes)+"/"+String.valueOf(ano));
+        data.setText(String.valueOf(dia) + "/" + String.valueOf(mes+1)+"/"+String.valueOf(ano));
         final RadioGroup radioGroup = (RadioGroup) findViewById(R.id.cadastro_parto_radio_group);
         TextView titulo = (TextView) findViewById(R.id.cadastro_parto_titulo);
         FloatingActionButton cancelar = (FloatingActionButton) findViewById(R.id.cadastro_parto_cancelar);
@@ -152,7 +155,7 @@ public class CadastroPartoActivity extends AppCompatActivity implements DatePick
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        data.setText(String.valueOf(dayOfMonth) + "/" + String.valueOf(month)+"/"+String.valueOf(year));
+        data.setText(String.valueOf(dayOfMonth) + "/" + String.valueOf(month+1)+"/"+String.valueOf(year));
         dia = dayOfMonth;
         mes = month;
         ano = year;
@@ -242,6 +245,11 @@ public class CadastroPartoActivity extends AppCompatActivity implements DatePick
                 CadastroPartoActivity.this.startActivity(intent);
             }
 
+        }
+        else if (id == R.id.nav_help)
+        {
+            Intent intent = new Intent(CadastroPartoActivity.this, HelperTelaCadastroParto.class);
+            CadastroPartoActivity.this.startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

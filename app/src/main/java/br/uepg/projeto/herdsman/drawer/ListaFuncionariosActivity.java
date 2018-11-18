@@ -6,21 +6,30 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import br.uepg.projeto.herdsman.cadastros.CadastroFuncionarioActivity;
 import br.uepg.projeto.herdsman.dao.HerdsmanDbHelper;
+import br.uepg.projeto.herdsman.drawer.notificacao.NotificarAnimalEnfermidadeActivity;
+import br.uepg.projeto.herdsman.drawer.notificacao.NotificarCioActivity;
+import br.uepg.projeto.herdsman.drawer.notificacao.NotificarOutroActivity;
+import br.uepg.projeto.herdsman.helper.HelperTelaListaAnimais;
+import br.uepg.projeto.herdsman.helper.HelperTelaListaEnfermidades;
+import br.uepg.projeto.herdsman.helper.HelperTelaListaFuncionarios;
 import br.uepg.projeto.herdsman.objetos.Pessoa;
 import br.uepg.projeto.herdsman.R;
 import br.uepg.projeto.herdsman.drawer.funcionario.TelaFuncionarioActivity;
@@ -120,6 +129,93 @@ public class ListaFuncionariosActivity extends TelasActivity implements SearchVi
         else {
             filter.filter(newText.toString());
         }
+        return true;
+    }
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+        adm = pref.getBoolean("isAdmin", false);
+        if (id == R.id.nav_animais) {
+            if (!adm)
+            {
+                Toast.makeText(ListaFuncionariosActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
+
+            }
+            else {
+                Intent intent = new Intent(ListaFuncionariosActivity.this, ListaAnimaisActivity.class);
+                ListaFuncionariosActivity.this.startActivity(intent);
+            }
+
+        } else if (id == R.id.nav_enfermidades) {
+
+            if (!adm)
+            {
+                Toast.makeText(ListaFuncionariosActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
+
+            }
+            else {
+                Intent intent = new Intent(ListaFuncionariosActivity.this, ListaEnfermidadesActivity.class);
+                ListaFuncionariosActivity.this.startActivity(intent);
+            }
+
+        } else if (id == R.id.nav_remedios) {
+
+            if (!adm)
+            {
+                Toast.makeText(ListaFuncionariosActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
+
+            }
+            else {
+                Intent intent = new Intent(ListaFuncionariosActivity.this, ListaRemediosActivity.class);
+                ListaFuncionariosActivity.this.startActivity(intent);
+            }
+
+
+        } else if (id == R.id.nav_funcionarios) {
+
+            if (!adm)
+            {
+                Toast.makeText(ListaFuncionariosActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Intent intent = new Intent(ListaFuncionariosActivity.this, ListaFuncionariosActivity.class);
+                ListaFuncionariosActivity.this.startActivity(intent);
+            }
+
+        } else if (id == R.id.nav_cio) {
+
+            Intent intent = new Intent(ListaFuncionariosActivity.this, NotificarCioActivity.class);
+            ListaFuncionariosActivity.this.startActivity(intent);
+
+        } else if (id == R.id.nav_sinistro) {
+
+            Intent intent = new Intent(ListaFuncionariosActivity.this, NotificarAnimalEnfermidadeActivity.class);
+            ListaFuncionariosActivity.this.startActivity(intent);
+
+        } else if (id == R.id.nav_outro) {
+
+            if (!adm)
+            {
+                Toast.makeText(ListaFuncionariosActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
+
+            }
+            else {
+                Intent intent = new Intent(ListaFuncionariosActivity.this, NotificarOutroActivity.class);
+                ListaFuncionariosActivity.this.startActivity(intent);
+            }
+
+
+        }
+        else {
+            Intent intent = new Intent(ListaFuncionariosActivity.this, HelperTelaListaFuncionarios.class);
+            ListaFuncionariosActivity.this.startActivity(intent);
+        }
+
+        //TODO HELPER
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 }

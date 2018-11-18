@@ -11,12 +11,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,6 +26,11 @@ import java.util.ArrayList;
 import br.uepg.projeto.herdsman.MainActivity;
 import br.uepg.projeto.herdsman.cadastros.CadastroAnimalActivity;
 import br.uepg.projeto.herdsman.dao.HerdsmanDbHelper;
+import br.uepg.projeto.herdsman.drawer.ListaAnimaisActivity;
+import br.uepg.projeto.herdsman.drawer.notificacao.NotificarAnimalEnfermidadeActivity;
+import br.uepg.projeto.herdsman.drawer.notificacao.NotificarCioActivity;
+import br.uepg.projeto.herdsman.drawer.notificacao.NotificarOutroActivity;
+import br.uepg.projeto.herdsman.helper.HelperTelaListaAnimais;
 import br.uepg.projeto.herdsman.objetos.Animal;
 import br.uepg.projeto.herdsman.R;
 import br.uepg.projeto.herdsman.drawer.animal.TelaAnimalActivity;
@@ -141,5 +148,92 @@ public class ListaAnimaisActivity extends TelasActivity implements SearchView.On
             ListaAnimaisActivity.this.startActivity(intent);
             super.onBackPressed();
         }
+    }
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+        adm = pref.getBoolean("isAdmin", false);
+        if (id == R.id.nav_animais) {
+            if (!adm)
+            {
+                Toast.makeText(ListaAnimaisActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
+
+            }
+            else {
+                Intent intent = new Intent(ListaAnimaisActivity.this, ListaAnimaisActivity.class);
+                ListaAnimaisActivity.this.startActivity(intent);
+            }
+
+        } else if (id == R.id.nav_enfermidades) {
+
+            if (!adm)
+            {
+                Toast.makeText(ListaAnimaisActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
+
+            }
+            else {
+                Intent intent = new Intent(ListaAnimaisActivity.this, ListaEnfermidadesActivity.class);
+                ListaAnimaisActivity.this.startActivity(intent);
+            }
+
+        } else if (id == R.id.nav_remedios) {
+
+            if (!adm)
+            {
+                Toast.makeText(ListaAnimaisActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
+
+            }
+            else {
+                Intent intent = new Intent(ListaAnimaisActivity.this, ListaRemediosActivity.class);
+                ListaAnimaisActivity.this.startActivity(intent);
+            }
+
+
+        } else if (id == R.id.nav_funcionarios) {
+
+            if (!adm)
+            {
+                Toast.makeText(ListaAnimaisActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Intent intent = new Intent(ListaAnimaisActivity.this, ListaFuncionariosActivity.class);
+                ListaAnimaisActivity.this.startActivity(intent);
+            }
+
+        } else if (id == R.id.nav_cio) {
+
+            Intent intent = new Intent(ListaAnimaisActivity.this, NotificarCioActivity.class);
+            ListaAnimaisActivity.this.startActivity(intent);
+
+        } else if (id == R.id.nav_sinistro) {
+
+            Intent intent = new Intent(ListaAnimaisActivity.this, NotificarAnimalEnfermidadeActivity.class);
+            ListaAnimaisActivity.this.startActivity(intent);
+
+        } else if (id == R.id.nav_outro) {
+
+            if (!adm)
+            {
+                Toast.makeText(ListaAnimaisActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
+
+            }
+            else {
+                Intent intent = new Intent(ListaAnimaisActivity.this, NotificarOutroActivity.class);
+                ListaAnimaisActivity.this.startActivity(intent);
+            }
+
+
+        }
+        else {
+            Intent intent = new Intent(ListaAnimaisActivity.this, HelperTelaListaAnimais.class);
+            ListaAnimaisActivity.this.startActivity(intent);
+        }
+
+        //TODO HELPER
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

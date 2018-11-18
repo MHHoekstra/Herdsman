@@ -28,6 +28,7 @@ import br.uepg.projeto.herdsman.drawer.ListaAnimaisActivity;
 import br.uepg.projeto.herdsman.drawer.ListaEnfermidadesActivity;
 import br.uepg.projeto.herdsman.drawer.ListaFuncionariosActivity;
 import br.uepg.projeto.herdsman.drawer.ListaRemediosActivity;
+import br.uepg.projeto.herdsman.helper.HelperTelaNotificaOutro;
 import br.uepg.projeto.herdsman.objetos.Pessoa;
 import br.uepg.projeto.herdsman.objetos.Telefone;
 import br.uepg.projeto.herdsman.R;
@@ -197,6 +198,10 @@ public class NotificarOutroActivity extends AppCompatActivity implements Navigat
                 NotificarOutroActivity.this.startActivity(intent);
             }
 
+        }
+        else {
+            Intent intent = new Intent(NotificarOutroActivity.this, HelperTelaNotificaOutro.class);
+            NotificarOutroActivity.this.startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

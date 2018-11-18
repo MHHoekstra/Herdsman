@@ -196,7 +196,7 @@ public class ListaCiosActivity extends AppCompatActivity implements NavigationVi
             }
 
         }
-
+        //TODO HELPER
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
