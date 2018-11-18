@@ -65,7 +65,7 @@
         android:maxLength="45"
         android:ems="10"
         android:hint="Nome"
-        android:inputType="textPersonName"
+        android:inputType="textCapSentences"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.527"
         app:layout_constraintStart_toStartOf="parent"

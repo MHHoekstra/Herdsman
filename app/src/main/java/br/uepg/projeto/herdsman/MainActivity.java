@@ -165,6 +165,7 @@ public class MainActivity extends AppCompatActivity
         } else {
             //FIXME Arrumar a volta pra sair do APP
             //super.onBackPressed();
+            MainActivity.this.moveTaskToBack(true);
         }
     }
 
@@ -400,6 +401,7 @@ public class MainActivity extends AppCompatActivity
         listaCios = this.mDbHelper.carregarTodosCios();
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaCios);
         lista.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     private void listarSinistros()

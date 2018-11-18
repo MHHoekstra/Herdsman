@@ -60,7 +60,7 @@
         android:maxLength="100"
         android:ems="10"
         android:hint="Insira aqui uma breve descrição..."
-        android:inputType="textPersonName"
+        android:inputType="textCapSentences"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cadastro_enfermidade_titulo" />

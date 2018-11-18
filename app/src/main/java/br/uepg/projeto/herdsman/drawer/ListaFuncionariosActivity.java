@@ -92,6 +92,7 @@ public class ListaFuncionariosActivity extends TelasActivity implements SearchVi
     private void listaFuncionarios() {
         listaFuncionariosView = (ListView) findViewById(R.id.funcionariosListView);
         HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(this);
+        mDbHelper.searchDuplicatePessoa();
         ArrayList listPessoas = mDbHelper.carregarFuncionariosDb();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listPessoas);
         listaFuncionariosView.setAdapter(adapter);
