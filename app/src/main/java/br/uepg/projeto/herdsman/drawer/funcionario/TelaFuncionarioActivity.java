@@ -34,6 +34,7 @@ import br.uepg.projeto.herdsman.drawer.ListaRemediosActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarCioActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarOutroActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarAnimalEnfermidadeActivity;
+import br.uepg.projeto.herdsman.helper.HelperTelaFuncionario;
 import br.uepg.projeto.herdsman.objetos.Pessoa;
 import br.uepg.projeto.herdsman.objetos.Telefone;
 import br.uepg.projeto.herdsman.R;
@@ -252,6 +253,11 @@ public class TelaFuncionarioActivity extends AppCompatActivity implements Naviga
                 TelaFuncionarioActivity.this.startActivity(intent);
             }
 
+        }
+        else if (id == R.id.nav_help)
+        {
+            Intent intent = new Intent(TelaFuncionarioActivity.this, HelperTelaFuncionario.class);
+            TelaFuncionarioActivity.this.startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

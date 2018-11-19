@@ -22,9 +22,12 @@ import br.uepg.projeto.herdsman.drawer.ListaAnimaisActivity;
 import br.uepg.projeto.herdsman.drawer.ListaEnfermidadesActivity;
 import br.uepg.projeto.herdsman.drawer.ListaFuncionariosActivity;
 import br.uepg.projeto.herdsman.drawer.ListaRemediosActivity;
+import br.uepg.projeto.herdsman.drawer.animal.TelaAnimalActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarCioActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarOutroActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarAnimalEnfermidadeActivity;
+import br.uepg.projeto.herdsman.helper.HelperTelaAnimal;
+import br.uepg.projeto.herdsman.helper.HelperTelaCadastroEnfermidade;
 import br.uepg.projeto.herdsman.objetos.Enfermidade;
 import br.uepg.projeto.herdsman.R;
 
@@ -190,6 +193,11 @@ public class CadastroEnfermidadeActivity extends AppCompatActivity implements Na
                 CadastroEnfermidadeActivity.this.startActivity(intent);
             }
 
+        }
+        else if (id == R.id.nav_help)
+        {
+            Intent intent = new Intent(CadastroEnfermidadeActivity.this, HelperTelaCadastroEnfermidade.class);
+            CadastroEnfermidadeActivity.this.startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

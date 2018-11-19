@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import br.uepg.projeto.herdsman.dao.HerdsmanDbHelper;
+import br.uepg.projeto.herdsman.helper.HelperTelaAnimalInseminacoes;
 import br.uepg.projeto.herdsman.objetos.Cio;
 import br.uepg.projeto.herdsman.utils.DatePickerFragment;
 import br.uepg.projeto.herdsman.drawer.ListaAnimaisActivity;
@@ -230,6 +231,11 @@ public class TelaAnimalInseminacoesActivity extends AppCompatActivity implements
                 TelaAnimalInseminacoesActivity.this.startActivity(intent);
             }
 
+        }
+        else if (id == R.id.nav_help)
+        {
+            Intent intent = new Intent(TelaAnimalInseminacoesActivity.this, HelperTelaAnimalInseminacoes.class);
+            TelaAnimalInseminacoesActivity.this.startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

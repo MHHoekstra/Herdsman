@@ -33,6 +33,7 @@ import br.uepg.projeto.herdsman.drawer.ListaAnimaisActivity;
 import br.uepg.projeto.herdsman.drawer.ListaEnfermidadesActivity;
 import br.uepg.projeto.herdsman.drawer.ListaFuncionariosActivity;
 import br.uepg.projeto.herdsman.drawer.ListaRemediosActivity;
+import br.uepg.projeto.herdsman.helper.HelperTelaNotificaEnfermidade;
 import br.uepg.projeto.herdsman.objetos.Animal;
 import br.uepg.projeto.herdsman.objetos.AnimalEnfermidade;
 import br.uepg.projeto.herdsman.objetos.Enfermidade;
@@ -272,7 +273,11 @@ public class NotificarAnimalEnfermidadeActivity extends AppCompatActivity implem
                 NotificarAnimalEnfermidadeActivity.this.startActivity(intent);
             }
 
+        }        else {
+            Intent intent = new Intent(NotificarAnimalEnfermidadeActivity.this, HelperTelaNotificaEnfermidade.class);
+            NotificarAnimalEnfermidadeActivity.this.startActivity(intent);
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

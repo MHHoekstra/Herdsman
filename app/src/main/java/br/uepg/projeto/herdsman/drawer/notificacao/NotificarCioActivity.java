@@ -36,6 +36,7 @@ import br.uepg.projeto.herdsman.drawer.ListaAnimaisActivity;
 import br.uepg.projeto.herdsman.drawer.ListaEnfermidadesActivity;
 import br.uepg.projeto.herdsman.drawer.ListaFuncionariosActivity;
 import br.uepg.projeto.herdsman.drawer.ListaRemediosActivity;
+import br.uepg.projeto.herdsman.helper.HelperTelaNotificaCio;
 import br.uepg.projeto.herdsman.objetos.Animal;
 import br.uepg.projeto.herdsman.objetos.Cio;
 import br.uepg.projeto.herdsman.objetos.Telefone;
@@ -272,6 +273,10 @@ public class NotificarCioActivity extends AppCompatActivity implements DatePicke
                 Intent intent = new Intent(NotificarCioActivity.this, NotificarOutroActivity.class);
                 NotificarCioActivity.this.startActivity(intent);
             }
+        }
+        else {
+            Intent intent = new Intent(NotificarCioActivity.this, HelperTelaNotificaCio.class);
+            NotificarCioActivity.this.startActivity(intent);
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

@@ -27,6 +27,7 @@ import br.uepg.projeto.herdsman.drawer.ListaRemediosActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarCioActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarOutroActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarAnimalEnfermidadeActivity;
+import br.uepg.projeto.herdsman.helper.HelperTelaCadastroAnimal;
 import br.uepg.projeto.herdsman.objetos.Animal;
 import br.uepg.projeto.herdsman.R;
 
@@ -191,6 +192,11 @@ public class CadastroAnimalActivity extends AppCompatActivity implements Navigat
                 Intent intent = new Intent(CadastroAnimalActivity.this, NotificarOutroActivity.class);
                 CadastroAnimalActivity.this.startActivity(intent);
             }
+        }
+        else if (id == R.id.nav_help)
+        {
+            Intent intent = new Intent(CadastroAnimalActivity.this, HelperTelaCadastroAnimal.class);
+            CadastroAnimalActivity.this.startActivity(intent);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
