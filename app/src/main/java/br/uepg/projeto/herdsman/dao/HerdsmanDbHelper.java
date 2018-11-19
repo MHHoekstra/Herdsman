@@ -1504,7 +1504,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
                         String.valueOf(inseminacao.getIdInseminacao())
                 };
         int delete = mDb.delete(
-                HerdsmanContract.PartoEntry.TABLE_NAME,
+                HerdsmanContract.AnimalInseminacaoEntry.TABLE_NAME,
                 where,
                 whereArgs);
         if(delete>0)
@@ -1644,7 +1644,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         mContext.deleteDatabase("mydb.db");
     }
 
-    public void replaceEnfermidade(Enfermidade enfermidade) {
+    public void replaceEnfermidade(Enfermidade enfermidade)     {
         //TODO Atualizar no firebase FEITO
         SQLiteDatabase mDb = this.getWritableDatabase();
         ContentValues values = new ContentValues();
