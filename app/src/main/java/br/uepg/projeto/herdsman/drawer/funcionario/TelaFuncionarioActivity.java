@@ -101,8 +101,10 @@ public class TelaFuncionarioActivity extends AppCompatActivity implements Naviga
                 alertDialogBuild.setPositiveButton("Adicionar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (input.getText().length() == 0)
+                        if (input.getText().length() < 9)
                         {
+                            Toast.makeText(TelaFuncionarioActivity.this, "Telefone inválido", Toast.LENGTH_SHORT).show();
+
                             return;
                         }
                         else

@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import br.uepg.projeto.herdsman.MainActivity;
 import br.uepg.projeto.herdsman.cadastros.CadastroAnimalActivity;
 import br.uepg.projeto.herdsman.dao.HerdsmanDbHelper;
+import br.uepg.projeto.herdsman.dao.HerdsmanDbSync;
 import br.uepg.projeto.herdsman.drawer.ListaAnimaisActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarAnimalEnfermidadeActivity;
 import br.uepg.projeto.herdsman.drawer.notificacao.NotificarCioActivity;
@@ -59,8 +60,6 @@ public class ListaAnimaisActivity extends TelasActivity implements SearchView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
 
 
         searchView = (SearchView) findViewById(R.id.animal_pesquisa);

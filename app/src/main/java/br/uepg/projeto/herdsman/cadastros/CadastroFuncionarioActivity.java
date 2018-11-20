@@ -68,7 +68,7 @@ public class CadastroFuncionarioActivity extends AppCompatActivity implements Na
         FloatingActionButton cancelar = (FloatingActionButton) findViewById(R.id.cadastro_funcionario_cancelar);
         TextView titulo = (TextView) findViewById(R.id.cadastro_funcionario_titulo);
         final EditText campoNome = (EditText) findViewById(R.id.cadastro_funcionario_nome);
-        final EditText campoCpf = (EditText) findViewById(R.id.cadastro_funcionario_cpf);
+        final EditText campoCpf = findViewById(R.id.cadastro_funcionario_cpf);
         final EditText campoRg = (EditText) findViewById(R.id.cadastro_funcionario_rg);
         RadioGroup radioGroup = findViewById(R.id.cadastro_funcionario_radio_group);
         final RadioButton radioButtonAtivo = findViewById(R.id.cadastro_funcionario_radio_ativo);
@@ -101,7 +101,8 @@ public class CadastroFuncionarioActivity extends AppCompatActivity implements Na
                         return;
                     }
 
-                    if (campoRg.getText().length() == 0) {
+                    if (campoRg.getText().length() <5) {
+                        Toast.makeText(CadastroFuncionarioActivity.this, "RG Invalido", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(CadastroFuncionarioActivity.this);

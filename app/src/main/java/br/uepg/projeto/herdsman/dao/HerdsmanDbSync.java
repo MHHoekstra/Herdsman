@@ -15,6 +15,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import br.uepg.projeto.herdsman.MainActivity;
 import br.uepg.projeto.herdsman.cadastros.CadastroPartoActivity;
 import br.uepg.projeto.herdsman.objetos.AdministradorNotificaPessoa;
@@ -69,18 +72,23 @@ public class HerdsmanDbSync {
                     syncOutro();
 
                     final ProgressDialog dialog = ProgressDialog.show(mContext, "","Sincronizando..Aguarde.." , true);
-                    dialog.show();
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         public void run() {
-                            //your code here
-                            mDbHelper.searchDuplicateAnimals();
-                            mDbHelper.searchDuplicateRemedios();
-                            mDbHelper.searchDuplicateSinistros();
+                            syncAnimal();
+                            syncEnfermidade();
+                            syncParto();
+                            syncFuncionario();
+                            syncRemedio();
+                            syncCio();
+                            syncSinistro();
+                            syncInseminacao();
+                            syncAnimalRemedio();
+                            syncTelefone();
+                            syncOutro();
                             dialog.dismiss();
                         }
                     }, 5000);
-
                 }
             });
             AlertDialog alert = confirm.create();
@@ -107,6 +115,7 @@ public class HerdsmanDbSync {
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
+
         });
     }
 

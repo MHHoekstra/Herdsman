@@ -102,9 +102,6 @@ public class MainActivity extends AppCompatActivity
         } else {setTitle("Herdsman (OFFLINE)");
         }
         this.mDbHelper = new HerdsmanDbHelper(this);
-        this.mDbHelper.searchDuplicateAnimals();
-        this.mDbHelper.searchDuplicateRemedios();
-        this.mDbHelper.searchDuplicateSinistros();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

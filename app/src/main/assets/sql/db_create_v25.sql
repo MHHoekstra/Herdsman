@@ -144,3 +144,4 @@ CREATE INDEX  "Animal_Enfermidade.fk_Vaca_Enfermidade_Enfermidade1_idx" ON "Anim
 CREATE INDEX  "Animal_Enfermidade.fk_Animal_Enfermidade_Pessoa1_idx" ON "Animal_Enfermidade" ("Pessoa_idPessoa");
 
 COMMIT;
+
