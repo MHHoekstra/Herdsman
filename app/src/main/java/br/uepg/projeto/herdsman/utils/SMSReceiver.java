@@ -120,8 +120,8 @@ public class SMSReceiver extends BroadcastReceiver {
                 case 1: {
                     Log.d("Tipo de msg:", "CIO");
                     Calendar c = Calendar.getInstance();
-                    long animalPorBaixo = Integer.parseInt(tokens[2]);
-                    long animalPorCima = Integer.parseInt(tokens[3]);
+                    long animalPorBaixo = Long.parseLong(tokens[2]);
+                    long animalPorCima = Long.parseLong(tokens[3]);
                     long data = c.getTimeInMillis();                    if (!mDbHelper.existeAnimal(animalPorCima))
                     {
                         Log.d("SMSReceiver", "Animal por cima inválido");
@@ -149,8 +149,8 @@ public class SMSReceiver extends BroadcastReceiver {
                 case 2: {
                     Log.d("Tipo de msg:", "SINISTRO");
                     Calendar c = Calendar.getInstance();
-                    long idEnfermidade = Integer.parseInt(tokens[2]);
-                    long idAnimal = Integer.parseInt(tokens[3]);
+                    long idEnfermidade = Long.parseLong(tokens[2]);
+                    long idAnimal = Long.parseLong(tokens[3]);
                     if (!mDbHelper.existeAnimal(idAnimal))
                     {
                         Log.d("SMSReceiver", "Animal inválido");

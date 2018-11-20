@@ -103,7 +103,7 @@ public class NotificarAnimalEnfermidadeActivity extends AppCompatActivity implem
                 dia = String.valueOf(diaMes);
             }
             dataString = c.getTimeInMillis();
-            date.setText("Data: " + dia+'/'+String.valueOf(mes)+'/'+String.valueOf(ano));
+            date.setText("Data: " + dia+'/'+String.valueOf(mes+1)+'/'+String.valueOf(ano));
             date.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -130,7 +130,7 @@ public class NotificarAnimalEnfermidadeActivity extends AppCompatActivity implem
                     Animal animal = (Animal) animalSpinner.getSelectedItem();
                     Calendar c = Calendar.getInstance();
                     int dia = c.get(Calendar.DAY_OF_MONTH);
-                    int mes = c.get(Calendar.MONTH);
+                    int mes = c.get(Calendar.MONTH)+1;
                     int ano = c.get(Calendar.YEAR);
                     String diaFormatado = String.valueOf(dia);
                     if(diaFormatado.length() == 1)
@@ -297,6 +297,6 @@ public class NotificarAnimalEnfermidadeActivity extends AppCompatActivity implem
         Calendar c = Calendar.getInstance();
         c.set(i,i1,i2);
         dataString = c.getTimeInMillis();
-        date.setText("Data: "+ dia + '/' + String.valueOf(i1) + '/' + String.valueOf(i));
+        date.setText("Data: "+ dia + '/' + String.valueOf(i1+1) + '/' + String.valueOf(i));
     }
 }

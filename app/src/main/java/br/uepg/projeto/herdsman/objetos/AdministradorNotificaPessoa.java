@@ -1,5 +1,7 @@
 package br.uepg.projeto.herdsman.objetos;
 
+import java.util.Calendar;
+
 public class AdministradorNotificaPessoa {
     private long idAdministradorNotificaPessoa;
     private String mensagem;
@@ -62,6 +64,8 @@ public class AdministradorNotificaPessoa {
 
     @Override
     public String toString() {
-        return mensagem + "\n" + "Data: " + data;
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(data);
+        return mensagem + "\n" + "Data: " + c.get(Calendar.DAY_OF_MONTH)+'/'+(c.get(Calendar.MONTH)+1)+'/'+c.get(Calendar.YEAR);
     }
 }
