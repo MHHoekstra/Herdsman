@@ -94,7 +94,7 @@ public class TelaFuncionarioActivity extends AppCompatActivity implements Naviga
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.MATCH_PARENT);
                 input.setLayoutParams(lp);
-                input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                input.setInputType(InputType.TYPE_CLASS_PHONE);
                 alertDialogBuild.setView(input);
                 alertDialogBuild.setTitle("Telefone");
                 alertDialogBuild.setNegativeButton("Cancelar", null);
@@ -187,7 +187,7 @@ public class TelaFuncionarioActivity extends AppCompatActivity implements Naviga
         int id = item.getItemId();
         adm = pref.getBoolean("isAdmin", false);
         if (id == R.id.nav_animais) {
-            if (!adm)
+            if (false)
             {
                 Toast.makeText(TelaFuncionarioActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
 

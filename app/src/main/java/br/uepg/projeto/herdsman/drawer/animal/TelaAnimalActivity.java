@@ -280,7 +280,7 @@ public class TelaAnimalActivity extends AppCompatActivity implements NavigationV
         adm = pref.getBoolean("isAdmin", false);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (id == R.id.nav_animais) {
-            if (!adm)
+            if (false)
             {
                 Toast.makeText(TelaAnimalActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
 

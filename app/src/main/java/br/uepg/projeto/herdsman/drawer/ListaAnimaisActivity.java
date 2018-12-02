@@ -68,6 +68,11 @@ public class ListaAnimaisActivity extends TelasActivity implements SearchView.On
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!pref.getBoolean("isAdmin", false))
+                {
+                    Toast.makeText(ListaAnimaisActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Intent intent_cadastro = new Intent(ListaAnimaisActivity.this, CadastroAnimalActivity.class);
                 startActivity(intent_cadastro);
             }
@@ -85,6 +90,11 @@ public class ListaAnimaisActivity extends TelasActivity implements SearchView.On
         animaisListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if(!pref.getBoolean("isAdmin", false))
+                {
+                    Toast.makeText(ListaAnimaisActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
                 Animal animal = (Animal) animaisListView.getItemAtPosition(position);
                 Intent intent = new Intent(ListaAnimaisActivity.this, CadastroAnimalActivity.class);
                 intent.putExtra("Animal", (Serializable) animal);
@@ -155,7 +165,7 @@ public class ListaAnimaisActivity extends TelasActivity implements SearchView.On
         int id = item.getItemId();
         adm = pref.getBoolean("isAdmin", false);
         if (id == R.id.nav_animais) {
-            if (!adm)
+            if (false)
             {
                 Toast.makeText(ListaAnimaisActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
 

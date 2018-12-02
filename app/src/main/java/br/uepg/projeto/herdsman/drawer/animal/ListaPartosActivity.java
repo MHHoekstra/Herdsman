@@ -76,6 +76,11 @@ public class ListaPartosActivity extends AppCompatActivity implements Navigation
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!pref.getBoolean("isAdmin", false))
+                {
+                    Toast.makeText(ListaPartosActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Intent intent = new Intent(ListaPartosActivity.this, CadastroPartoActivity.class);
                 intent.putExtra("Animal", animal);
                 startActivity(intent);
@@ -135,7 +140,7 @@ public class ListaPartosActivity extends AppCompatActivity implements Navigation
         int id = item.getItemId();
         adm = pref.getBoolean("isAdmin", false);
         if (id == R.id.nav_animais) {
-            if (!adm)
+            if (false)
             {
                 Toast.makeText(ListaPartosActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
 

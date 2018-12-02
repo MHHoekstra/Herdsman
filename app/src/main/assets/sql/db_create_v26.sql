@@ -117,7 +117,7 @@ CREATE INDEX  "Animal_Remedio.fk_Animal_Remedio_Medida1_idx" ON "Animal_Remedio"
 CREATE TABLE  "Telefone"(
   "idTelefone" INTEGER PRIMARY KEY NOT NULL,
   "Pessoa_idPessoa" INTEGER NOT NULL,
-  "numero" NUMERIC NOT NULL,
+  "numero" VARCHAR(20) NOT NULL,
   CONSTRAINT "fk_Telefone_Pessoa1"
     FOREIGN KEY("Pessoa_idPessoa")
     REFERENCES "Pessoa"("idPessoa")

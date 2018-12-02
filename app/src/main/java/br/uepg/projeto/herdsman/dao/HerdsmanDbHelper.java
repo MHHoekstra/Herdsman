@@ -52,7 +52,7 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
     public HerdsmanDbHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         mContext = context;
-        this.FirebaseHelper = FirebaseDatabase.getInstance().getReference("Hoekstra - Base de Testes");
+        this.FirebaseHelper = FirebaseDatabase.getInstance().getReference("Hoekstra");
         if(firstInput) {
             //firstExec();
         }

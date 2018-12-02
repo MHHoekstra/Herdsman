@@ -99,7 +99,7 @@ public class SMSReceiver extends BroadcastReceiver {
 
         for(Telefone tel : listaTelefones)
         {
-            if(senderTel.compareTo(tel.getNumero()) == 0)
+            if(senderTel.contains(tel.getNumero()))
             {
                 telefoneValido = true;
                 senderTelefone = tel;

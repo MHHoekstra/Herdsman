@@ -77,6 +77,11 @@ public class ListaCiosActivity extends AppCompatActivity implements NavigationVi
         ListaCios.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if(!pref.getBoolean("isAdmin", false))
+                {
+                    Toast.makeText(ListaCiosActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
                 final Cio cio = (Cio) ListaCios.getItemAtPosition(position);
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ListaCiosActivity.this);
                 alertDialogBuilder.setTitle("Deletar Cio?");
@@ -127,7 +132,7 @@ public class ListaCiosActivity extends AppCompatActivity implements NavigationVi
         int id = item.getItemId();
         adm = pref.getBoolean("isAdmin", false);
         if (id == R.id.nav_animais) {
-            if (!adm)
+            if (false)
             {
                 Toast.makeText(ListaCiosActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
 

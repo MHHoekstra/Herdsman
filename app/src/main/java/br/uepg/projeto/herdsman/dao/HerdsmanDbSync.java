@@ -41,7 +41,7 @@ public class HerdsmanDbSync {
     {
         this.mContext = context;
         this.mDbHelper = new HerdsmanDbHelper(mContext);
-        this.FirebaseSync = FirebaseDatabase.getInstance().getReference("Hoekstra - Base de Testes");
+        this.FirebaseSync = FirebaseDatabase.getInstance().getReference("Hoekstra");
         this.mDbHelper.setSync(true);
     }
 

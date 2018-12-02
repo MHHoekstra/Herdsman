@@ -202,7 +202,7 @@ public class TelaAnimalCadastroAnimalRemedio extends AppCompatActivity implement
         int id = item.getItemId();
         adm = pref.getBoolean("isAdmin", false);
         if (id == R.id.nav_animais) {
-            if (!adm)
+            if (false)
             {
                 Toast.makeText(TelaAnimalCadastroAnimalRemedio.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
 

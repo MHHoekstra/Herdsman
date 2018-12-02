@@ -147,7 +147,7 @@ public class ListaRemediosActivity extends TelasActivity implements SearchView.O
         int id = item.getItemId();
         adm = pref.getBoolean("isAdmin", false);
         if (id == R.id.nav_animais) {
-            if (!adm)
+            if (false)
             {
                 Toast.makeText(ListaRemediosActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
 

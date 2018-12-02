@@ -69,6 +69,11 @@ public class TelaAnimalSinistrosActivity extends AppCompatActivity implements Na
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if(!pref.getBoolean("isAdmin", false))
+                {
+                    Toast.makeText(TelaAnimalSinistrosActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
                 final AnimalEnfermidade animalEnfermidade = (AnimalEnfermidade) listView.getItemAtPosition(position);
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(TelaAnimalSinistrosActivity.this);
                 alertDialogBuilder.setTitle("Deletar Enfermidade?");
@@ -115,7 +120,7 @@ public class TelaAnimalSinistrosActivity extends AppCompatActivity implements Na
         int id = item.getItemId();
         adm = pref.getBoolean("isAdmin", false);
         if (id == R.id.nav_animais) {
-            if (!adm)
+            if (false)
             {
                 Toast.makeText(TelaAnimalSinistrosActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
 

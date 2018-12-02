@@ -74,6 +74,11 @@ public class TelaAnimalRemediosActivity extends AppCompatActivity implements Nav
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!pref.getBoolean("isAdmin", false))
+                {
+                    Toast.makeText(TelaAnimalRemediosActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Intent intent = new Intent(TelaAnimalRemediosActivity.this, TelaAnimalCadastroAnimalRemedio.class);
                 intent.putExtra("Animal", animal);
                 startActivity(intent);
@@ -83,6 +88,11 @@ public class TelaAnimalRemediosActivity extends AppCompatActivity implements Nav
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if(!pref.getBoolean("isAdmin", false))
+                {
+                    Toast.makeText(TelaAnimalRemediosActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
                 final AnimalRemedio animalRemedio = (AnimalRemedio) listView.getItemAtPosition(position);
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(TelaAnimalRemediosActivity.this);
                 alertDialogBuilder.setTitle("Deletar remédio administrado?");
@@ -134,7 +144,7 @@ public class TelaAnimalRemediosActivity extends AppCompatActivity implements Nav
         int id = item.getItemId();
         adm = pref.getBoolean("isAdmin", false);
         if (id == R.id.nav_animais) {
-            if (!adm)
+            if (false)
             {
                 Toast.makeText(TelaAnimalRemediosActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
 

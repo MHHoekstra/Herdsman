@@ -185,7 +185,7 @@ public class CadastroFuncionarioActivity extends AppCompatActivity implements Na
         int id = item.getItemId();
         adm = pref.getBoolean("isAdmin", false);
         if (id == R.id.nav_animais) {
-            if (!adm)
+            if (false)
             {
                 Toast.makeText(CadastroFuncionarioActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
 

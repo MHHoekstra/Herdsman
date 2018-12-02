@@ -139,7 +139,7 @@ public class ListaFuncionariosActivity extends TelasActivity implements SearchVi
         int id = item.getItemId();
         adm = pref.getBoolean("isAdmin", false);
         if (id == R.id.nav_animais) {
-            if (!adm)
+            if (false)
             {
                 Toast.makeText(ListaFuncionariosActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
 

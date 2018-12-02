@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity
     //TODO Atualizar automaticamente ao inserir um novo cio
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        FirebaseDatabase.getInstance().getReference("Hoekstra - Base de Testes");
+        FirebaseDatabase.getInstance().getReference("Hoekstra");
         int reqCod = 0;
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED)
         {
@@ -319,7 +319,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         adm = pref.getBoolean("isAdmin", false);
         if (id == R.id.nav_animais) {
-            if (!adm)
+            if (false)
             {
                 Toast.makeText(MainActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
 

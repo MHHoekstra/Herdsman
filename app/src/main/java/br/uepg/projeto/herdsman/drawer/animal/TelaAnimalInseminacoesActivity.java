@@ -79,6 +79,11 @@ public class TelaAnimalInseminacoesActivity extends AppCompatActivity implements
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!pref.getBoolean("isAdmin", false))
+                {
+                    Toast.makeText(TelaAnimalInseminacoesActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 DatePickerFragment fragment = new DatePickerFragment();
                 fragment.show(getFragmentManager(), "Data");
             }
@@ -87,6 +92,11 @@ public class TelaAnimalInseminacoesActivity extends AppCompatActivity implements
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if(!pref.getBoolean("isAdmin", false))
+                {
+                    Toast.makeText(TelaAnimalInseminacoesActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
                 final Inseminacao inseminacao = (Inseminacao) listView.getItemAtPosition(position);
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(TelaAnimalInseminacoesActivity.this);
                 alertDialogBuilder.setTitle("Deletar Inseminação?");
@@ -163,7 +173,7 @@ public class TelaAnimalInseminacoesActivity extends AppCompatActivity implements
         int id = item.getItemId();
         adm = pref.getBoolean("isAdmin", false);
         if (id == R.id.nav_animais) {
-            if (!adm)
+            if (false)
             {
                 Toast.makeText(TelaAnimalInseminacoesActivity.this, "Faça login para ter acesso", Toast.LENGTH_SHORT).show();
 
