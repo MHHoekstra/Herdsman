@@ -39,6 +39,7 @@ import br.uepg.projeto.herdsman.drawer.ListaRemediosActivity;
 import br.uepg.projeto.herdsman.helper.HelperTelaNotificaCio;
 import br.uepg.projeto.herdsman.objetos.Animal;
 import br.uepg.projeto.herdsman.objetos.Cio;
+import br.uepg.projeto.herdsman.objetos.MensagemPendente;
 import br.uepg.projeto.herdsman.objetos.Telefone;
 import br.uepg.projeto.herdsman.R;
 import br.uepg.projeto.herdsman.utils.DatePickerFragment;
@@ -76,7 +77,7 @@ public class NotificarCioActivity extends AppCompatActivity implements DatePicke
         final Spinner animalPorBaixoSpinner = findViewById(R.id.notificar_cio_por_baixo_spinner);
         FloatingActionButton cancelar = findViewById(R.id.notifica_cio_cancelar);
         FloatingActionButton done = findViewById(R.id.notificar_cio_done);
-        HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(NotificarCioActivity.this);
+        final HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(NotificarCioActivity.this);
         ArrayList listaAnimais = mDbHelper.carregarAnimaisAtivos();
         ArrayAdapter adapter = new ArrayAdapter(NotificarCioActivity.this, R.layout.support_simple_spinner_dropdown_item, listaAnimais);
         animalPorBaixoSpinner.setAdapter(adapter);
@@ -122,6 +123,8 @@ public class NotificarCioActivity extends AppCompatActivity implements DatePicke
             @Override
             public void onClick(View v) {
                 adm = pref.getBoolean("isAdmin", false);
+                Calendar c = Calendar.getInstance();
+
                 if(adm) {
                     Animal animalPorCima = (Animal) animalPorCimaSpinner.getSelectedItem();
                     Animal animalPorBaixo = (Animal) animalPorBaixoSpinner.getSelectedItem();
@@ -130,7 +133,6 @@ public class NotificarCioActivity extends AppCompatActivity implements DatePicke
                         Toast.makeText(NotificarCioActivity.this, "Selecionado o mesmo animal", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    Calendar c = Calendar.getInstance();
                     int dia = c.get(Calendar.DAY_OF_MONTH);
                     int mes = c.get(Calendar.MONTH) +1;
                     int ano = c.get(Calendar.YEAR);
@@ -175,9 +177,12 @@ public class NotificarCioActivity extends AppCompatActivity implements DatePicke
                     }
 
                     try {
-                        String text = "Herdsman's Companion;\n1;" + String.valueOf(animalPorBaixo.getId()) + ";" + String.valueOf(animalPorCima.getId());
+                        long tempo = c.getTimeInMillis();
+                        String text = "Herdsman's Companion;\n1;" + String.valueOf(animalPorBaixo.getId()) + ";" + String.valueOf(animalPorCima.getId()+";"+String.valueOf(tempo));
                         smsManager.sendTextMessage(telefoneAdmin.getNumero(), null, text, null, null);
                         Toast.makeText(NotificarCioActivity.this, "SMS enviado para " + telefoneAdmin.getNumero(), Toast.LENGTH_SHORT).show();
+                        MensagemPendente mp = new MensagemPendente(tempo, text, telefoneAdmin.getNumero());
+                        mDbHelper.inserirMensagemPendente(mp);
                         finish();
                     }
                     catch (Exception e)

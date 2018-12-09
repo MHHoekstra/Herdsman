@@ -2,6 +2,8 @@ package br.uepg.projeto.herdsman;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,6 +24,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,6 +37,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.evernote.android.job.JobManager;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
@@ -72,6 +76,7 @@ public class MainActivity extends AppCompatActivity
     //TODO Atualizar automaticamente ao inserir um novo cio
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         FirebaseDatabase.getInstance().getReference("Hoekstra");
         int reqCod = 0;
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED)
@@ -93,7 +98,6 @@ public class MainActivity extends AppCompatActivity
         {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS}, reqCod);
         }
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         pref = getApplicationContext().getSharedPreferences("isAdmin", MODE_PRIVATE);
 
@@ -147,6 +151,9 @@ public class MainActivity extends AppCompatActivity
             }
         });
         listarCios();
+        Log.i("Iniciando", "JobSchedule");
+        NoteSyncJob.scheduleJob();
+
     }
 
     @Override

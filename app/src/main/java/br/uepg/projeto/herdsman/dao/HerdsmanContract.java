@@ -127,4 +127,12 @@ public final class HerdsmanContract {
             public static final String COLUMN_NAME_DESCRICAO = "descricao";
         }
 
+        public static class MensagemPendenteEntry implements BaseColumns
+        {
+            public static final String TABLE_NAME = "Mensagem_Pendente";
+            public static final String COLUMN_NAME_IDMENSAGEM_PENDENTE = "idMensagem_Pendente";
+            public static final String COLUMN_NAME_TEXTO = "texto";
+            public static final String COLUMN_NAME_NUMERO = "numero";
+        }
+
 }

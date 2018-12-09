@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
@@ -122,7 +123,9 @@ public class SMSReceiver extends BroadcastReceiver {
                     Calendar c = Calendar.getInstance();
                     long animalPorBaixo = Long.parseLong(tokens[2]);
                     long animalPorCima = Long.parseLong(tokens[3]);
-                    long data = c.getTimeInMillis();                    if (!mDbHelper.existeAnimal(animalPorCima))
+                    long data = c.getTimeInMillis();
+                    long idCio = Long.parseLong(tokens[4]);
+                    if (!mDbHelper.existeAnimal(animalPorCima))
                     {
                         Log.d("SMSReceiver", "Animal por cima inválido");
                         return;
@@ -133,7 +136,7 @@ public class SMSReceiver extends BroadcastReceiver {
                         return;
                     }
                     mDbHelper = new HerdsmanDbHelper(context);
-                    Cio cio = new Cio(animalPorCima,animalPorBaixo, data, senderTelefone.getPessoa_idPessoa());
+                    Cio cio = new Cio(idCio, animalPorCima,animalPorBaixo, data, senderTelefone.getPessoa_idPessoa());
                     //TODO Inserir no Firebase
                     long ins = mDbHelper.inserirCio(cio);
                     if(ins > 0) {
@@ -143,7 +146,7 @@ public class SMSReceiver extends BroadcastReceiver {
                     {
                         Log.d("SMSReceiver", "Erro ao inserir cio");
                     }
-
+                    SmsManager.getDefault().sendTextMessage(senderTelefone.getNumero(),null,"Herdsman's Companion;\n4;"+String.valueOf(idCio),null,null);
                     break;
                 }
                 case 2: {
@@ -151,6 +154,7 @@ public class SMSReceiver extends BroadcastReceiver {
                     Calendar c = Calendar.getInstance();
                     long idEnfermidade = Long.parseLong(tokens[2]);
                     long idAnimal = Long.parseLong(tokens[3]);
+                    long idAnimalEnfermidade = Long.parseLong(tokens[4]);
                     if (!mDbHelper.existeAnimal(idAnimal))
                     {
                         Log.d("SMSReceiver", "Animal inválido");
@@ -162,7 +166,7 @@ public class SMSReceiver extends BroadcastReceiver {
                         return;
                     }
                     long data = c.getTimeInMillis();
-                    AnimalEnfermidade animalEnfermidade = new AnimalEnfermidade(idAnimal, idEnfermidade, senderTelefone.getPessoa_idPessoa(), data);
+                    AnimalEnfermidade animalEnfermidade = new AnimalEnfermidade(idAnimalEnfermidade, idAnimal, idEnfermidade, senderTelefone.getPessoa_idPessoa(), data);
                     //TODO Inserir no Firebase
                     long insert = mDbHelper.inserirSinistro(animalEnfermidade);
                     if(insert > 0) {
@@ -172,6 +176,7 @@ public class SMSReceiver extends BroadcastReceiver {
                     {
                         Log.d("SMSReceiver", "Falha ao inserir animalEnfermidade");
                     }
+                    SmsManager.getDefault().sendTextMessage(senderTelefone.getNumero(),null,"Herdsman's Companion;\n4;"+String.valueOf(idAnimalEnfermidade),null,null);
                     break;
                 }
                 case 3: {
@@ -189,6 +194,13 @@ public class SMSReceiver extends BroadcastReceiver {
                     {
                         Log.d("SMSReceiver", "Falha ao inserir outro");
                     }
+                    break;
+                }
+                case 4:
+                {
+                    Log.d("Tipo de msg:", "ACK");
+                    long idAck = Long.parseLong(tokens[2]);
+                    mDbHelper.removerMensagemPendente(idAck);
                     break;
                 }
             }

@@ -37,6 +37,7 @@ import br.uepg.projeto.herdsman.helper.HelperTelaNotificaEnfermidade;
 import br.uepg.projeto.herdsman.objetos.Animal;
 import br.uepg.projeto.herdsman.objetos.AnimalEnfermidade;
 import br.uepg.projeto.herdsman.objetos.Enfermidade;
+import br.uepg.projeto.herdsman.objetos.MensagemPendente;
 import br.uepg.projeto.herdsman.objetos.Telefone;
 import br.uepg.projeto.herdsman.R;
 import br.uepg.projeto.herdsman.utils.DatePickerFragment;
@@ -71,7 +72,7 @@ public class NotificarAnimalEnfermidadeActivity extends AppCompatActivity implem
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(this);
+        final HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(this);
         cancelar = findViewById(R.id.notificar_sinistro_cancelar);
         enviar = findViewById(R.id.notificar_sinistro_done);
         animalSpinner = findViewById(R.id.notificar_sinistro_animal_spinner);
@@ -85,11 +86,10 @@ public class NotificarAnimalEnfermidadeActivity extends AppCompatActivity implem
         animalSpinner.setAdapter(animalAdapter);
         enfermidadeSpinner.setAdapter(enfermidadeAdapter);
         date = findViewById(R.id.cadastro_sinistro_data);
-
+        Calendar c = Calendar.getInstance();
         if(adm)
         {
             date.setVisibility(View.VISIBLE);
-            Calendar c = Calendar.getInstance();
             int diaMes =  c.get(Calendar.DAY_OF_MONTH);
             int mes = c.get(Calendar.MONTH);
             int ano = c.get(Calendar.YEAR);
@@ -124,11 +124,12 @@ public class NotificarAnimalEnfermidadeActivity extends AppCompatActivity implem
             @Override
             public void onClick(View view) {
                 adm = pref.getBoolean("isAdmin", false);
+                Calendar c = Calendar.getInstance();
+
                 if(adm)
                 {
                     Enfermidade enfermidade = (Enfermidade) enfermidadeSpinner.getSelectedItem();
                     Animal animal = (Animal) animalSpinner.getSelectedItem();
-                    Calendar c = Calendar.getInstance();
                     int dia = c.get(Calendar.DAY_OF_MONTH);
                     int mes = c.get(Calendar.MONTH)+1;
                     int ano = c.get(Calendar.YEAR);
@@ -171,10 +172,13 @@ public class NotificarAnimalEnfermidadeActivity extends AppCompatActivity implem
                         }
 
                     }
-                    String text = "Herdsman's Companion;\n2;" + String.valueOf(enfermidade.getId()) + ";" + String.valueOf(animal.getId());
+                    long tempo = c.getTimeInMillis();
+                    String text = "Herdsman's Companion;\n2;" + String.valueOf(enfermidade.getId()) + ";" + String.valueOf(animal.getId()) + ";" + String.valueOf(tempo);
                     try {
                         smsManager.sendTextMessage(adminTelefone.getNumero(), null, text, null, null);
                         Toast.makeText(NotificarAnimalEnfermidadeActivity.this, "SMS enviado para " + adminTelefone.getNumero(), Toast.LENGTH_SHORT).show();
+                        MensagemPendente mp = new MensagemPendente(tempo, text, adminTelefone.getNumero());
+                        mDbHelper.inserirMensagemPendente(mp);
                         finish();
                     }
                     catch (Exception e)

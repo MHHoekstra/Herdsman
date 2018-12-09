@@ -9,7 +9,7 @@ PRAGMA foreign_keys = OFF;
 BEGIN;
 CREATE TABLE  "Mensagem_Pendente"(
   "idMensagem_Pendente" INTEGER PRIMARY KEY NOT NULL,
-  "texto" VARCHAR(60) NOT NULL
+  "texto" VARCHAR(60) NOT NULL,
    "numero" VARCHAR(60) NOT NULL
 );
 
