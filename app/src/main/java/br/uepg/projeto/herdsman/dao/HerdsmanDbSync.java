@@ -20,6 +20,7 @@ import java.util.TimerTask;
 
 import br.uepg.projeto.herdsman.MainActivity;
 import br.uepg.projeto.herdsman.cadastros.CadastroPartoActivity;
+import br.uepg.projeto.herdsman.objetos.Administrador;
 import br.uepg.projeto.herdsman.objetos.AdministradorNotificaPessoa;
 import br.uepg.projeto.herdsman.objetos.Animal;
 import br.uepg.projeto.herdsman.objetos.AnimalRemedio;
@@ -58,7 +59,7 @@ public class HerdsmanDbSync {
                     //TODO Sincronizar todas as instancias
                     //FIXME O que acontece se alguem excluir em um celular e em outro celular ainda existir o objeto?
 
-                    mDbHelper.deleteDatabase(mContext);
+                    mDbHelper.limparDatabase(mContext);
                     syncAnimal();
                     syncEnfermidade();
                     syncParto();
@@ -70,6 +71,7 @@ public class HerdsmanDbSync {
                     syncAnimalRemedio();
                     syncTelefone();
                     syncOutro();
+                    syncAdmin();
 
                     final ProgressDialog dialog = ProgressDialog.show(mContext, "","Sincronizando..Aguarde.." , true);
                     Handler handler = new Handler();
@@ -86,6 +88,7 @@ public class HerdsmanDbSync {
                             syncAnimalRemedio();
                             syncTelefone();
                             syncOutro();
+                            syncAdmin();
                             dialog.dismiss();
                         }
                     }, 5000);
@@ -100,6 +103,23 @@ public class HerdsmanDbSync {
             Toast.makeText(this.mContext, "Você não possui acesso a internet...", Toast.LENGTH_SHORT).show();
             return false;
         }
+    }
+
+    private void syncAdmin() {
+        DatabaseReference database = FirebaseSync.child(HerdsmanContract.AdministradorEntry.TABLE_NAME);
+        database.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    Administrador S =  postSnapshot.getValue(Administrador.class);
+                    mDbHelper.inserirAdministrador(S);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
     }
 
     private void syncSinistro() {

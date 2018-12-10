@@ -116,11 +116,11 @@ public class ListaAnimaisActivity extends TelasActivity implements SearchView.On
     private void listarAnimais() {
         animaisListView = (ListView) findViewById(R.id.animaisListView);
         HerdsmanDbHelper mDbHelper = new HerdsmanDbHelper(this);
+        mDbHelper.searchDuplicateAnimals();
         ArrayList listaAnimal = (ArrayList<Animal>) mDbHelper.carregarAnimaisDb();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaAnimal);
         animaisListView.setAdapter(adapter);
         animaisListView.setTextFilterEnabled(false);
-        mDbHelper.searchDuplicateAnimals();
     }
 
     @Override

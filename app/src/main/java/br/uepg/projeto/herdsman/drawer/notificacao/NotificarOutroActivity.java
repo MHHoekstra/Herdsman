@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import br.uepg.projeto.herdsman.dao.HerdsmanDbHelper;
 import br.uepg.projeto.herdsman.drawer.ListaAnimaisActivity;
@@ -29,6 +30,8 @@ import br.uepg.projeto.herdsman.drawer.ListaEnfermidadesActivity;
 import br.uepg.projeto.herdsman.drawer.ListaFuncionariosActivity;
 import br.uepg.projeto.herdsman.drawer.ListaRemediosActivity;
 import br.uepg.projeto.herdsman.helper.HelperTelaNotificaOutro;
+import br.uepg.projeto.herdsman.objetos.AdministradorNotificaPessoa;
+import br.uepg.projeto.herdsman.objetos.MensagemPendente;
 import br.uepg.projeto.herdsman.objetos.Pessoa;
 import br.uepg.projeto.herdsman.objetos.Telefone;
 import br.uepg.projeto.herdsman.R;
@@ -90,15 +93,23 @@ public class NotificarOutroActivity extends AppCompatActivity implements Navigat
                     return;
                 }
                 String text = "Herdsman's Companion;\n3;" + mensagemText;
+                long tempo = Calendar.getInstance().getTimeInMillis();
                 HerdsmanDbHelper herdsmanDbHelper = new HerdsmanDbHelper(NotificarOutroActivity.this);
                 ArrayList<Pessoa> listaFuncionarios = herdsmanDbHelper.carregarFuncionariosDb();
+                text = text + ";"+String.valueOf(tempo);
+                AdministradorNotificaPessoa administradorNotificaPessoa = new AdministradorNotificaPessoa(tempo, mensagemText, tempo);
+                herdsmanDbHelper.inserirAdministradorNotificaPessoa(administradorNotificaPessoa);
                 for (Pessoa pessoa : listaFuncionarios) {
                     ArrayList<Telefone> listaTelefones = herdsmanDbHelper.carregarTelefonesPessoa(pessoa);
                     for(Telefone telefone : listaTelefones)
                     {
                         try{
-                            smsManager.sendTextMessage(telefone.getNumero(), null, text, null, null);
+                            tempo = Calendar.getInstance().getTimeInMillis();
+                            String text2 = text + ";"+String.valueOf(tempo);
+                            smsManager.sendTextMessage(telefone.getNumero(), null, text2, null, null);
                             Toast.makeText(NotificarOutroActivity.this, "SMS enviado para " + telefone.getNumero(), Toast.LENGTH_SHORT).show();
+                            MensagemPendente mensagemPendente = new MensagemPendente(tempo, text2, telefone.getNumero());
+                            herdsmanDbHelper.inserirMensagemPendente(mensagemPendente);
                         }
                         catch (Exception e)
                         {

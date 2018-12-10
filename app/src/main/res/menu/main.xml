@@ -7,17 +7,23 @@
         android:title="Entrar como administrador"
         app:showAsAction="never" />
     <item
-        android:id="@+id/alterar_administrador"
+        android:id="@+id/sair_admin"
         android:orderInCategory="2"
+        android:title="Sair do modo administrador" />
+
+    <item
+        android:id="@+id/alterar_senha"
+        android:orderInCategory="3"
+        android:title="Alterar senha" />
+    <item
+        android:id="@+id/alterar_administrador"
+        android:orderInCategory="4"
         android:title="Alterar número do administrador" />
     <item
         android:id="@+id/sincronizar_bd"
-        android:orderInCategory="3"
+        android:orderInCategory="5"
         android:title="Sincronizar Banco de Dados" />
-    <item
-        android:id="@+id/sair_admin"
-        android:orderInCategory="4"
-        android:title="Sair do modo administrador" />
+
     <item
         android:id="@+id/sobre_menu"
         android:orderInCategory="10"

@@ -114,7 +114,6 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         lista = (ListView) findViewById(R.id.main_activity_lista);
@@ -153,6 +152,19 @@ public class MainActivity extends AppCompatActivity
         listarCios();
         Log.i("Iniciando", "JobSchedule");
         NoteSyncJob.scheduleJob();
+        adm = pref.getBoolean("isAdmin", false);
+        if(adm)
+        {
+
+            TextView text = (TextView)findViewById(R.id.textView2);
+            setTitle("Herdsman - Administrador");
+        }
+        else
+        {
+
+            TextView text = (TextView)findViewById(R.id.textView2);
+            setTitle("Herdsman - Funcionário");
+        }
 
     }
 
@@ -161,11 +173,43 @@ public class MainActivity extends AppCompatActivity
         super.onRestart();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adm = pref.getBoolean("isAdmin", false);
+        if(adm)
+        {
+
+            TextView text = (TextView)findViewById(R.id.textView2);
+            setTitle("Herdsman - Administrador");
+        }
+        else
+        {
+
+            TextView text = (TextView)findViewById(R.id.textView2);
+            setTitle("Herdsman - Funcionário");
+        }
+    }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
+            adm = pref.getBoolean("isAdmin", false);
+            if(adm)
+            {
+
+                TextView text = (TextView)findViewById(R.id.textView2);
+                text.setText("Administrador");
+                setTitle("Herdsman - Administrador");
+            }
+            else
+            {
+
+                TextView text = (TextView)findViewById(R.id.textView2);
+                text.setText("Funcionário");
+                setTitle("Herdsman - Funcionário");
+            }
             drawer.closeDrawer(GravityCompat.START);
         } else {
             //FIXME Arrumar a volta pra sair do APP
@@ -179,6 +223,21 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        adm = pref.getBoolean("isAdmin", false);
+        if(adm)
+        {
+
+            TextView text = (TextView)findViewById(R.id.textView2);
+            text.setText("Administrador");
+            setTitle("Herdsman - Administrador");
+        }
+        else
+        {
+
+            TextView text = (TextView)findViewById(R.id.textView2);
+            text.setText("Funcionário");
+            setTitle("Herdsman - Funcionário");
+        }
         return true;
     }
 
@@ -189,6 +248,7 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         adm = pref.getBoolean("isAdmin", false);
+
         //noinspection SimplifiableIfStatement
         if (id == R.id.sincronizar_bd) {
             HerdsmanDbSync sync = new HerdsmanDbSync(this);
@@ -258,6 +318,10 @@ public class MainActivity extends AppCompatActivity
                             SharedPreferences.Editor editor = pref.edit();
                             editor.putBoolean("isAdmin", true);
                             editor.commit();
+                            TextView text = (TextView)findViewById(R.id.textView2);
+                            text.setText("Administrador");
+                            setTitle("Herdsman - Administrador");
+
                         }
                         else
                         {
@@ -277,7 +341,47 @@ public class MainActivity extends AppCompatActivity
             SharedPreferences.Editor editor = pref.edit();
             editor.putBoolean("isAdmin", false);
             editor.commit();
+            TextView text = (TextView)findViewById(R.id.textView2);
+            text.setText("Funcionário");
+            setTitle("Herdsman - Funcionário");
+
             return true;
+        }
+        if(id == R.id.alterar_senha)
+        {
+        AlertDialog.Builder alertDialogBuild = new AlertDialog.Builder(MainActivity.this);
+        final EditText input = new EditText(MainActivity.this);
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        alertDialogBuild.setView(input);
+        alertDialogBuild.setTitle("Senha");
+        alertDialogBuild.setNegativeButton("Cancelar", null);
+            final String[] senha = new String[1];
+            AlertDialog.Builder adicionar = alertDialogBuild.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (input.getText().length() == 0) {
+
+                    return;
+                } else {
+                    senha[0] = input.getText().toString();
+                    mDbHelper.inserirAdministrador(senha[0]);
+                    Toast.makeText(MainActivity.this, "Senha alterada", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        AlertDialog alert = alertDialogBuild.create();
+        alert.show();
+
+
+
+
+            return true;
+
         }
 
         if(id == R.id.sobre_menu)
@@ -307,13 +411,17 @@ public class MainActivity extends AppCompatActivity
 
         MenuItem sairAdm = menu.findItem(R.id.sair_admin);
         MenuItem entrarAdm = menu.findItem(R.id.entrar_como_administrador);
+        MenuItem alterarSenha = menu.findItem(R.id.alterar_senha);
         adm = pref.getBoolean("isAdmin", false);
         if(adm){
             sairAdm.setVisible(true);
+            alterarSenha.setVisible(true);
             entrarAdm.setVisible(false);
+
         }
         else {
             entrarAdm.setVisible(true);
+            alterarSenha.setVisible(false);
             sairAdm.setVisible(false);
         }
         return super.onPrepareOptionsMenu(menu);

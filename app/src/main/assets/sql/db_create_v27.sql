@@ -53,7 +53,7 @@ CREATE TABLE  "Pessoa"(
   "rg" VARCHAR(14) NOT NULL,
   "ativo" BOOL
 );
-INSERT INTO "Pessoa"("idPessoa","nome","cpf","rg","ativo") VALUES(1, 'Admin', '0', '0', 1);
+
 CREATE TABLE  "Medida"(
   "idMedida" INTEGER PRIMARY KEY NOT NULL,
   "nome" VARCHAR(45) NOT NULL

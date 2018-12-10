@@ -181,11 +181,11 @@ public class SMSReceiver extends BroadcastReceiver {
                 }
                 case 3: {
                     Log.d("Tipo de msg:", "OUTRO");
-                    Calendar c = Calendar.getInstance();
-                    long data =c.getTimeInMillis();
                     String mensagem = tokens[2];
+                    long idMensagem = Long.parseLong(tokens[3]);
+                    long idRetorno = Long.parseLong(tokens[4]);
                     Log.d("OUTRO: ", mensagem);
-                    AdministradorNotificaPessoa outro = new AdministradorNotificaPessoa(mensagem, data);
+                    AdministradorNotificaPessoa outro = new AdministradorNotificaPessoa(idMensagem, mensagem, idMensagem);
                     Long insert = mDbHelper.inserirAdministradorNotificaPessoa(outro);
                     if(insert > 0) {
                         Log.d("SMSReceiver", "Outro inserido");
@@ -194,6 +194,7 @@ public class SMSReceiver extends BroadcastReceiver {
                     {
                         Log.d("SMSReceiver", "Falha ao inserir outro");
                     }
+                    SmsManager.getDefault().sendTextMessage(senderTelefone.getNumero(), null, "Herdsman's Companion;\n4;"+String.valueOf(idRetorno),null,null);
                     break;
                 }
                 case 4:

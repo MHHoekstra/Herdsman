@@ -1003,13 +1003,15 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
                 HerdsmanContract.TelefoneEntry.COLUMN_NAME_PESSOA_IDPESSOA + " == ?",
                 where
         );
+        Telefone telefone = new Telefone(1,1,s);
         ContentValues values = new ContentValues();
+        values.put(HerdsmanContract.TelefoneEntry.COLUMN_NAME_IDTELEFONE, "1");
         values.put(HerdsmanContract.TelefoneEntry.COLUMN_NAME_PESSOA_IDPESSOA, "1");
         values.put(HerdsmanContract.TelefoneEntry.COLUMN_NAME_NUMERO, s);
         long id = mDb.insert(HerdsmanContract.TelefoneEntry.TABLE_NAME, null, values);
         if (id > 0 && !this.isSync()) {
-            DatabaseReference databaseTelefone = FirebaseHelper.child(HerdsmanContract.TelefoneEntry.TABLE_NAME).child("1");
-            databaseTelefone.child("numero").setValue(s);
+            DatabaseReference databaseTelefone = FirebaseHelper.child(HerdsmanContract.TelefoneEntry.TABLE_NAME);
+            databaseTelefone.child(String.valueOf(telefone.getIdTelefone())).setValue(telefone);
             databaseTelefone.keepSynced(true);
         }
         mDb.close();
@@ -1587,12 +1589,10 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         }
         else
         {
-            Calendar calendar = Calendar.getInstance();
-            outro.setIdAdministradorNotificaPessoa(calendar.getTimeInMillis());
             values.put(HerdsmanContract.AdministradorNotificaPessoaEntry.COLUMN_NAME_IDADMINISTRADOR_NOTIFICA_PESSOA, outro.getIdAdministradorNotificaPessoa());
 
         }
-        long id = mDb.insert(HerdsmanContract.AdministradorNotificaPessoaEntry.TABLE_NAME, null, values);
+        long id = mDb.insertWithOnConflict(HerdsmanContract.AdministradorNotificaPessoaEntry.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
         if (id > 0 && !this.isSync()) {
             DatabaseReference databaseOutro = FirebaseHelper.child(HerdsmanContract.AdministradorNotificaPessoaEntry.TABLE_NAME);
             databaseOutro.child(String.valueOf(outro.getIdAdministradorNotificaPessoa())).setValue(outro);
@@ -1633,8 +1633,28 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         return lista;
     }
 
-    public static void deleteDatabase(Context mContext) {
+    public  void deleteDatabase(Context mContext) {
+
         mContext.deleteDatabase(HerdsmanDbHelper.DB_NAME);
+    }
+
+    public void limparDatabase(Context mContext)
+    {
+        SQLiteDatabase md = this.getWritableDatabase();
+        md.delete(HerdsmanContract.CioEntry.TABLE_NAME,null,null);
+        md.delete(HerdsmanContract.PartoEntry.TABLE_NAME, null, null);
+        md.delete(HerdsmanContract.AnimalEnfermidadeEntry.TABLE_NAME, null, null);
+        md.delete(HerdsmanContract.AnimalRemedioEntry.TABLE_NAME, null , null);
+        md.delete(HerdsmanContract.AnimalInseminacaoEntry.TABLE_NAME, null , null);
+        md.delete(HerdsmanContract.AnimalEntry.TABLE_NAME, null, null);
+        md.delete(HerdsmanContract.AdministradorNotificaPessoaEntry.TABLE_NAME, null, null);
+        md.delete(HerdsmanContract.TelefoneEntry.TABLE_NAME, null,null);
+        md.delete(HerdsmanContract.RemedioEntry.TABLE_NAME, null, null);
+        md.delete(HerdsmanContract.EnfermidadeEntry.TABLE_NAME, null,null);
+        md.delete(HerdsmanContract.PessoaEntry.TABLE_NAME, null,null);
+
+
+        md.close();
     }
 
     public void replaceEnfermidade(Enfermidade enfermidade)     {
@@ -2123,5 +2143,40 @@ public class HerdsmanDbHelper extends SQLiteOpenHelper {
         db.close();
         return lista;
 
+    }
+
+    public void inserirAdministrador(String senha) {
+        Administrador admin = new Administrador(1,"admin", senha,1,1);
+        SQLiteDatabase mDb = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(HerdsmanContract.AdministradorEntry.COLUMN_NAME_ADMIN, "1");;
+        values.put(HerdsmanContract.AdministradorEntry.COLUMN_NAME_IDADMINISTRADOR, "1");;
+        values.put(HerdsmanContract.AdministradorEntry.COLUMN_NAME_PESSOA_IDPESSOA, "1");;
+        values.put(HerdsmanContract.AdministradorEntry.COLUMN_NAME_LOGIN, "admin");
+        values.put(HerdsmanContract.AdministradorEntry.COLUMN_NAME_SENHA, senha);
+        long id = mDb.replace(HerdsmanContract.AdministradorEntry.TABLE_NAME, null, values);
+        if (id > 0 && !this.isSync()) {
+            DatabaseReference database = FirebaseHelper.child(HerdsmanContract.AdministradorEntry.TABLE_NAME);
+            database.child(String.valueOf(admin.getIdAdministrador())).setValue(admin);
+            database.keepSynced(true);
+        }
+        mDb.close();
+    }
+
+    public void inserirAdministrador(Administrador s) {
+        SQLiteDatabase mDb = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(HerdsmanContract.AdministradorEntry.COLUMN_NAME_ADMIN, "1");;
+        values.put(HerdsmanContract.AdministradorEntry.COLUMN_NAME_IDADMINISTRADOR, "1");;
+        values.put(HerdsmanContract.AdministradorEntry.COLUMN_NAME_PESSOA_IDPESSOA, "1");;
+        values.put(HerdsmanContract.AdministradorEntry.COLUMN_NAME_LOGIN, "admin");
+        values.put(HerdsmanContract.AdministradorEntry.COLUMN_NAME_SENHA, s.getSenha());
+        long id = mDb.insertWithOnConflict(HerdsmanContract.AdministradorEntry.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        if (id > 0 && !this.isSync()) {
+            DatabaseReference database = FirebaseHelper.child(HerdsmanContract.AdministradorEntry.TABLE_NAME);
+            database.child(String.valueOf(s.getIdAdministrador())).setValue(s);
+            database.keepSynced(true);
+        }
+        mDb.close();
     }
 }
